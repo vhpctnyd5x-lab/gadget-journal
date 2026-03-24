@@ -22,14 +22,77 @@
     /* ── Navigation ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      height: 44px; display: flex; align-items: center; justify-content: center;
-      background: rgba(0, 0, 0, 0.8); backdrop-filter: saturate(180%) blur(20px);
+      height: 44px; display: flex; align-items: center;
+      background: rgba(0, 0, 0, 0.85); backdrop-filter: saturate(180%) blur(20px);
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
     }
-    .nav-content { width: 100%; max-width: 1024px; display: flex; justify-content: space-between; padding: 0 22px; font-size: 12px; font-weight: 400; letter-spacing: -0.01em; }
-    .nav-links { display: flex; gap: 30px; list-style: none; }
+
+    /* ロゴ：左固定・黒背景でリンクに被らない */
+    .nav-logo {
+      flex-shrink: 0;
+      padding: 0 16px 0 22px;
+      font-weight: 600;
+      letter-spacing: -0.05em;
+      font-size: 16px;
+      color: #fff;
+      position: relative;
+      z-index: 2;
+      background: rgba(0, 0, 0, 0.85);
+      height: 44px;
+      display: flex;
+      align-items: center;
+      /* 右側にグラデーションフェードをつけて自然に消える */
+    }
+    .nav-logo::after {
+      content: '';
+      position: absolute;
+      right: -20px;
+      top: 0;
+      width: 20px;
+      height: 100%;
+      background: linear-gradient(to right, rgba(0,0,0,0.85), transparent);
+      pointer-events: none;
+    }
+
+    /* リンク部分：横スクロール可能 */
+    .nav-links-wrap {
+      flex: 1;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE */
+      padding: 0 22px 0 8px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+    }
+    .nav-links-wrap::-webkit-scrollbar { display: none; }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      white-space: nowrap;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+    }
     .nav-links a { color: rgba(255, 255, 255, 0.8); transition: color 0.3s; }
     .nav-links a:hover { color: #fff; }
+
+    /* 右端フェード（右に続きがあることを示す） */
+    .nav-fade-right {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 40px;
+      height: 44px;
+      background: linear-gradient(to right, transparent, rgba(0,0,0,0.85));
+      pointer-events: none;
+      z-index: 3;
+    }
 
     /* ── Hero Section ── */
     .hero {
@@ -95,8 +158,8 @@
 <body>
 
   <nav>
-    <div class="nav-content">
-      <a href="index.html" style="font-weight: 600; letter-spacing: -0.05em; font-size: 16px;">Gadget Journal</a>
+    <a href="index.html" class="nav-logo">Gadget Journal</a>
+    <div class="nav-links-wrap">
       <ul class="nav-links">
         <li><a href="review.html">MacBook Air</a></li>
         <li><a href="macbook-pro.html">MacBook Pro</a></li>
@@ -113,6 +176,7 @@
         <li><a href="experience.html">Experience</a></li>
       </ul>
     </div>
+    <div class="nav-fade-right"></div>
   </nav>
 
   <main>
