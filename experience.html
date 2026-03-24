@@ -26,7 +26,6 @@
       background: rgba(255, 255, 255, 0.8); backdrop-filter: saturate(180%) blur(20px);
       border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     }
-    .nav-content { width: 100%; max-width: 1024px; display: flex; justify-content: space-between; padding: 0 22px; font-size: 12px; font-weight: 400; letter-spacing: -0.01em; }
     .nav-links { display: flex; gap: 30px; list-style: none; }
     .nav-links a { color: var(--muted); transition: color 0.3s; }
     .nav-links a:hover { color: var(--text); }
@@ -66,8 +65,8 @@
 <body>
 
   <nav>
-    <div class="nav-content">
-      <a href="index.html" style="font-weight: 600; letter-spacing: -0.05em; font-size: 16px;">Gadget Journal</a>
+    <a href="index.html" class="nav-logo">Gadget Journal</a>
+    <div class="nav-links-wrap">
       <ul class="nav-links">
         <li><a href="review.html">MacBook Air</a></li>
         <li><a href="macbook-pro.html">MacBook Pro</a></li>
@@ -81,6 +80,7 @@
         <li><a href="experience.html" style="color: var(--text); font-weight: 600;">Experience</a></li>
       </ul>
     </div>
+    <div class="nav-fade-right"></div>
   </nav>
 
   <main>
