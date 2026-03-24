@@ -26,8 +26,10 @@
       background: rgba(255, 255, 255, 0.8); backdrop-filter: saturate(180%) blur(20px);
       border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     }
-    .nav-content { width: 100%; max-width: 1024px; display: flex; justify-content: space-between; padding: 0 22px; font-size: 12px; font-weight: 400; letter-spacing: -0.01em; }
-    .nav-links { display: flex; gap: 30px; list-style: none; flex-wrap: wrap; }
+    .nav-content { width: 100%; max-width: 1024px; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 0 22px; font-size: 12px; font-weight: 400; letter-spacing: -0.01em; overflow: hidden; }
+    .nav-content > a { flex-shrink: 0; }
+    .nav-links { display: flex; gap: 30px; list-style: none; overflow-x: auto; white-space: nowrap; -ms-overflow-style: none; scrollbar-width: none; }
+    .nav-links::-webkit-scrollbar { display: none; }
     .nav-links a { color: var(--muted); transition: color 0.3s; }
     .nav-links a:hover { color: var(--text); }
 
@@ -68,6 +70,11 @@
 
     .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.2, 0, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0, 0.2, 1); }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      .nav-content { padding: 0 12px; gap: 10px; }
+      .nav-links { gap: 16px; flex: 1; justify-content: flex-start; }
+    }
   </style>
 </head>
 <body>
