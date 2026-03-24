@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MacBook Pro M5 Pro/Max: プロの力、新たな次元へ - My Gadget Journal</title>
+  <meta name="description" content="MacBook Pro M5 Pro/Max の詳細レビュー。2.5倍のマルチスレッド性能、Thunderbolt 5、Liquid Retina XDRディスプレイ。" />
+  <style>
+    :root {
+      --text: #1d1d1f;
+      --muted: #6e6e73;
+      --line: #e8e8ed;
+      --bg-light: #f5f5f7;
+      --brand: #0071e3;
+      --white: #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--white); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 1.6; letter-spacing: -0.015em; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; transition: color 0.3s ease; }
+
+    /* ── Navigation ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      height: 44px; display: flex; align-items: center; justify-content: center;
+      background: rgba(255, 255, 255, 0.8); backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    .nav-content { width: 100%; max-width: 1024px; display: flex; justify-content: space-between; padding: 0 22px; font-size: 12px; font-weight: 400; letter-spacing: -0.01em; }
+    .nav-links { display: flex; gap: 30px; list-style: none; flex-wrap: wrap; }
+    .nav-links a { color: var(--muted); transition: color 0.3s; }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── Main Content ── */
+    main { padding-top: 100px; padding-bottom: 100px; }
+    article { max-width: 820px; margin: 0 auto; padding: 0 22px; }
+
+    .article-header { margin-bottom: 4rem; text-align: left; }
+    .badge { display: inline-flex; padding: 5px 12px; border-radius: 99px; background: var(--bg-light); color: #3a3a3c; font-size: 12px; font-weight: 600; margin-bottom: 1.5rem; }
+    h1 { font-size: clamp(2.25rem, 6vw, 4rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 1.5rem; }
+    .meta-row { display: flex; gap: 1.5rem; color: var(--muted); font-size: 14px; }
+    .author-name { font-weight: 600; color: var(--text); }
+
+    .figure-wrap { margin-bottom: 4rem; }
+    .figure-card { overflow: hidden; border-radius: 1.5rem; border: 1px solid var(--line); background: var(--bg-light); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+    .figure-card img { width: 100%; height: auto; transition: transform 0.6s cubic-bezier(0.2, 0, 0.2, 1); }
+    .figure-card:hover img { transform: scale(1.02); }
+    .cite-tag { display: block; text-align: right; font-size: 11px; color: var(--muted); margin-top: 0.75rem; }
+
+    .article-body p { margin-bottom: 1.6em; font-size: 1.15rem; line-height: 1.8; color: #333; }
+    .article-body h2 { font-size: 2rem; font-weight: 700; margin-top: 4rem; margin-bottom: 1.5rem; letter-spacing: -0.03em; }
+    .article-body h3 { font-size: 1.5rem; font-weight: 600; margin-top: 2.5rem; margin-bottom: 1rem; }
+    .article-body a { color: var(--brand); font-weight: 600; }
+    .article-body a:hover { text-decoration: underline; }
+
+    .spec-box { background: var(--bg-light); border-radius: 1.2rem; padding: 30px; margin: 2rem 0; border: 1px solid var(--line); }
+    .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .spec-item h4 { font-size: 12px; color: var(--muted); text-transform: uppercase; margin-bottom: 5px; }
+    .spec-item p { font-size: 1.2rem; font-weight: 600; margin: 0; }
+
+    .article-footer { margin-top: 5rem; padding-top: 2.5rem; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
+    .tags { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .tag { padding: 0.4rem 0.9rem; border-radius: 99px; background: var(--bg-light); color: var(--muted); font-size: 12px; font-weight: 600; }
+    .back-link { color: var(--brand); font-weight: 600; font-size: 15px; }
+
+    footer { padding: 80px 22px; background: var(--bg-light); color: var(--muted); font-size: 12px; text-align: center; border-top: 1px solid var(--line); }
+    .footer-content { max-width: 820px; margin: 0 auto; line-height: 1.8; }
+
+    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.2, 0, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0, 0.2, 1); }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-content">
+      <a href="index.html" style="font-weight: 600; letter-spacing: -0.05em; font-size: 16px;">Gadget Journal</a>
+      <ul class="nav-links">
+        <li><a href="review.html">MacBook Air</a></li>
+        <li><a href="macbook-pro.html" style="color: var(--text); font-weight: 600;">MacBook Pro</a></li>
+        <li><a href="mac-studio.html">Mac Studio</a></li>
+        <li><a href="ipad.html">iPad</a></li>
+        <li><a href="iphone.html">iPhone</a></li>
+        <li><a href="history.html">History</a></li>
+        <li><a href="security.html">Security</a></li>
+        <li><a href="experience.html">Experience</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <article>
+      <header class="article-header fade-in">
+        <div class="badge">Pro Performance</div>
+        <h1>MacBook Pro M5 Pro/Max: <br />プロの力、新たな次元へ。</h1>
+        <div class="meta-row">
+          <span class="author-name">Gadget Journal 筆者</span>
+          <span>2026.03.24 公開</span>
+        </div>
+      </header>
+
+      <div class="figure-wrap fade-in">
+        <div class="figure-card">
+          <img src="assets/mwqLtfoHvDwk.jpg" alt="MacBook Pro M5 Pro/Max Hero Image">
+        </div>
+        <span class="cite-tag">出典: Apple Newsroom</span>
+      </div>
+
+      <section class="article-body fade-in">
+        <p>
+          2026年3月、Appleは最新のM5 Pro/Maxチップを搭載した新型MacBook Proを発表しました。
+          M4比で2.5倍のマルチスレッド性能、Thunderbolt 5による革新的な接続性、
+          そしてLiquid Retina XDRディスプレイの完成度。
+          これは、プロフェッショナルなクリエイティブワークの新しい基準を定義するマシンです。
+        </p>
+
+        <h2>セクション1：M5 Pro/Maxチップ、驚異の2.5倍性能向上</h2>
+        <p>
+          M5 Pro/Maxの真価は、その圧倒的な性能にあります。
+          M4比で最大2.5倍のマルチスレッド性能を実現しながら、電力効率は維持。
+          M5 Proは最大18コアのCPUと最大20コアのGPUを搭載し、
+          M5 Maxは最大18コアのCPUと最大40コアのGPUを備えています。
+          さらに、AI処理に特化した新しいアーキテクチャにより、
+          機械学習モデルのトレーニングやローカルAI推論が、これまでにない速度で実行されます。
+        </p>
+
+        <div class="spec-box">
+          <h3>MacBook Pro M5 Pro/Max 主要スペック</h3>
+          <div class="spec-grid">
+            <div class="spec-item">
+              <h4>M5 Pro CPU</h4>
+              <p>最大18コア</p>
+            </div>
+            <div class="spec-item">
+              <h4>M5 Max GPU</h4>
+              <p>最大40コア</p>
+            </div>
+            <div class="spec-item">
+              <h4>メモリ帯域幅</h4>
+              <p>192GB/s (M5 Max)</p>
+            </div>
+            <div class="spec-item">
+              <h4>SSD速度</h4>
+              <p>最大14.5GB/s</p>
+            </div>
+          </div>
+        </div>
+
+        <h2>セクション2：Thunderbolt 5、接続性の革命</h2>
+        <p>
+          Thunderbolt 5は、従来の2倍の帯域幅（最大80Gbps）を実現しました。
+          複数の8K外部ディスプレイを接続しながら、同時に高速ストレージへのアクセスが可能。
+          4Kビデオのリアルタイム編集、3Dレンダリングのオフロード、
+          あるいは複数のAIモデルの並列処理など、
+          これまで物理的に不可能だった作業フローが、今や一つのマシンで実現します。
+        </p>
+
+        <h2>セクション3：Liquid Retina XDRディスプレイ、1,600ニトの輝き</h2>
+        <p>
+          14インチと16インチのLiquid Retina XDRディスプレイは、
+          HDRコンテンツで最大1,600ニトのピーク輝度を実現。
+          映像制作者にとって、これは「正確な色管理」の新しい基準です。
+          Nano-textureオプションにより、室内の照明下でも反射を最小化。
+          プロフェッショナルなカラーグレーディングが、どこでも可能になります。
+        </p>
+
+        <h2>結論：プロのための、究極のマシン</h2>
+        <p>
+          MacBook Pro M5 Pro/Maxは、単なる「高性能ノートPC」ではなく、
+          デスクトップワークステーションの性能をポータブルに実現した、
+          プロフェッショナルの必須ツールです。
+          3Dレンダリング、VFX、ビデオ編集、AI開発。
+          どの分野でも、このマシンは競合他社を圧倒するパフォーマンスを発揮します。
+        </p>
+        <p>
+          詳細は <a href="https://www.apple.com/jp/macbook-pro/" target="_blank" rel="noopener noreferrer">Apple公式サイト</a> で確認してみてください。
+        </p>
+      </section>
+
+      <footer class="article-footer fade-in">
+        <div class="tags">
+          <span class="tag">#M5Pro</span>
+          <span class="tag">#M5Max</span>
+          <span class="tag">#MacBookPro</span>
+          <span class="tag">#Thunderbolt5</span>
+        </div>
+        <a href="index.html" class="back-link">← Homeに戻る</a>
+      </footer>
+    </article>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2026 Gadget Journal. All rights reserved.</p>
+      <p>製品画像・ロゴは Apple Inc. の商標です。本サイトは報道・批評・解説を目的とした引用を行っています。</p>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
