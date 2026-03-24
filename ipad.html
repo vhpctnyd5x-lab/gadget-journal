@@ -5,13 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>iPad Pro M5: 創造の新しい地平へ - My Gadget Journal</title>
   <meta name="description" content="M5チップ搭載iPad Proの詳細レビュー。Tandem OLEDディスプレイ、AI処理能力、クリエイティブワークフローを徹底解説。" />
-  <meta name="theme-color" content="#ffffff" />
-
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    img { display: block; max-width: 100%; height: auto; }
-    a { text-decoration: none; transition: color 0.3s ease; }
-
     :root {
       --text: #1d1d1f;
       --muted: #6e6e73;
@@ -21,129 +15,72 @@
       --white: #ffffff;
     }
 
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      background: var(--white);
-      color: var(--text);
-      line-height: 1.6;
-      letter-spacing: -0.015em;
-      -webkit-font-smoothing: antialiased;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--white); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 1.6; letter-spacing: -0.015em; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; transition: color 0.3s ease; }
 
     /* ── Navigation ── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      height: 52px;
-      display: flex; align-items: center; justify-content: center;
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      height: 44px; display: flex; align-items: center; justify-content: center;
+      background: rgba(255, 255, 255, 0.8); backdrop-filter: saturate(180%) blur(20px);
       border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     }
-
-    .nav-content {
-      width: 100%; max-width: 1024px;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 22px;
-    }
-
-    .nav-logo { font-weight: 700; font-size: 1.125rem; letter-spacing: -0.03em; color: var(--text); }
-    .nav-links { display: none; align-items: center; gap: 2rem; list-style: none; font-size: 0.75rem; }
-    @media (min-width: 768px) { .nav-links { display: flex; } }
-    .nav-links a { color: var(--muted); font-weight: 500; }
+    .nav-content { width: 100%; max-width: 1024px; display: flex; justify-content: space-between; padding: 0 22px; font-size: 12px; font-weight: 400; letter-spacing: -0.01em; }
+    .nav-links { display: flex; gap: 30px; list-style: none; }
+    .nav-links a { color: var(--muted); transition: color 0.3s; }
     .nav-links a:hover { color: var(--text); }
 
     /* ── Main Content ── */
     main { padding-top: 100px; padding-bottom: 100px; }
     article { max-width: 820px; margin: 0 auto; padding: 0 22px; }
 
-    /* ── Header ── */
-    .article-header { margin-bottom: 4rem; text-align: center; }
-    @media (min-width: 768px) { .article-header { text-align: left; } }
-
-    .badge {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      padding: 0.5rem 1rem; border-radius: 999px;
-      background: var(--bg-light); color: #3a3a3c;
-      font-size: 0.75rem; font-weight: 600; margin-bottom: 1.5rem;
-    }
-
-    h1 {
-      font-size: clamp(2.25rem, 6vw, 4rem);
-      font-weight: 700; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 1.5rem;
-    }
-
-    .meta-row {
-      display: flex; align-items: center; justify-content: center;
-      gap: 1.5rem; color: var(--muted); font-size: 0.875rem;
-    }
-    @media (min-width: 768px) { .meta-row { justify-content: flex-start; } }
+    .article-header { margin-bottom: 4rem; text-align: left; }
+    .badge { display: inline-flex; padding: 5px 12px; border-radius: 99px; background: var(--bg-light); color: #3a3a3c; font-size: 12px; font-weight: 600; margin-bottom: 1.5rem; }
+    h1 { font-size: clamp(2.25rem, 6vw, 4rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 1.5rem; }
+    .meta-row { display: flex; gap: 1.5rem; color: var(--muted); font-size: 14px; }
     .author-name { font-weight: 600; color: var(--text); }
 
-    /* ── Figure ── */
     .figure-wrap { margin-bottom: 4rem; }
-    .figure-card {
-      overflow: hidden; border-radius: 1.5rem;
-      border: 1px solid var(--line); background: var(--bg-light);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    }
+    .figure-card { overflow: hidden; border-radius: 1.5rem; border: 1px solid var(--line); background: var(--bg-light); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
     .figure-card img { width: 100%; height: auto; transition: transform 0.6s cubic-bezier(0.2, 0, 0.2, 1); }
     .figure-card:hover img { transform: scale(1.02); }
-    .cite-tag {
-      display: block; text-align: right; font-size: 0.7rem; color: var(--muted); margin-top: 0.75rem;
-    }
+    .cite-tag { display: block; text-align: right; font-size: 11px; color: var(--muted); margin-top: 0.75rem; }
 
-    /* ── Body Text ── */
-    .article-body p {
-      margin-bottom: 1.6em;
-      font-size: 1.15rem; line-height: 1.8; color: #333;
-    }
-    .article-body h2 {
-      font-size: 2rem; font-weight: 700;
-      margin-top: 4rem; margin-bottom: 1.5rem; letter-spacing: -0.03em;
-    }
+    .article-body p { margin-bottom: 1.6em; font-size: 1.15rem; line-height: 1.8; color: #333; }
+    .article-body h2 { font-size: 2rem; font-weight: 700; margin-top: 4rem; margin-bottom: 1.5rem; letter-spacing: -0.03em; }
+    .article-body h3 { font-size: 1.5rem; font-weight: 600; margin-top: 2.5rem; margin-bottom: 1rem; }
     .article-body a { color: var(--brand); font-weight: 600; }
     .article-body a:hover { text-decoration: underline; }
 
-    /* ── Footer ── */
-    .article-footer {
-      margin-top: 5rem; padding-top: 2.5rem; border-top: 1px solid var(--line);
-      display: flex; flex-direction: column; align-items: center; gap: 2rem;
-    }
-    @media (min-width: 768px) { .article-footer { flex-direction: row; justify-content: space-between; } }
+    .spec-box { background: var(--bg-light); border-radius: 1.2rem; padding: 30px; margin: 2rem 0; border: 1px solid var(--line); }
+    .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .spec-item h4 { font-size: 12px; color: var(--muted); text-transform: uppercase; margin-bottom: 5px; }
+    .spec-item p { font-size: 1.2rem; font-weight: 600; margin: 0; }
+
+    .article-footer { margin-top: 5rem; padding-top: 2.5rem; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
     .tags { display: flex; gap: 0.6rem; }
-    .tag {
-      padding: 0.4rem 0.9rem; border-radius: 999px;
-      background: var(--bg-light); color: var(--muted);
-      font-size: 0.75rem; font-weight: 600;
-    }
-    .back-link { color: var(--brand); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 5px; }
+    .tag { padding: 0.4rem 0.9rem; border-radius: 99px; background: var(--bg-light); color: var(--muted); font-size: 12px; font-weight: 600; }
+    .back-link { color: var(--brand); font-weight: 600; font-size: 15px; }
 
-    /* ── Site Footer ── */
-    .site-footer { background: var(--bg-light); border-top: 1px solid var(--line); padding: 80px 22px; color: var(--muted); font-size: 0.75rem; text-align: center; }
-    .site-footer-inner { max-width: 820px; margin: 0 auto; line-height: 1.8; }
+    footer { padding: 80px 22px; background: var(--bg-light); color: var(--muted); font-size: 12px; text-align: center; border-top: 1px solid var(--line); }
+    .footer-content { max-width: 820px; margin: 0 auto; line-height: 1.8; }
 
-    /* ── Animation ── */
-    .fade-in-up {
-      opacity: 0; transform: translateY(30px);
-      transition: opacity 0.8s cubic-bezier(0.2, 0, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0, 0.2, 1);
-    }
-    .fade-in-up.visible { opacity: 1; transform: translateY(0); }
-
+    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.2, 0, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0, 0.2, 1); }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
   </style>
 </head>
 <body>
 
   <nav>
     <div class="nav-content">
-      <a href="index.html" class="nav-logo">Gadget Journal</a>
+      <a href="index.html" style="font-weight: 600; letter-spacing: -0.05em; font-size: 16px;">Gadget Journal</a>
       <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="review.html">MacBook Air</a></li>
-        <li><a href="ipad.html" style="color: var(--text); font-weight: 600;">iPad Pro</a></li>
-        <li><a href="iphone.html">iPhone 17e</a></li>
+        <li><a href="review.html">Mac</a></li>
+        <li><a href="ipad.html" style="color: var(--text); font-weight: 600;">iPad</a></li>
+        <li><a href="iphone.html">iPhone</a></li>
+        <li><a href="history.html">History</a></li>
+        <li><a href="security.html">Security</a></li>
         <li><a href="experience.html">Experience</a></li>
       </ul>
     </div>
@@ -151,8 +88,8 @@
 
   <main>
     <article>
-      <header class="article-header fade-in-up">
-        <div class="badge">My Personal Review</div>
+      <header class="article-header fade-in">
+        <div class="badge">Pro Performance</div>
         <h1>iPad Pro M5: <br />創造の新しい地平へ。</h1>
         <div class="meta-row">
           <span class="author-name">Gadget Journal 筆者</span>
@@ -160,75 +97,94 @@
         </div>
       </header>
 
-      <div class="figure-wrap fade-in-up">
+      <div class="figure-wrap fade-in">
         <div class="figure-card">
-          <img src="assets/JgkFy5R64E18.jpg" alt="iPad Pro M5 - Tandem OLED Display">
+          <img src="assets/JgkFy5R64E18.jpg" alt="iPad Pro M5 Hero Image">
         </div>
         <span class="cite-tag">出典: Apple Newsroom</span>
       </div>
 
-      <section class="article-body fade-in-up">
+      <section class="article-body fade-in">
         <p>
-          13インチのiPad Proを手にした瞬間、その薄さと軽さに驚きました。
-          一見すると前モデルとの違いは微妙ですが、内部には革新的なテクノロジーが詰め込まれています。
-          特に新開発のTandem OLEDディスプレイと、M5チップの組み合わせは、タブレットの可能性を大きく広げるものです。
+          iPad Pro M5は、タブレットというカテゴリーを再定義しました。
+          M5チップによる驚異的な処理能力と、世界最高峰のTandem OLEDディスプレイの融合。
+          これは単なる「大きなiPhone」ではなく、真のクリエイティブ・ステーションです。
+          アーティスト、デザイナー、映像制作者にとって、これ以上の相棒は存在しません。
         </p>
 
-        <h2>セクション1：Tandem OLEDが変える、画面体験</h2>
+        <h2>セクション1：Tandem OLEDが変える、視覚体験の極致</h2>
         <p>
-          iPad Pro M5の最大の特徴は、業界初のTandem OLEDディスプレイです。
-          これは2枚のOLEDパネルを積層させることで、従来のOLED比で2倍の明るさ（最大3,000ニト）を実現しながら、
-          バッテリー効率を損なわないという革新的なソリューション。
-          屋外での作業でも、室内の明るい環境でも、画面の視認性は完璧です。
-          色域はDCI-P3 100%をカバーし、プロフェッショナルなクリエイティブワークに必要な色精度を備えています。
+          Ultra Retina XDRディスプレイに採用された「Tandem OLED」技術は、
+          2枚のOLEDパネルを積層させることで、従来の常識を覆す明るさと色精度を実現しました。
+          最大1,600ニトのピーク輝度と、無限大のコントラスト比。
+          漆黒から眩い光までを完璧に描き出すその描写力は、
+          HDR動画の編集や高精細なイラスト制作において、決定的なアドバンテージとなります。
+        </p>
+
+        <div class="spec-box">
+          <h3>iPad Pro M5 ディスプレイ仕様</h3>
+          <div class="spec-grid">
+            <div class="spec-item">
+              <h4>ディスプレイ形式</h4>
+              <p>Tandem OLED (Ultra Retina XDR)</p>
+            </div>
+            <div class="spec-item">
+              <h4>ピーク輝度</h4>
+              <p>1,600 nits (HDR)</p>
+            </div>
+            <div class="spec-item">
+              <h4>リフレッシュレート</h4>
+              <p>120Hz ProMotion</p>
+            </div>
+            <div class="spec-item">
+              <h4>コントラスト比</h4>
+              <p>2,000,000:1</p>
+            </div>
+          </div>
+        </div>
+
+        <h2>セクション2：M5チップと、AIによる創造性の加速</h2>
+        <p>
+          M5チップに搭載された次世代のNeural Acceleratorは、
+          AI処理能力において劇的な進化を遂げました。
+          Procreateでのリアルタイム・ブラシ生成、Final Cut Proでの背景分離、
+          あるいはBlenderでの3Dレンダリング。
+          これまでデスクトップ級のパワーを必要としていた作業が、
+          iPadの薄いボディの中で、指先一つで完結します。
+          153GB/sのメモリ帯域幅は、複数のクリエイティブ・アプリを同時に操る
+          プロのワークフローを強力にバックアップします。
         </p>
 
         <div class="figure-wrap">
           <div class="figure-card">
-            <img src="assets/LQr4zsUeOs7E.jpg" alt="iPad Pro M5 - Design and Thinness">
+            <img src="assets/Cy7NJcxIYCxc.jpg" alt="iPad Pro M5 Creative Workflow">
           </div>
           <span class="cite-tag">出典: Apple Newsroom</span>
         </div>
 
-        <h2>セクション2：M5チップが解き放つ、クリエイティブの力</h2>
+        <h2>セクション3：Apple Pencil Proとの、完璧なシンクロ</h2>
         <p>
-          M5チップのNeural Acceleratorは、AI処理能力においてM4比で最大3.5倍の高速化を実現しています。
-          これにより、Procreateでの複雑なブラシ処理、Final Cut Proでの4K動画編集、
-          Blenderでの3Dレンダリングなど、これまでMacを必要としていた作業がiPad上で現実的になりました。
-          10コアGPUと第3世代レイトレーシングエンジンにより、グラフィックス処理も飛躍的に向上。
-          クリエイターにとって、これはもはや「サブデバイス」ではなく、「メインマシン」の候補となり得る性能です。
+          Apple Pencil Proとの組み合わせは、もはや「道具」の域を超え、
+          「身体の拡張」に近い体験を提供します。
+          スクイーズ（指で押す）操作によるツール切り替え、バレルロール（軸の回転）によるブラシ形状の変化。
+          そして、0.12秒という驚異的な低遅延。
+          紙にペンを走らせるのと変わらない、いや、それ以上の直感的な操作感が、
+          あなたのアイデアをダイレクトに形にします。
         </p>
 
-        <div class="figure-wrap">
-          <div class="figure-card">
-            <img src="assets/Cy7NJcxIYCxc.jpg" alt="iPad Pro M5 - Creative Workflow">
-          </div>
-          <span class="cite-tag">出典: Apple Newsroom</span>
-        </div>
-
-        <h2>セクション3：モビリティとパワーの完璧な融合</h2>
+        <h2>結論：タブレットの、その先へ</h2>
         <p>
-          13インチモデルの重さは約580g。MacBook Airより軽く、持ち運びやすさは圧倒的です。
-          それでいて、約10時間のバッテリー駆動時間を確保。
-          Wi-Fi 7対応により、クラウドベースのワークフローもストレスなく実行できます。
-          スタイラス「Apple Pencil Pro」との組み合わせで、手書きのレスポンスは0.12秒という驚異的な低遅延。
-          紙に書くのと変わらない感覚で、デジタルクリエイティブを追求できる環境が整いました。
-        </p>
-
-        <h2>結論：タブレットの進化形、新しい「創造の相棒」</h2>
-        <p>
-          iPad Pro M5は、単なる「大きなiPhone」ではありません。
-          Tandem OLEDの圧倒的な画質、M5チップのプロレベルの処理能力、
-          そして軽さと持ち運びやすさを兼ね備えた、新時代のクリエイティブツールです。
-          イラストレーター、デザイナー、映像クリエイター、あるいは単に「美しい画面で本を読みたい」というユーザーにとって、
-          これ以上の選択肢はないでしょう。
+          iPad Pro M5は、もはや「パソコンの代わり」を探すためのデバイスではありません。
+          「iPadでしかできないこと」を追求し、創造の可能性を極限まで広げるための道具です。
+          この薄い一枚の板が、あなたの世界をどう変えるのか。
+          その答えは、あなたの手の中にあります。
         </p>
         <p>
           詳細は <a href="https://www.apple.com/jp/ipad-pro/" target="_blank" rel="noopener noreferrer">Apple公式サイト</a> で確認してみてください。
         </p>
       </section>
 
-      <footer class="article-footer fade-in-up">
+      <footer class="article-footer fade-in">
         <div class="tags">
           <span class="tag">#M5Chip</span>
           <span class="tag">#iPadPro</span>
@@ -239,10 +195,10 @@
     </article>
   </main>
 
-  <footer class="site-footer">
-    <div class="site-footer-inner">
-      <p>製品画像・ロゴは Apple Inc. の商標です。本サイトは報道・批評・解説を目的とした引用を行っています。</p>
+  <footer>
+    <div class="footer-content">
       <p>&copy; 2026 Gadget Journal. All rights reserved.</p>
+      <p>製品画像・ロゴは Apple Inc. の商標です。本サイトは報道・批評・解説を目的とした引用を行っています。</p>
     </div>
   </footer>
 
@@ -255,7 +211,7 @@
       });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
