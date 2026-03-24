@@ -270,6 +270,17 @@
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.timeline-item, .fade-in').forEach(el => observer.observe(el));
+
+    // ナビ：現在のページのリンクが見えるよう自動スクロール
+    (function() {
+      var wrap = document.querySelector('.nav-links-wrap');
+      var currentPage = location.pathname.split('/').pop() || 'index.html';
+      var active = document.querySelector('.nav-links a[href="' + currentPage + '"]');
+      if (wrap && active) {
+        var offset = active.offsetLeft - 20;
+        wrap.scrollLeft = offset > 0 ? offset : 0;
+      }
+    })();
   </script>
 </body>
 </html>
