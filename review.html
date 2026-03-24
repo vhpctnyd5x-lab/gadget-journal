@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>M5 MacBook Air: 軽さはそのままに、パワーを更新。 - My Gadget Journal</title>
+  <meta name="description" content="M5 MacBook Airの詳細レビュー。M5チップの性能、モビリティ、バッテリー駆動時間を徹底解説。" />
+  <meta name="theme-color" content="#ffffff" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    img { display: block; max-width: 100%; height: auto; }
+    a { text-decoration: none; transition: color 0.3s ease; }
+
+    :root {
+      --text: #1d1d1f;
+      --muted: #6e6e73;
+      --line: #e8e8ed;
+      --bg-light: #f5f5f7;
+      --brand: #0071e3;
+      --white: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background: var(--white);
+      color: var(--text);
+      line-height: 1.6;
+      letter-spacing: -0.015em;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Navigation ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 52px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-content {
+      width: 100%; max-width: 1200px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 22px;
+    }
+
+    .nav-logo { font-weight: 700; font-size: 1.125rem; letter-spacing: -0.03em; color: var(--text); }
+    .nav-links { display: flex; gap: 25px; list-style: none; font-size: 0.75rem; flex-wrap: wrap; }
+    .nav-links a { color: var(--muted); font-weight: 500; }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── Main Content ── */
+    main { padding-top: 100px; padding-bottom: 100px; }
+    article { max-width: 820px; margin: 0 auto; padding: 0 22px; }
+
+    /* ── Header ── */
+    .article-header { margin-bottom: 4rem; text-align: center; }
+    @media (min-width: 768px) { .article-header { text-align: left; } }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.5rem 1rem; border-radius: 999px;
+      background: var(--bg-light); color: #3a3a3c;
+      font-size: 0.75rem; font-weight: 600; margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-size: clamp(2.25rem, 6vw, 4rem);
+      font-weight: 700; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 1.5rem;
+    }
+
+    .meta-row {
+      display: flex; align-items: center; justify-content: center;
+      gap: 1.5rem; color: var(--muted); font-size: 0.875rem;
+    }
+    @media (min-width: 768px) { .meta-row { justify-content: flex-start; } }
+    .author-name { font-weight: 600; color: var(--text); }
+
+    /* ── Figure ── */
+    .figure-wrap { margin-bottom: 4rem; }
+    .figure-card {
+      overflow: hidden; border-radius: 1.5rem;
+      border: 1px solid var(--line); background: var(--bg-light);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+    .figure-card img { width: 100%; height: auto; transition: transform 0.6s cubic-bezier(0.2, 0, 0.2, 1); }
+    .figure-card:hover img { transform: scale(1.02); }
+    .cite-tag {
+      display: block; text-align: right; font-size: 0.7rem; color: var(--muted); margin-top: 0.75rem;
+    }
+
+    /* ── Body Text ── */
+    .article-body p {
+      margin-bottom: 1.6em;
+      font-size: 1.15rem; line-height: 1.8; color: #333;
+    }
+    .article-body h2 {
+      font-size: 2rem; font-weight: 700;
+      margin-top: 4rem; margin-bottom: 1.5rem; letter-spacing: -0.03em;
+    }
+    .article-body a { color: var(--brand); font-weight: 600; }
+    .article-body a:hover { text-decoration: underline; }
+
+    /* ── Footer ── */
+    .article-footer {
+      margin-top: 5rem; padding-top: 2.5rem; border-top: 1px solid var(--line);
+      display: flex; flex-direction: column; align-items: center; gap: 2rem;
+    }
+    @media (min-width: 768px) { .article-footer { flex-direction: row; justify-content: space-between; } }
+    .tags { display: flex; gap: 0.6rem; }
+    .tag {
+      padding: 0.4rem 0.9rem; border-radius: 999px;
+      background: var(--bg-light); color: var(--muted);
+      font-size: 0.75rem; font-weight: 600;
+    }
+    .back-link { color: var(--brand); font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 5px; }
+
+    /* ── Site Footer ── */
+    .site-footer { background: var(--bg-light); border-top: 1px solid var(--line); padding: 80px 22px; color: var(--muted); font-size: 0.75rem; text-align: center; }
+    .site-footer-inner { max-width: 820px; margin: 0 auto; line-height: 1.8; }
+
+    /* ── Animation ── */
+    .fade-in-up {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.2, 0, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0, 0.2, 1);
+    }
+    .fade-in-up.visible { opacity: 1; transform: translateY(0); }
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-content">
+      <a href="index.html" class="nav-logo">Gadget Journal</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="review.html" style="color: var(--text); font-weight: 600;">MacBook Air</a></li>
+        <li><a href="ipad.html">iPad Pro</a></li>
+        <li><a href="iphone.html">iPhone 17e</a></li>
+        <li><a href="history.html">History</a></li>
+        <li><a href="security.html">Security</a></li>
+        <li><a href="experience.html">Experience</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <article>
+      <header class="article-header fade-in-up">
+        <div class="badge">My Personal Review</div>
+        <h1>M5 MacBook Air: <br />軽さはそのままに、パワーを更新。</h1>
+        <div class="meta-row">
+          <span class="author-name">Gadget Journal 筆者</span>
+          <span>2026.03.24 公開</span>
+        </div>
+      </header>
+
+      <div class="figure-wrap fade-in-up">
+        <div class="figure-card">
+          <img src="https://www.apple.com/newsroom/images/2024/03/apple-unveils-the-new-13-and-15-inch-macbook-air-with-the-powerful-m3-chip/article/Apple-MacBook-Air-M3-Photoshop-240304_big.jpg.large.jpg" alt="M5 MacBook Air - Adobe Photoshop">
+        </div>
+        <span class="cite-tag">出典: Apple Newsroom</span>
+      </div>
+
+      <section class="article-body fade-in-up">
+        <p>
+          深夜のApple Event。画面越しに新しいMacBook Airが発表された瞬間、思わず姿勢が前のめりになりました。
+          公式サイトに並ぶ製品写真を見て、まず感じたのは「薄さの完成度を、また一段押し上げてきた」という印象です。
+        </p>
+
+        <h2>セクション1：手の中に収まる、広がる可能性</h2>
+        <p>
+          今回のアップデートの目玉は、新開発の「M5チップ」です。
+          最新のベンチマーク予測によると、M5はシングルコア性能で前世代を15%以上上回り、
+          マルチコア性能ではかつてのMacBook Pro（M3 Pro搭載機）を凌駕するスコアを記録しています。
+          これまでProモデルでしか快適にこなせなかった4K動画のマルチトラック編集や、
+          複雑なAIモデルのローカル実行が、この薄いAirでも驚くほど軽快に動作します。
+        </p>
+
+        <div class="figure-wrap">
+          <div class="figure-card">
+            <img src="https://www.apple.com/newsroom/images/2024/03/apple-unveils-the-new-13-and-15-inch-macbook-air-with-the-powerful-m3-chip/article/Apple-MacBook-Air-M3-13-and-15-inch-240304_big.jpg.large.jpg" alt="13-inch and 15-inch MacBook Air">
+          </div>
+          <span class="cite-tag">出典: Apple Newsroom</span>
+        </div>
+
+        <h2>セクション2：軽さと性能の両立</h2>
+        <p>
+          実機レビューとして強調したいのは、毎日持ち出す道具としての圧倒的な完成度です。
+          13インチモデルの機動性はそのままに、メモリ帯域幅が拡張されたことで、
+          ブラウザのタブを数百個開きながらビデオ会議を行うようなマルチタスクでも、一切の淀みがありません。
+          「軽さが欲しい、でも性能も妥協したくない」というユーザーにとって、これ以上の選択肢はありません。
+        </p>
+
+        <div class="figure-wrap">
+          <div class="figure-card">
+            <img src="https://www.apple.com/newsroom/images/2024/03/apple-unveils-the-new-13-and-15-inch-macbook-air-with-the-powerful-m3-chip/article/Apple-MacBook-Air-M3-lifestyle-03-240304_big.jpg.large.jpg" alt="MacBook Air Lifestyle">
+          </div>
+          <span class="cite-tag">出典: Apple Newsroom</span>
+        </div>
+
+        <h2>セクション3：バッテリー駆動時間</h2>
+        <p>
+          M5チップの真骨頂はその電力効率にあります。
+          一日のフルワークを終えてもバッテリー残量に余裕がある安心感は、
+          私たちを充電器という物理的な制約から完全に解放してくれます。
+          カフェ、機内、あるいは公園。電源の有無を気にせず、どこでも最高のパフォーマンスを発揮できる。
+          それがMacBook Airが提供する真の自由です。
+        </p>
+
+        <h2>結論：これは "軽いノートPC" ではなく、"持ち歩ける本命"</h2>
+        <p>
+          M5 MacBook Airは、単なるエントリーモデルの更新ではありません。
+          軽さを求めつつ、プロレベルの作業もこなしたい。そんなユーザーの願いを叶える「持ち歩ける本命」のメインマシンです。
+        </p>
+        <p>
+          詳細は <a href="https://www.apple.com/jp/macbook-air/" target="_blank" rel="noopener noreferrer">Apple公式サイト</a> で確認してみてください。
+        </p>
+      </section>
+
+      <footer class="article-footer fade-in-up">
+        <div class="tags">
+          <span class="tag">#M5Chip</span>
+          <span class="tag">#MacBookAir</span>
+          <span class="tag">#TechReview</span>
+        </div>
+        <a href="index.html" class="back-link">← Homeに戻る</a>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <p>製品画像・ロゴは Apple Inc. の商標です。本サイトは報道・批評・解説を目的とした引用を行っています。</p>
+      <p>&copy; 2026 Gadget Journal. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

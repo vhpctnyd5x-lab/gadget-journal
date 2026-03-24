@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gadget Journal - Apple製品の最新レビューと深掘り解説</title>
+  <meta name="description" content="M5 MacBook Air、iPad Pro、iPhone 17eの詳細レビュー。Appleの歴史、セキュリティ、エコシステムを網羅した総合情報サイト。" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    img { display: block; max-width: 100%; height: auto; }
+    a { text-decoration: none; color: inherit; }
+
+    :root {
+      --text: #1d1d1f;
+      --muted: #6e6e73;
+      --line: #e8e8ed;
+      --bg-light: #f5f5f7;
+      --brand: #0071e3;
+      --white: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background: var(--white);
+      color: var(--text);
+      line-height: 1.6;
+      letter-spacing: -0.015em;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Navigation ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 52px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    .nav-content {
+      width: 100%; max-width: 1200px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 22px;
+    }
+    .nav-logo { font-weight: 700; font-size: 1.125rem; letter-spacing: -0.03em; }
+    .nav-links { display: flex; gap: 25px; list-style: none; font-size: 0.75rem; flex-wrap: wrap; }
+    .nav-links a { color: var(--muted); font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── Hero ── */
+    .hero {
+      padding-top: 140px; padding-bottom: 80px;
+      text-align: center; background: var(--white);
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 700; letter-spacing: -0.03em; line-height: 1.05;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      color: var(--muted); font-weight: 400; max-width: 700px; margin: 0 auto;
+    }
+
+    /* ── Content Grid ── */
+    .content { max-width: 1200px; margin: 0 auto; padding: 0 22px; }
+    .grid {
+      display: grid; grid-template-columns: 1fr; gap: 30px; margin-top: 60px;
+    }
+    @media (min-width: 768px) { .grid { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 1024px) { .grid { grid-template-columns: 1fr 1fr 1fr; } }
+
+    .card {
+      background: var(--bg-light); border-radius: 25px; padding: 40px;
+      transition: transform 0.4s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.2, 0, 0.2, 1);
+      display: flex; flex-direction: column; justify-content: space-between;
+      min-height: 350px;
+      border: 1px solid var(--line);
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+    }
+    .card h2 {
+      font-size: 1.8rem; font-weight: 600; margin-bottom: 15px; letter-spacing: -0.02em; line-height: 1.2;
+    }
+    .card p {
+      font-size: 1rem; color: var(--muted); line-height: 1.6; margin-bottom: 25px;
+    }
+    .card-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--brand); font-weight: 600; font-size: 0.95rem;
+    }
+    .card-link::after { content: "→"; transition: transform 0.3s ease; }
+    .card:hover .card-link::after { transform: translateX(5px); }
+
+    .card-badge {
+      font-size: 0.7rem; font-weight: 700; color: var(--brand); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--bg-light); border-top: 1px solid var(--line);
+      padding: 80px 22px; margin-top: 100px;
+      color: var(--muted); font-size: 0.75rem; text-align: center;
+    }
+    .footer-content { max-width: 1200px; margin: 0 auto; line-height: 1.8; }
+
+    /* ── Animation ── */
+    .fade-in {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.8s cubic-bezier(0.2, 0, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0, 0.2, 1);
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-content">
+      <a href="index.html" class="nav-logo">Gadget Journal</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="review.html">MacBook Air</a></li>
+        <li><a href="ipad.html">iPad Pro</a></li>
+        <li><a href="iphone.html">iPhone 17e</a></li>
+        <li><a href="history.html">History</a></li>
+        <li><a href="security.html">Security</a></li>
+        <li><a href="experience.html">Experience</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero fade-in">
+      <h1>Gadget Journal</h1>
+      <p>Apple製品の最新レビューと、その本質を深掘りする特集記事。<br>テクノロジーが日常をどう変えるのか、その真実を解き明かします。</p>
+    </section>
+
+    <section class="content">
+      <div class="grid">
+        <div class="card fade-in">
+          <div>
+            <div class="card-badge">Latest Review</div>
+            <h2>M5 MacBook Air</h2>
+            <p>軽さはそのままに、パワーを更新。M5チップの圧倒的なパフォーマンスと、持ち歩ける自由を徹底解説。</p>
+          </div>
+          <a href="review.html" class="card-link">レビューを読む</a>
+        </div>
+
+        <div class="card fade-in">
+          <div>
+            <div class="card-badge">Latest Review</div>
+            <h2>iPad Pro M5</h2>
+            <p>Tandem OLEDが変える画面体験。クリエイティブワークの新しい相棒。</p>
+          </div>
+          <a href="ipad.html" class="card-link">レビューを読む</a>
+        </div>
+
+        <div class="card fade-in">
+          <div>
+            <div class="card-badge">Latest Review</div>
+            <h2>iPhone 17e</h2>
+            <p>誰もが手にできる、最新のiPhone。A19チップとApple Intelligenceで、価値を再定義。</p>
+          </div>
+          <a href="iphone.html" class="card-link">レビューを読む</a>
+        </div>
+
+        <div class="card fade-in">
+          <div>
+            <div class="card-badge">Deep Dive</div>
+            <h2>Appleの歴史</h2>
+            <p>1976年のガレージから、世界最大のテクノロジー企業へ。50年の革新と変革。</p>
+          </div>
+          <a href="history.html" class="card-link">歴史を知る</a>
+        </div>
+
+        <div class="card fade-in">
+          <div>
+            <div class="card-badge">Deep Dive</div>
+            <h2>セキュリティ</h2>
+            <p>信頼の設計。Secure Enclave、Face ID、エンドツーエンド暗号化。</p>
+          </div>
+          <a href="security.html" class="card-link">詳しく知る</a>
+        </div>
+
+        <div class="card fade-in">
+          <div>
+            <div class="card-badge">Special Feature</div>
+            <h2>Appleの魅力</h2>
+            <p>エコシステム、プライバシー、デザイン。ただの道具以上の体験。</p>
+          </div>
+          <a href="experience.html" class="card-link">魅力を知る</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2026 Gadget Journal. All rights reserved.</p>
+      <p>製品画像・ロゴは Apple Inc. の商標です。本サイトは報道・批評・解説を目的とした引用を行っています。</p>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
