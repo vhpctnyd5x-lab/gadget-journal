@@ -117,7 +117,13 @@
     }
 
     .section-title { text-align: center; margin-bottom: 80px; }
-    .section-title h2 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 700; letter-spacing: -0.02em; }
+    .section-title h2 {
+      font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 700; letter-spacing: -0.02em;
+      background: linear-gradient(90deg, #bf5af2 0%, #ff375f 35%, #ff9f0a 65%, #30d158 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
     .section-title p { font-size: 1.2rem; color: #86868b; margin-top: 10px; }
 
     /* ── Content Grid ── */
@@ -298,6 +304,17 @@
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // ナビ：現在のページのリンクが見えるよう自動スクロール
+    (function() {
+      var wrap = document.querySelector('.nav-links-wrap');
+      var currentPage = location.pathname.split('/').pop() || 'index.html';
+      var active = document.querySelector('.nav-links a[href="' + currentPage + '"]');
+      if (wrap && active) {
+        var offset = active.offsetLeft - 20;
+        wrap.scrollLeft = offset > 0 ? offset : 0;
+      }
+    })();
   </script>
 </body>
 </html>
