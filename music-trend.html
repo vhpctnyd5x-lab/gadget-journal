@@ -286,7 +286,7 @@ textarea.minput{resize:none;flex:1;min-width:0}
     <p class="hero-sub">Apple Music Japan トップ100をもとにした、今まさに日本で最も聴かれているJ-POPのリアルタイムランキング。</p>
     <div class="hbtns">
       <a href="https://music.apple.com/jp/playlist/%E3%83%88%E3%83%83%E3%83%97100-%E6%97%A5%E6%9C%AC/pl.043a2c9876114d95a4659988497567be"
-         target="_blank" rel="noopener" class="btn-r">🎵 Apple Music トップ100</a>
+         target="_blank" rel="noopener noreferrer" class="btn-r">🎵 Apple Music トップ100</a>
       <a href="#chart" class="btn-g">📊 チャートを見る</a>
     </div>
   </div>
@@ -369,7 +369,7 @@ textarea.minput{resize:none;flex:1;min-width:0}
         <button class="sbtn" onclick="doLine()">💬 LINE</button>
         <button class="sbtn" id="copybtn" onclick="doCopy(this)">🔗 リンクをコピー</button>
         <a href="https://music.apple.com/jp/playlist/%E3%83%88%E3%83%83%E3%83%97100-%E6%97%A5%E6%9C%AC/pl.043a2c9876114d95a4659988497567be"
-           target="_blank" rel="noopener" class="sbtn">🎵 Apple Musicで開く</a>
+           target="_blank" rel="noopener noreferrer" class="sbtn">🎵 Apple Musicで開く</a>
       </div>
     </div>
   </section>
@@ -406,7 +406,7 @@ textarea.minput{resize:none;flex:1;min-width:0}
           <span class="amchip">✨ AI推薦</span>
         </div>
         <a href="https://music.apple.com/jp/playlist/%E3%83%88%E3%83%83%E3%83%97100-%E6%97%A5%E6%9C%AC/pl.043a2c9876114d95a4659988497567be"
-           target="_blank" rel="noopener" class="btn-r" style="display:inline-flex">🎵 Apple Music トップ100を開く</a>
+           target="_blank" rel="noopener noreferrer" class="btn-r" style="display:inline-flex">🎵 Apple Music トップ100を開く</a>
       </div>
     </div>
   </section>
@@ -419,7 +419,7 @@ textarea.minput{resize:none;flex:1;min-width:0}
     <a href="index.html" style="color:#fff;font-size:14px;font-weight:700;text-decoration:none;letter-spacing:-0.03em">Gadget Journal</a>
     <div style="display:flex;gap:20px">
       <a href="music.html" style="color:var(--muted);font-size:13px;text-decoration:none">🎵 Music Diary</a>
-      <a href="https://music.apple.com/jp/playlist/%E3%83%88%E3%83%83%E3%83%97100-%E6%97%A5%E6%9C%AC/pl.043a2c9876114d95a4659988497567be" target="_blank" rel="noopener" style="color:var(--red2);font-size:13px;font-weight:600;text-decoration:none">Apple Music Japan</a>
+      <a href="https://music.apple.com/jp/playlist/%E3%83%88%E3%83%83%E3%83%97100-%E6%97%A5%E6%9C%AC/pl.043a2c9876114d95a4659988497567be" target="_blank" rel="noopener noreferrer" style="color:var(--red2);font-size:13px;font-weight:600;text-decoration:none">Apple Music Japan</a>
     </div>
     <span style="font-size:12px;color:var(--muted)">&copy; 2026 Gadget Journal</span>
   </div>
@@ -474,6 +474,15 @@ let selId = null;
 const liked = {};
 const emoState = {};
 let msgs = [...INIT_MSGS];
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, ch => (
+    ch === '&' ? '&amp;' :
+    ch === '<' ? '&lt;' :
+    ch === '>' ? '&gt;' :
+    ch === '"' ? '&quot;' : '&#39;'
+  ));
+}
 
 // RANKING
 function renderRanking(tab) {
@@ -571,12 +580,12 @@ function renderMsgs() {
   document.getElementById('msgscroll').innerHTML = msgs.slice().reverse().slice(0,20).map(m=>`
     <div class="mitem">
       <div class="mtop">
-        <div class="mav">${m.name?m.name[0]:'?'}</div>
-        <span class="mname">${m.name||'匿名'}</span>
-        <span class="mtime">${m.time}</span>
+        <div class="mav">${escapeHTML(m.name ? m.name[0] : '?')}</div>
+        <span class="mname">${escapeHTML(m.name || '匿名')}</span>
+        <span class="mtime">${escapeHTML(m.time || '')}</span>
       </div>
-      <div class="mbody">${m.text}</div>
-      ${m.song?`<div class="msong">🎵 ${m.song}</div>`:''}
+      <div class="mbody">${escapeHTML(m.text || '')}</div>
+      ${m.song?`<div class="msong">🎵 ${escapeHTML(m.song)}</div>`:''}
     </div>`).join('');
   document.getElementById('msgscroll').scrollTop=0;
 }
@@ -592,9 +601,11 @@ function fillSelect() {
 function sendMsg() {
   const text=document.getElementById('m-text').value.trim();
   if(!text){document.getElementById('m-text').focus();return;}
+  const song=document.getElementById('m-song').value;
+  const isValidSong=TRACKS.some(t=>t.title===song);
   msgs.push({
     name:document.getElementById('m-name').value.trim()||'匿名',
-    song:document.getElementById('m-song').value,
+    song:isValidSong?song:'',
     text,time:'たった今'
   });
   document.getElementById('m-text').value='';
@@ -602,8 +613,20 @@ function sendMsg() {
 }
 
 // SHARE
-function doX(){window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent('🎵 日本のトレンド曲チャート2026 #JapanChart #AppleMusic')}&url=${encodeURIComponent(CHART_URL)}`,'_blank')}
-function doLine(){window.open(`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(location.href)}`,'_blank')}
+function doX(){
+  window.open(
+    `https://twitter.com/intent/tweet?text=${encodeURIComponent('🎵 日本のトレンド曲チャート2026 #JapanChart #AppleMusic')}&url=${encodeURIComponent(CHART_URL)}`,
+    '_blank',
+    'noopener,noreferrer'
+  );
+}
+function doLine(){
+  window.open(
+    `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(location.href)}`,
+    '_blank',
+    'noopener,noreferrer'
+  );
+}
 function doCopy(btn){
   navigator.clipboard.writeText(location.href).then(()=>{
     btn.classList.add('copied');btn.textContent='✓ コピーしました！';
