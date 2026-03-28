@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Japan Trend Chart 2026 | Gadget Journal</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#000;
+  --s1:rgba(28,28,30,1);
+  --s2:rgba(44,44,46,1);
+  --border:rgba(255,255,255,0.1);
+  --text:#f5f5f7;
+  --muted:#6e6e73;
+  --red:#fc3c44;
+  --red2:#ff6b9d;
+  --green:#30d158;
+  --blue:#0a84ff;
+  --orange:#ff9f0a;
+  --yellow:#ffd60a;
+  --purple:#bf5af2;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Noto Sans JP',-apple-system,sans-serif;
+  background:var(--bg);color:var(--text);
+  min-height:100vh;padding-top:44px;
+  transition:background 1.4s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  height:44px;display:flex;align-items:center;
+  background:rgba(0,0,0,0.88);
+  backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid rgba(255,255,255,0.1);
+  overflow:hidden;
+}
+.nav-logo{
+  flex-shrink:0;padding:0 16px 0 22px;
+  font-size:16px;font-weight:600;letter-spacing:-0.04em;color:#fff;
+  text-decoration:none;white-space:nowrap;height:44px;
+  display:flex;align-items:center;
+  background:rgba(0,0,0,0.88);position:relative;z-index:2;
+}
+.nav-logo::after{content:'';position:absolute;right:-16px;top:0;width:16px;height:100%;background:linear-gradient(to right,rgba(0,0,0,0.88),transparent)}
+.nav-links-wrap{
+  flex:1;overflow-x:auto;overflow-y:hidden;
+  scrollbar-width:none;height:44px;display:flex;align-items:center;
+  padding:0 36px 0 6px;
+}
+.nav-links-wrap::-webkit-scrollbar{display:none}
+.nav-links{display:flex;gap:24px;list-style:none;white-space:nowrap;font-size:12px}
+.nav-links a{color:rgba(255,255,255,0.75);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover{color:#fff}
+.nav-links a.cur{color:#fff;font-weight:700}
+.nav-fade-right{position:absolute;right:0;top:0;width:36px;height:44px;background:linear-gradient(to right,transparent,rgba(0,0,0,0.88));pointer-events:none;z-index:3}
+
+/* BG */
+#bgc{position:fixed;inset:0;z-index:0;pointer-events:none;transition:background 1.4s cubic-bezier(0.4,0,0.2,1);background:radial-gradient(ellipse 80% 50% at 50% -5%,rgba(252,60,68,0.14) 0%,transparent 65%)}
+
+/* NOW PLAYING */
+#np{
+  position:fixed;bottom:24px;left:50%;
+  transform:translateX(-50%) translateY(100px);
+  z-index:500;display:flex;align-items:center;gap:12px;
+  background:rgba(28,28,30,0.97);backdrop-filter:blur(28px);
+  border:1px solid rgba(255,255,255,0.14);border-radius:99px;
+  padding:9px 20px 9px 10px;
+  box-shadow:0 16px 48px rgba(0,0,0,0.7);
+  min-width:260px;max-width:88vw;
+  transition:transform 0.45s cubic-bezier(0.2,0,0.2,1);
+}
+#np.show{transform:translateX(-50%) translateY(0)}
+#np-art{width:36px;height:36px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px}
+#np-info{flex:1;min-width:0}
+#np-title{font-size:13px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#np-sub{font-size:11px;color:var(--muted);margin-top:1px}
+.npeq{display:flex;align-items:flex-end;gap:2px;height:16px;flex-shrink:0}
+.npeq b{width:3px;border-radius:2px;background:var(--red);display:block;animation:eqa 0.9s ease-in-out infinite alternate}
+.npeq b:nth-child(1){height:8px;animation-delay:0s}
+.npeq b:nth-child(2){height:14px;animation-delay:0.22s}
+.npeq b:nth-child(3){height:10px;animation-delay:0.44s}
+@keyframes eqa{to{height:3px}}
+
+/* TOAST */
+#toast{
+  position:fixed;bottom:88px;left:50%;
+  transform:translateX(-50%) translateY(16px);
+  background:rgba(48,209,88,0.93);color:#fff;
+  font-size:13px;font-weight:700;padding:10px 22px;border-radius:99px;
+  z-index:600;opacity:0;pointer-events:none;transition:all 0.28s;white-space:nowrap;
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* LAYOUT */
+.wrap{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:0 18px 100px}
+
+/* HERO */
+.hero{text-align:center;padding:56px 16px 44px}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(252,60,68,0.1);border:1px solid rgba(252,60,68,0.28);
+  color:var(--red2);font-size:11px;font-weight:700;
+  padding:5px 14px;border-radius:99px;margin-bottom:20px;
+  letter-spacing:0.07em;text-transform:uppercase;
+}
+.hdot{width:6px;height:6px;border-radius:50%;background:var(--red);animation:pdot 1.5s ease-in-out infinite}
+@keyframes pdot{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:0.4}}
+.hero h1{font-size:clamp(2rem,6vw,3.8rem);font-weight:900;letter-spacing:-0.04em;line-height:1.06;margin-bottom:16px}
+.hero h1 .g{background:linear-gradient(130deg,#fc3c44 0%,#ff6b9d 45%,#bf5af2 85%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:16px;color:var(--muted);line-height:1.75;max-width:460px;margin:0 auto 28px}
+.hbtns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn-r{display:inline-flex;align-items:center;gap:8px;background:var(--red);color:#fff;font-weight:700;font-size:15px;padding:13px 26px;border-radius:99px;text-decoration:none;box-shadow:0 0 36px rgba(252,60,68,0.35);transition:transform 0.2s,box-shadow 0.2s}
+.btn-r:hover{transform:scale(1.04);box-shadow:0 0 52px rgba(252,60,68,0.5)}
+.btn-g{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);color:#fff;font-weight:600;font-size:15px;padding:13px 26px;border-radius:99px;text-decoration:none;transition:background 0.2s}
+.btn-g:hover{background:rgba(255,255,255,0.14)}
+
+/* SECTION */
+.sec{margin-bottom:72px}
+.sec-label{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--red2);margin-bottom:8px}
+.sec-h{font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:6px}
+.sec-sub{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:24px;max-width:520px}
+
+/* CARD */
+.card{background:var(--s1);border:1px solid var(--border);border-radius:20px;padding:22px;transition:border-color 0.3s,box-shadow 0.3s}
+.card:hover{border-color:rgba(252,60,68,0.2);box-shadow:0 12px 40px rgba(0,0,0,0.35)}
+
+/* RANKING */
+.rtabs{display:flex;background:var(--s2);border-radius:11px;padding:3px;margin-bottom:16px;overflow-x:auto;scrollbar-width:none;gap:2px}
+.rtabs::-webkit-scrollbar{display:none}
+.rt{flex:1;min-width:68px;text-align:center;padding:7px 10px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;color:var(--muted);border:none;background:none;font-family:inherit;transition:all 0.18s;white-space:nowrap}
+.rt.on{background:var(--s1);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,0.4)}
+.rlist{display:flex;flex-direction:column}
+.ri{display:flex;align-items:center;gap:12px;padding:11px 8px;border-radius:12px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.04);transition:background 0.18s}
+.rlist .ri:last-child{border-bottom:none}
+.ri:hover,.ri.sel{background:rgba(255,255,255,0.05)}
+.ri.sel .ri-t{color:var(--red2)}
+.rn{width:22px;text-align:center;font-size:14px;font-weight:900;flex-shrink:0}
+.gold{color:var(--yellow)}.silver{color:#aeaeb2}.bronze{color:#c96f2c}.grey{color:var(--muted)}
+.ra{width:46px;height:46px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:22px}
+.ri-info{flex:1;min-width:0}
+.ri-t{font-size:14px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ri-a{font-size:12px;color:var(--muted);margin-top:2px}
+.ri-r{display:flex;align-items:center;gap:7px;flex-shrink:0}
+.tbadge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;white-space:nowrap}
+.thot{background:rgba(255,159,10,0.14);color:var(--orange);border:1px solid rgba(255,159,10,0.22)}
+.tnew{background:rgba(10,132,255,0.14);color:var(--blue);border:1px solid rgba(10,132,255,0.22)}
+.tup{background:rgba(48,209,88,0.14);color:var(--green);border:1px solid rgba(48,209,88,0.22)}
+.hbtn{display:flex;align-items:center;gap:4px;border:none;background:none;cursor:pointer;color:var(--muted);font-size:12px;font-weight:600;padding:5px 9px;border-radius:99px;font-family:inherit;transition:all 0.18s}
+.hbtn:hover{color:#ff375f;background:rgba(255,55,95,0.1)}
+.hbtn.on{color:#ff375f}
+.hbtn.on .hi{animation:hpop 0.28s cubic-bezier(0.2,0,0.2,1)}
+@keyframes hpop{0%{transform:scale(1)}50%{transform:scale(1.45)}100%{transform:scale(1)}}
+.hi{font-size:16px}
+.rank-hint{text-align:center;font-size:11px;color:var(--muted);margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.05)}
+
+/* CHART UPDATE */
+.chart-meta{display:flex;align-items:center;gap:10px;margin-bottom:16px;font-size:12px;color:var(--muted)}
+.chart-live{display:inline-flex;align-items:center;gap:5px;background:rgba(252,60,68,0.1);border:1px solid rgba(252,60,68,0.25);color:var(--red2);font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px}
+.chart-live .d{width:5px;height:5px;border-radius:50%;background:var(--red);animation:pdot 1.5s infinite}
+
+/* PLAYER */
+.player-wrap{background:var(--s1);border:1px solid var(--border);border-radius:20px;padding:16px;overflow:hidden}
+.player-wrap iframe{border-radius:14px;display:block;width:100%;height:450px}
+
+/* EMOJI */
+.emobar{display:flex;gap:8px;flex-wrap:wrap}
+.emobtn{display:flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--border);border-radius:99px;padding:7px 13px;cursor:pointer;font-size:14px;font-weight:600;color:var(--text);font-family:inherit;transition:all 0.15s}
+.emobtn:hover{background:rgba(255,255,255,0.1);transform:scale(1.05)}
+.emobtn.on{background:rgba(252,60,68,0.12);border-color:rgba(252,60,68,0.3)}
+.emo-c{font-size:12px;color:var(--muted)}
+.emo-l{font-size:11px;color:var(--muted)}
+
+/* LIKE CHIPS */
+.like-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px;padding-top:18px;border-top:1px solid var(--border)}
+.lchip{display:flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--border);border-radius:99px;padding:8px 16px;cursor:pointer;font-size:14px;font-weight:600;font-family:inherit;color:var(--text);transition:all 0.18s}
+.lchip:hover{border-color:rgba(255,55,95,0.3);background:rgba(255,55,95,0.07)}
+.lchip.on{background:rgba(255,55,95,0.12);border-color:rgba(255,55,95,0.35);color:#ff375f}
+.lchip.on .lci{animation:hpop 0.28s cubic-bezier(0.2,0,0.2,1)}
+.lci{font-size:18px}
+.lct{font-size:12px;opacity:0.6}
+
+/* MESSAGES */
+.msgscroll{max-height:320px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding-right:4px;margin-bottom:16px}
+.msgscroll::-webkit-scrollbar{width:4px}
+.msgscroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.mitem{background:var(--s2);border:1px solid var(--border);border-radius:14px;padding:13px 15px;animation:fup 0.38s cubic-bezier(0.2,0,0.2,1) both}
+@keyframes fup{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.mtop{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.mav{width:28px;height:28px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--red),var(--purple));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff}
+.mname{font-size:13px;font-weight:700}
+.mtime{font-size:11px;color:var(--muted);margin-left:auto}
+.mbody{font-size:13px;color:rgba(255,255,255,0.82);line-height:1.65}
+.msong{display:inline-flex;align-items:center;gap:4px;margin-top:7px;background:rgba(252,60,68,0.1);border:1px solid rgba(252,60,68,0.2);color:var(--red2);font-size:11px;font-weight:700;padding:2px 9px;border-radius:99px}
+.mform{display:grid;gap:8px;margin-top:4px}
+.mrow{display:flex;gap:8px;flex-wrap:wrap}
+.minput{background:var(--s2);border:1px solid var(--border);border-radius:11px;padding:9px 13px;color:var(--text);font-size:13px;font-family:inherit;outline:none;transition:border-color 0.2s}
+.minput:focus{border-color:rgba(252,60,68,0.4)}
+.minput::placeholder{color:var(--muted)}
+select.minput{cursor:pointer;-webkit-appearance:none;appearance:none}
+textarea.minput{resize:none;flex:1;min-width:0}
+.msend{background:var(--red);color:#fff;border:none;border-radius:11px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;transition:opacity 0.2s,transform 0.2s}
+.msend:hover{opacity:0.86;transform:scale(1.03)}
+
+/* SHARE */
+.srow{display:flex;gap:8px;flex-wrap:wrap}
+.sbtn{display:inline-flex;align-items:center;gap:6px;background:var(--s2);border:1px solid var(--border);border-radius:11px;color:var(--text);font-size:13px;font-weight:600;padding:9px 16px;cursor:pointer;font-family:inherit;text-decoration:none;transition:all 0.18s}
+.sbtn:hover{background:rgba(255,255,255,0.09)}
+.sbtn.copied{background:rgba(48,209,88,0.12);border-color:rgba(48,209,88,0.3);color:var(--green)}
+
+/* FEATURES */
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2px;border-radius:20px;overflow:hidden;border:1px solid var(--border)}
+.fcard{background:var(--s1);padding:28px 24px;transition:background 0.2s}
+.fcard:hover{background:var(--s2)}
+.ficon{font-size:28px;margin-bottom:12px}
+.fname{font-size:16px;font-weight:700;margin-bottom:6px}
+.fdesc{font-size:13px;color:var(--muted);line-height:1.65}
+
+/* AM PROMO */
+.ambox{background:linear-gradient(135deg,#1a0008 0%,#280a1a 50%,#140822 100%);border:1px solid rgba(252,60,68,0.15);border-radius:24px;padding:40px 36px;display:flex;gap:32px;align-items:center;flex-wrap:wrap;position:relative;overflow:hidden}
+.ambox::before{content:'';position:absolute;right:-80px;top:-80px;width:400px;height:400px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(252,60,68,0.12) 0%,transparent 70%)}
+.amico{width:100px;height:100px;border-radius:22px;flex-shrink:0;background:linear-gradient(135deg,#fc3c44,#ff6b9d,#bf5af2);display:flex;align-items:center;justify-content:center;font-size:46px;box-shadow:0 16px 48px rgba(252,60,68,0.35)}
+.ambody{flex:1;min-width:200px;position:relative;z-index:1}
+.ambody h3{font-size:clamp(1.4rem,3.5vw,2rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:10px}
+.ambody p{font-size:14px;color:rgba(255,255,255,0.68);line-height:1.72;margin-bottom:18px}
+.amchips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:20px}
+.amchip{font-size:11px;font-weight:600;color:rgba(255,255,255,0.6);background:rgba(255,255,255,0.07);border-radius:99px;padding:4px 11px}
+
+/* FADE IN */
+.fi{opacity:0;transform:translateY(18px);transition:opacity 0.65s cubic-bezier(0.2,0,0.2,1),transform 0.65s cubic-bezier(0.2,0,0.2,1)}
+.fi.vis{opacity:1;transform:translateY(0)}
+
+@media(max-width:600px){.ambox{padding:24px 18px;gap:16px}.amico{width:72px;height:72px;font-size:32px;border-radius:16px}}
+</style>
+</head>
+<body>
+
+<div id="bgc"></div>
+<div id="toast"></div>
+
+<!-- NOW PLAYING -->
+<div id="np">
+  <div id="np-art">🎵</div>
+  <div id="np-info">
+    <div id="np-title">曲を選んでください</div>
+    <div id="np-sub">— Japan Trend Chart 2026</div>
+  </div>
+  <div class="npeq"><b></b><b></b><b></b></div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Gadget Journal</a>
+  <div class="nav-links-wrap">
+    <ul class="nav-links">
+      <li><a href="review.html">MacBook Air</a></li>
+      <li><a href="macbook-pro.html">MacBook Pro</a></li>
+      <li><a href="mac-studio.html">Mac Studio</a></li>
+      <li><a href="macbook-neo.html">MacBook Neo</a></li>
+      <li><a href="ipad.html">iPad Pro</a></li>
+      <li><a href="ipad-air.html">iPad Air</a></li>
+      <li><a href="iphone.html">iPhone</a></li>
+      <li><a href="history.html">History</a></li>
+      <li><a href="security.html">Security</a></li>
+      <li><a href="apple-watch.html">Apple Watch</a></li>
+      <li><a href="airpods.html">AirPods</a></li>
+      <li><a href="vision-pro.html">Vision Pro</a></li>
+      <li><a href="music.html">Music Diary</a></li>
+      <li><a href="music-trend.html" class="cur">Japan Chart</a></li>
+      <li><a href="experience.html">Experience</a></li>
+    </ul>
+  </div>
+  <div class="nav-fade-right"></div>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero fi">
+    <div class="hero-badge"><span class="hdot"></span>Apple Music · 毎日更新</div>
+    <h1>日本の<span class="g">トレンドチャート</span><br>2026</h1>
+    <p class="hero-sub">Apple Music Japan トップ100をもとにした、今まさに日本で最も聴かれているJ-POPのリアルタイムランキング。</p>
+    <div class="hbtns">
+      <a href="https://music.apple.com/jp/playlist/%E3%83%88%E3%83%83%E3%83%97100-%E6%97%A5%E6%9C%AC/pl.043a2c9876114d95a4659988497567be"
+         target="_blank" rel="noopener" class="btn-r">🎵 Apple Music トップ100</a>
+      <a href="#chart" class="btn-g">📊 チャートを見る</a>
+    </div>
+  </div>
+
+  <!-- CHART -->
+  <section class="sec fi" id="chart">
+    <div class="sec-label">🏆 Top Charts · Japan</div>
+    <div class="sec-h">J-POPランキング</div>
+    <p class="sec-sub">Apple Music Japan 週間チャート（3月第4週）をもとに作成。曲をタップすると背景色がその曲のカラーに変わります。</p>
+    <div class="card">
+      <div class="chart-meta">
+        <span class="chart-live"><span class="d"></span>LIVE</span>
+        <span>Apple Music Japan · 2026年3月28日更新</span>
+      </div>
+      <div class="rtabs">
+        <button class="rt on" onclick="switchTab('all',this)">すべて</button>
+        <button class="rt" onclick="switchTab('hot',this)">🔥 急上昇</button>
+        <button class="rt" onclick="switchTab('new',this)">✨ 新着</button>
+        <button class="rt" onclick="switchTab('up',this)">↑ 上昇中</button>
+      </div>
+      <div class="rlist" id="rlist"></div>
+      <div class="rank-hint">👆 曲をタップ → 背景がその曲のカラーに変わります</div>
+    </div>
+  </section>
+
+  <!-- PLAYER -->
+  <section class="sec fi" id="player">
+    <div class="sec-label">🎧 Apple Music · トップ100</div>
+    <div class="sec-h">Apple Music Japan トップ100</div>
+    <p class="sec-sub">今まさに日本で最も聴かれている曲をそのまま再生できます。</p>
+    <div class="player-wrap">
+      <iframe
+        allow="autoplay *; encrypted-media *;"
+        frameborder="0"
+        sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+        src="https://embed.music.apple.com/jp/playlist/%E3%83%88%E3%83%83%E3%83%97100-%E6%97%A5%E6%9C%AC/pl.043a2c9876114d95a4659988497567be"
+      ></iframe>
+    </div>
+  </section>
+
+  <!-- REACTIONS -->
+  <section class="sec fi" id="reactions">
+    <div class="sec-label">💬 Community</div>
+    <div class="sec-h">みんなのリアクション</div>
+    <p class="sec-sub">今の日本の音楽シーンへの気持ちを絵文字やハートで。</p>
+    <div class="card">
+      <div class="emobar" id="emobar"></div>
+      <div class="like-row" id="likerow"></div>
+    </div>
+  </section>
+
+  <!-- MESSAGES -->
+  <section class="sec fi" id="messages">
+    <div class="sec-label">✉️ Message Board</div>
+    <div class="sec-h">メッセージボード</div>
+    <p class="sec-sub">今ハマってる曲や推しアーティストについて語ろう。Enterで送信。</p>
+    <div class="card">
+      <div class="msgscroll" id="msgscroll"></div>
+      <div class="mform">
+        <div class="mrow">
+          <input class="minput" id="m-name" placeholder="名前（任意）" maxlength="20" style="max-width:150px">
+          <select class="minput" id="m-song" style="flex:1;max-width:240px"></select>
+        </div>
+        <div style="display:flex;gap:8px">
+          <textarea class="minput" id="m-text" rows="2" placeholder="この曲への想いを…（Shift+Enterで改行、Enterで送信）" maxlength="200"></textarea>
+          <button class="msend" onclick="sendMsg()">送信 →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHARE -->
+  <section class="sec fi">
+    <div class="sec-label">📤 Share</div>
+    <div class="sec-h">シェア</div>
+    <div class="card">
+      <p style="font-size:14px;color:var(--muted);margin-bottom:16px">日本のトレンドを友達に広めよう</p>
+      <div class="srow">
+        <button class="sbtn" onclick="doX()">𝕏 (Twitter)</button>
+        <button class="sbtn" onclick="doLine()">💬 LINE</button>
+        <button class="sbtn" id="copybtn" onclick="doCopy(this)">🔗 リンクをコピー</button>
+        <a href="https://music.apple.com/jp/playlist/%E3%83%88%E3%83%83%E3%83%97100-%E6%97%A5%E6%9C%AC/pl.043a2c9876114d95a4659988497567be"
+           target="_blank" rel="noopener" class="sbtn">🎵 Apple Musicで開く</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="sec fi" id="about">
+    <div class="sec-label">📖 About</div>
+    <div class="sec-h">このページについて</div>
+    <p class="sec-sub">Apple Music Japanのリアルタイムデータをもとに、今の日本の音楽シーンを可視化しています。</p>
+    <div class="fgrid">
+      <div class="fcard"><div class="ficon">🏆</div><div class="fname">リアルタイムランキング</div><div class="fdesc">Apple Music Japan トップ100をベースに、急上昇・新着・上昇中でフィルタリングできます。</div></div>
+      <div class="fcard"><div class="ficon">🎨</div><div class="fname">カラー連動背景</div><div class="fdesc">曲を選ぶと、そのアーティスト・曲のイメージカラーに背景がグラデーションで変化します。</div></div>
+      <div class="fcard"><div class="ficon">❤️</div><div class="fname">ハート・いいね</div><div class="fdesc">気に入った曲にハートを。絵文字4種でもリアクション可能。状態はブラウザに保存されます。</div></div>
+      <div class="fcard"><div class="ficon">😊</div><div class="fname">絵文字リアクション</div><div class="fdesc">今の日本の音楽シーン全体への気持ちを8種類の絵文字で表現できます。</div></div>
+      <div class="fcard"><div class="ficon">✉️</div><div class="fname">メッセージ</div><div class="fdesc">推し曲・アーティストへの想いをコメントとして投稿。みんなで語り合えます。</div></div>
+      <div class="fcard"><div class="ficon">📤</div><div class="fname">シェア</div><div class="fdesc">Twitter・LINE・リンクコピーで日本のトレンドを広めよう。</div></div>
+    </div>
+  </section>
+
+  <!-- AM PROMO -->
+  <section class="sec fi">
+    <div class="ambox">
+      <div class="amico">🎵</div>
+      <div class="ambody">
+        <div class="sec-label" style="margin-bottom:8px">🍎 Apple Music Japan</div>
+        <h3>日本の音楽を、もっと深く。</h3>
+        <p>Apple Music Japanのトップ100は毎日更新。1億曲以上が広告なしで聴き放題。J-POPからアニソン、邦ロック、K-POPまで、今の日本で話題の曲がすべて揃っています。</p>
+        <div class="amchips">
+          <span class="amchip">🎼 1億曲以上</span>
+          <span class="amchip">📊 毎日更新チャート</span>
+          <span class="amchip">🔊 空間オーディオ</span>
+          <span class="amchip">📴 オフライン再生</span>
+          <span class="amchip">🎤 歌詞・Sing</span>
+          <span class="amchip">✨ AI推薦</span>
+        </div>
+        <a href="https://music.apple.com/jp/playlist/%E3%83%88%E3%83%83%E3%83%97100-%E6%97%A5%E6%9C%AC/pl.043a2c9876114d95a4659988497567be"
+           target="_blank" rel="noopener" class="btn-r" style="display:inline-flex">🎵 Apple Music トップ100を開く</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer style="position:relative;z-index:1;border-top:1px solid var(--border);padding:28px 18px;background:var(--bg)">
+  <div style="max-width:960px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+    <a href="index.html" style="color:#fff;font-size:14px;font-weight:700;text-decoration:none;letter-spacing:-0.03em">Gadget Journal</a>
+    <div style="display:flex;gap:20px">
+      <a href="music.html" style="color:var(--muted);font-size:13px;text-decoration:none">🎵 Music Diary</a>
+      <a href="https://music.apple.com/jp/playlist/%E3%83%88%E3%83%83%E3%83%97100-%E6%97%A5%E6%9C%AC/pl.043a2c9876114d95a4659988497567be" target="_blank" rel="noopener" style="color:var(--red2);font-size:13px;font-weight:600;text-decoration:none">Apple Music Japan</a>
+    </div>
+    <span style="font-size:12px;color:var(--muted)">&copy; 2026 Gadget Journal</span>
+  </div>
+</footer>
+
+<script>
+// ═══════════════════════════════════
+// DATA — Apple Music Japan Chart (3月第4週 2026)
+// ═══════════════════════════════════
+const TRACKS = [
+  {id:1,  title:"爆裂愛してる",      artist:"M!LK",               e:"💥", bg:["#0a0400","#1c0800","#140600"], trend:"hot", hearts:1842, badge:"🔥急上昇", chart:1},
+  {id:2,  title:"IRIS OUT",           artist:"米津玄師",            e:"🌸", bg:["#000510","#05102a","#030d22"], trend:"hot", hearts:1654, badge:"🔥急上昇", chart:2},
+  {id:3,  title:"好きすぎて滅!",      artist:"M!LK",               e:"💕", bg:["#0e0008","#200010","#160008"], trend:"hot", hearts:1432, badge:"🔥急上昇", chart:3},
+  {id:4,  title:"ライラック",         artist:"Mrs. GREEN APPLE",   e:"💜", bg:["#08001a","#14003a","#0c0028"], trend:"up",  hearts:1287, badge:"↑上昇中", chart:4},
+  {id:5,  title:"Blue Jeans",         artist:"HANA",               e:"🔵", bg:["#000818","#001230","#000c24"], trend:"new", hearts:1098, badge:"✨新着",   chart:5},
+  {id:6,  title:"Five",               artist:"嵐",                 e:"🌟", bg:["#080800","#141400","#0e0e00"], trend:"up",  hearts:987,  badge:"↑上昇中", chart:6},
+  {id:7,  title:"lulu.",              artist:"Mrs. GREEN APPLE",   e:"🍏", bg:["#001200","#002200","#001a00"], trend:"up",  hearts:876,  badge:"↑上昇中", chart:7},
+  {id:8,  title:"JANE DOE",           artist:"Ado",                e:"🖤", bg:["#080008","#140014","#0e000e"], trend:"hot", hearts:812,  badge:"🔥急上昇", chart:8},
+  {id:9,  title:"Darling",            artist:"King & Prince",      e:"👑", bg:["#0a0600","#1a1000","#120c00"], trend:"new", hearts:743,  badge:"✨新着",   chart:9},
+  {id:10, title:"KUSUSHIKI",          artist:"星野源",              e:"⭐", bg:["#060a00","#0e1800","#0a1400"], trend:"up",  hearts:698,  badge:"↑上昇中", chart:10},
+  {id:11, title:"唱",                 artist:"Ado",                e:"🎤", bg:["#0a0012","#180022","#120018"], trend:"hot", hearts:645,  badge:"🔥急上昇", chart:11},
+  {id:12, title:"アイドル",           artist:"YOASOBI",            e:"🌙", bg:["#000814","#001428","#000e1e"], trend:"up",  hearts:612,  badge:"↑上昇中", chart:12},
+  {id:13, title:"Bling-Bang-Bang-Born",artist:"Creepy Nuts",       e:"🔥", bg:["#0e0400","#1e0800","#160400"], trend:"up",  hearts:589,  badge:"↑上昇中", chart:13},
+  {id:14, title:"おかえり",           artist:"あいみょん",          e:"🌿", bg:["#000a04","#001808","#000e04"], trend:"new", hearts:534,  badge:"✨新着",   chart:14},
+  {id:15, title:"SPECIALZ",           artist:"King Gnu",           e:"🟤", bg:["#060400","#100a00","#0c0600"], trend:"up",  hearts:498,  badge:"↑上昇中", chart:15},
+];
+
+const EMOJIS = [
+  {e:"🔥",l:"熱い",   n:328},{e:"😭",l:"泣ける",n:241},
+  {e:"💜",l:"推し",   n:412},{e:"🎶",l:"神曲",  n:198},
+  {e:"😍",l:"最高",   n:367},{e:"🥺",l:"エモい",n:156},
+  {e:"👏",l:"すごい", n:289},{e:"🤝",l:"わかる",n:134},
+];
+const LIKES = [
+  {k:"like", e:"👍", l:"いいね",  n:3241},
+  {k:"heart",e:"❤️", l:"ハート",  n:2187},
+  {k:"star", e:"⭐", l:"推し",    n:1495},
+  {k:"fire", e:"🔥", l:"熱い",    n:4312},
+];
+const INIT_MSGS = [
+  {name:"りな",   song:"爆裂愛してる",  text:"M!LKのこの曲ループしすぎてもう100回は聴いてる…最高すぎる",time:"2分前"},
+  {name:"そうた", song:"IRIS OUT",      text:"米津さんの新曲、聴いた瞬間鳥肌。歌詞が深すぎてまだ理解しきれてない",time:"8分前"},
+  {name:"まな",   song:"ライラック",    text:"Mrs. GREEN APPLEはずっとトップにいる。それがすごい",time:"24分前"},
+  {name:"けんじ", song:"唱",            text:"Adoの声、ほんとに人間じゃないと思う。唱は何回聴いても飽きない",time:"1時間前"},
+  {name:"ゆい",   song:"Five",          text:"嵐が帰ってきた…！聴いた瞬間泣きそうになった",time:"2時間前"},
+  {name:"たける", song:"Bling-Bang-Bang-Born", text:"マッシュルのOPから知ってめちゃくちゃハマった。Creepy Nuts天才",time:"3時間前"},
+];
+const CHART_URL = "https://music.apple.com/jp/playlist/%E3%83%88%E3%83%83%E3%83%97100-%E6%97%A5%E6%9C%AC/pl.043a2c9876114d95a4659988497567be";
+
+// STATE
+let selId = null;
+const liked = {};
+const emoState = {};
+let msgs = [...INIT_MSGS];
+
+// RANKING
+function renderRanking(tab) {
+  let list = [...TRACKS];
+  if (tab==='hot') list = list.filter(t=>t.trend==='hot');
+  else if (tab==='new') list = list.filter(t=>t.trend==='new');
+  else if (tab==='up')  list = list.filter(t=>t.trend==='up');
+  list.sort((a,b)=>b.hearts-a.hearts);
+
+  const numCls = i => i===0?'gold':i===1?'silver':i===2?'bronze':'grey';
+  const badgeCls = t => t.trend==='hot'?'tbadge thot':t.trend==='new'?'tbadge tnew':'tbadge tup';
+
+  document.getElementById('rlist').innerHTML = list.map((t,i) => {
+    const on = liked['h_'+t.id];
+    const cnt = t.hearts + (on?1:0);
+    return `<div class="ri${selId===t.id?' sel':''}" onclick="selectTrack(${t.id})">
+      <div class="rn ${numCls(i)}">${i+1}</div>
+      <div class="ra">${t.e}</div>
+      <div class="ri-info">
+        <div class="ri-t">${t.title}</div>
+        <div class="ri-a">${t.artist}</div>
+      </div>
+      <div class="ri-r">
+        <span class="${badgeCls(t)}">${t.badge}</span>
+        <button class="hbtn${on?' on':''}" onclick="event.stopPropagation();likeTrack(${t.id})">
+          <span class="hi">${on?'❤️':'🤍'}</span>
+          <span id="hc-${t.id}">${cnt.toLocaleString()}</span>
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function switchTab(tab,el) {
+  document.querySelectorAll('.rt').forEach(t=>t.classList.remove('on'));
+  el.classList.add('on');
+  renderRanking(tab);
+}
+function curTab() {
+  const el = document.querySelector('.rt.on');
+  if(!el) return 'all';
+  const t = el.textContent;
+  return t.includes('急')?'hot':t.includes('新')?'new':t.includes('↑')?'up':'all';
+}
+
+// SELECT → BG
+function selectTrack(id) {
+  const t = TRACKS.find(x=>x.id===id);
+  if(!t) return;
+  selId = t.id;
+  const [c1,c2,c3] = t.bg;
+  document.body.style.backgroundColor = c1;
+  document.getElementById('bgc').style.background =
+    `radial-gradient(ellipse 130% 65% at 50% -5%, ${c2}f0 0%, ${c1}99 40%, transparent 70%),
+     radial-gradient(ellipse 70% 55% at 85% 65%, ${c3}88 0%, transparent 55%)`;
+  document.getElementById('np-art').textContent = t.e;
+  document.getElementById('np-title').textContent = t.title;
+  document.getElementById('np-sub').textContent = t.artist;
+  document.getElementById('np').classList.add('show');
+  renderRanking(curTab());
+  save();
+}
+
+function likeTrack(id) {
+  liked['h_'+id] = !liked['h_'+id];
+  renderRanking(curTab());
+  save();
+}
+
+// EMOJI
+function renderEmoji() {
+  document.getElementById('emobar').innerHTML = EMOJIS.map((em,i)=>{
+    const on = emoState[i];
+    return `<button class="emobtn${on?' on':''}" onclick="togEmo(${i})">
+      <span>${em.e}</span><span class="emo-c">${em.n+(on?1:0)}</span><span class="emo-l">${em.l}</span>
+    </button>`;
+  }).join('');
+}
+function togEmo(i){emoState[i]=!emoState[i];renderEmoji();save();}
+
+// LIKES
+function renderLikes() {
+  document.getElementById('likerow').innerHTML = LIKES.map(l=>{
+    const on = liked[l.k];
+    return `<button class="lchip${on?' on':''}" onclick="togLike('${l.k}')">
+      <span class="lci">${l.e}</span><span>${l.l}</span>
+      <span class="lct">${(l.n+(on?1:0)).toLocaleString()}</span>
+    </button>`;
+  }).join('');
+}
+function togLike(k){liked[k]=!liked[k];renderLikes();save();}
+
+// MESSAGES
+function renderMsgs() {
+  document.getElementById('msgscroll').innerHTML = msgs.slice().reverse().slice(0,20).map(m=>`
+    <div class="mitem">
+      <div class="mtop">
+        <div class="mav">${m.name?m.name[0]:'?'}</div>
+        <span class="mname">${m.name||'匿名'}</span>
+        <span class="mtime">${m.time}</span>
+      </div>
+      <div class="mbody">${m.text}</div>
+      ${m.song?`<div class="msong">🎵 ${m.song}</div>`:''}
+    </div>`).join('');
+  document.getElementById('msgscroll').scrollTop=0;
+}
+function fillSelect() {
+  const sel = document.getElementById('m-song');
+  sel.innerHTML = '<option value="">曲を選択（任意）</option>';
+  TRACKS.forEach(t=>{
+    const o=document.createElement('option');
+    o.value=t.title;o.textContent=`${t.e} ${t.title} — ${t.artist}`;
+    sel.appendChild(o);
+  });
+}
+function sendMsg() {
+  const text=document.getElementById('m-text').value.trim();
+  if(!text){document.getElementById('m-text').focus();return;}
+  msgs.push({
+    name:document.getElementById('m-name').value.trim()||'匿名',
+    song:document.getElementById('m-song').value,
+    text,time:'たった今'
+  });
+  document.getElementById('m-text').value='';
+  renderMsgs();
+}
+
+// SHARE
+function doX(){window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent('🎵 日本のトレンド曲チャート2026 #JapanChart #AppleMusic')}&url=${encodeURIComponent(CHART_URL)}`,'_blank')}
+function doLine(){window.open(`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(location.href)}`,'_blank')}
+function doCopy(btn){
+  navigator.clipboard.writeText(location.href).then(()=>{
+    btn.classList.add('copied');btn.textContent='✓ コピーしました！';
+    toast('✓ コピーしました！');
+    setTimeout(()=>{btn.classList.remove('copied');btn.textContent='🔗 リンクをコピー';},2500);
+  });
+}
+function toast(msg){
+  const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),2200);
+}
+
+// FADE IN
+function initFI(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});
+  },{threshold:0.06});
+  document.querySelectorAll('.fi').forEach(el=>obs.observe(el));
+}
+function initNav(){
+  const wrap=document.querySelector('.nav-links-wrap');
+  const cur=document.querySelector('.nav-links a.cur');
+  if(wrap&&cur){const off=cur.offsetLeft-20;wrap.scrollLeft=off>0?off:0;}
+}
+
+// PERSIST
+function save(){
+  try{
+    localStorage.setItem('gj_trend_liked',JSON.stringify(liked));
+    localStorage.setItem('gj_trend_emo',JSON.stringify(emoState));
+    localStorage.setItem('gj_trend_sel',selId||'');
+  }catch(e){}
+}
+function load(){
+  try{
+    Object.assign(liked,JSON.parse(localStorage.getItem('gj_trend_liked')||'{}'));
+    Object.assign(emoState,JSON.parse(localStorage.getItem('gj_trend_emo')||'{}'));
+    renderRanking('all');renderEmoji();renderLikes();
+    const sid=localStorage.getItem('gj_trend_sel');
+    if(sid)selectTrack(parseInt(sid));
+  }catch(e){}
+}
+
+// BOOT
+document.addEventListener('DOMContentLoaded',()=>{
+  fillSelect();renderMsgs();renderEmoji();renderLikes();renderRanking('all');
+  load();initFI();initNav();
+  document.getElementById('m-text').addEventListener('keydown',e=>{
+    if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}
+  });
+});
+</script>
+</body>
+</html>
