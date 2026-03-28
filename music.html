@@ -3,465 +3,440 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Music Diary — 好きだった曲 | Gadget Journal</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<title>Music Diary — 好きだった曲</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
+
 :root{
-  --bg:#000;
-  --surface:rgba(28,28,30,1);
-  --surface2:rgba(44,44,46,1);
-  --border:rgba(255,255,255,0.1);
+  --bg:#0a0a0f;
+  --surface:#141420;
+  --surface2:#1c1c2e;
+  --border:rgba(255,255,255,0.08);
   --text:#f5f5f7;
-  --muted:#6e6e73;
-  --red:#fc3c44;
-  --red2:#ff6b9d;
-  --pink:#ff375f;
-  --purple:#bf5af2;
+  --muted:#86868b;
+  --brand:#fc3c44;
+  --brand2:#ff6b9d;
+  --accent:#bf5af2;
   --green:#30d158;
   --blue:#0a84ff;
   --orange:#ff9f0a;
-  --yellow:#ffd60a;
 }
+
 html{scroll-behavior:smooth}
+
 body{
-  font-family:'Noto Sans JP',-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;
+  font-family:'Noto Sans JP',sans-serif;
   background:var(--bg);
   color:var(--text);
   min-height:100vh;
   overflow-x:hidden;
+  transition:background 1.2s cubic-bezier(0.4,0,0.2,1);
 }
 
-/* ── BG ── */
-#bg-canvas{
+/* ── BG gradient (曲選択で変わる) ── */
+#bg-layer{
   position:fixed;inset:0;z-index:0;pointer-events:none;
-  transition:background 1.4s cubic-bezier(0.4,0,0.2,1),opacity 1.4s;
-  opacity:1;
+  transition:background 1.2s cubic-bezier(0.4,0,0.2,1);
+  background:radial-gradient(ellipse 80% 60% at 50% -10%, rgba(252,60,68,0.18) 0%, transparent 70%);
 }
 
-/* ── NAV (Gadget Journal共通) ── */
-nav.gj-nav{
-  position:fixed;top:0;left:0;right:0;z-index:1000;
-  height:44px;display:flex;align-items:center;
-  background:rgba(0,0,0,0.85);
-  backdrop-filter:saturate(180%) blur(20px);
-  border-bottom:1px solid rgba(255,255,255,0.1);
-  overflow:hidden;
+/* ── Nav ── */
+nav{
+  position:sticky;top:0;z-index:100;
+  height:52px;
+  display:flex;align-items:center;
+  background:rgba(10,10,15,0.82);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:0 20px;
+  gap:20px;
 }
 .nav-logo{
-  flex-shrink:0;padding:0 16px 0 22px;
-  font-weight:600;letter-spacing:-0.05em;font-size:16px;color:#fff;
-  position:relative;z-index:2;background:rgba(0,0,0,0.85);
-  height:44px;display:flex;align-items:center;text-decoration:none;white-space:nowrap;
+  font-size:17px;font-weight:800;letter-spacing:-0.03em;
+  background:linear-gradient(135deg,#fc3c44,#ff6b9d,#bf5af2);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  white-space:nowrap;text-decoration:none;
 }
-.nav-logo::after{
-  content:'';position:absolute;right:-20px;top:0;width:20px;height:100%;
-  background:linear-gradient(to right,rgba(0,0,0,0.85),transparent);pointer-events:none;
+.nav-links{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{
+  color:rgba(255,255,255,0.6);font-size:13px;font-weight:500;
+  padding:6px 12px;border-radius:8px;white-space:nowrap;text-decoration:none;
+  transition:all 0.2s;
 }
-.nav-links-wrap{
-  flex:1;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;
-  scrollbar-width:none;-ms-overflow-style:none;padding:0 40px 0 8px;
-  height:44px;display:flex;align-items:center;min-width:0;
+.nav-links a:hover,.nav-links a.active{color:#fff;background:rgba(255,255,255,0.1)}
+.nav-am-btn{
+  flex-shrink:0;
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--brand);color:#fff;
+  font-size:12px;font-weight:700;
+  padding:7px 14px;border-radius:99px;text-decoration:none;
+  transition:transform 0.2s,opacity 0.2s;white-space:nowrap;
 }
-.nav-links-wrap::-webkit-scrollbar{display:none}
-.nav-links{display:flex;gap:28px;list-style:none;white-space:nowrap;font-size:12px;font-weight:400;letter-spacing:-0.01em;flex-wrap:nowrap}
-.nav-links a{color:rgba(255,255,255,0.8);transition:color 0.3s;text-decoration:none}
-.nav-links a:hover,.nav-links a.cur{color:#fff}
-.nav-links a.cur{font-weight:600}
-.nav-fade-right{position:absolute;right:0;top:0;width:40px;height:44px;background:linear-gradient(to right,transparent,rgba(0,0,0,0.85));pointer-events:none;z-index:3}
+.nav-am-btn:hover{transform:scale(1.04);opacity:0.9}
 
-/* ── HERO ── */
+/* ── Layout ── */
+.page{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:0 16px 80px}
+
+/* ── Hero ── */
 .hero{
-  position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;
-  text-align:center;padding:100px 20px 60px;overflow:hidden;
+  text-align:center;padding:56px 20px 40px;
 }
-.hero-inner{position:relative;z-index:1;max-width:700px}
-.hero-eyebrow{
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;
-  color:var(--red2);margin-bottom:20px;
+.hero-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(252,60,68,0.12);border:1px solid rgba(252,60,68,0.3);
+  color:var(--brand2);font-size:11px;font-weight:700;
+  padding:5px 14px;border-radius:99px;margin-bottom:20px;
+  letter-spacing:0.05em;text-transform:uppercase;
 }
-.hero-eyebrow .pulse{
-  width:7px;height:7px;border-radius:50%;background:var(--red);
-  animation:pulseAnim 1.6s ease-in-out infinite;
-}
-@keyframes pulseAnim{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:0.5}}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--brand);animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
 .hero h1{
-  font-size:clamp(2.4rem,7vw,5rem);font-weight:900;letter-spacing:-0.04em;line-height:1.05;
-  margin-bottom:20px;
+  font-size:clamp(2rem,6vw,3.2rem);font-weight:900;letter-spacing:-0.04em;
+  line-height:1.1;margin-bottom:16px;
 }
-.hero h1 .grad{
-  background:linear-gradient(135deg,#fc3c44 0%,#ff6b9d 45%,#bf5af2 85%);
+.hero h1 span{
+  background:linear-gradient(135deg,#fc3c44 0%,#ff6b9d 40%,#bf5af2 80%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
 }
-.hero-sub{font-size:17px;color:var(--muted);line-height:1.7;margin-bottom:36px;max-width:480px;margin-left:auto;margin-right:auto}
-.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.btn-red{
+.hero p{color:var(--muted);font-size:15px;line-height:1.7;max-width:500px;margin:0 auto 28px}
+.hero-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn-primary{
   display:inline-flex;align-items:center;gap:8px;
-  background:var(--red);color:#fff;font-weight:700;font-size:15px;
-  padding:14px 28px;border-radius:99px;text-decoration:none;
-  box-shadow:0 0 40px rgba(252,60,68,0.35);
+  background:var(--brand);color:#fff;font-weight:700;font-size:14px;
+  padding:12px 24px;border-radius:99px;text-decoration:none;
+  box-shadow:0 4px 20px rgba(252,60,68,0.4);
   transition:transform 0.2s,box-shadow 0.2s;
 }
-.btn-red:hover{transform:scale(1.04);box-shadow:0 0 60px rgba(252,60,68,0.5)}
-.btn-outline{
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(252,60,68,0.5)}
+.btn-ghost{
   display:inline-flex;align-items:center;gap:8px;
-  background:transparent;border:1px solid rgba(255,255,255,0.25);
-  color:#fff;font-weight:600;font-size:15px;
-  padding:14px 28px;border-radius:99px;text-decoration:none;
-  transition:background 0.2s,border-color 0.2s;
+  background:rgba(255,255,255,0.08);border:1px solid var(--border);
+  color:#fff;font-weight:600;font-size:14px;
+  padding:12px 24px;border-radius:99px;text-decoration:none;
+  transition:background 0.2s;
 }
-.btn-outline:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.4)}
+.btn-ghost:hover{background:rgba(255,255,255,0.14)}
 
-/* hero image */
-.hero-img-wrap{margin-top:40px;position:relative}
-.hero-img-wrap img{
-  width:100%;max-width:500px;border-radius:24px;
-  box-shadow:0 40px 100px rgba(252,60,68,0.25),0 20px 40px rgba(0,0,0,0.6);
-  transition:transform 0.6s cubic-bezier(0.2,0,0.2,1);
-}
-.hero-img-wrap:hover img{transform:scale(1.02) translateY(-6px)}
-.hero-img-badge{
-  position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);
-  background:rgba(28,28,30,0.9);backdrop-filter:blur(20px);
-  border:1px solid rgba(255,255,255,0.12);border-radius:99px;
-  padding:8px 20px;white-space:nowrap;
-  font-size:13px;font-weight:600;color:#fff;
-  display:flex;align-items:center;gap:8px;
+/* ── Section title ── */
+.section-head{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.section-head h2{font-size:20px;font-weight:800;letter-spacing:-0.02em}
+.section-head .tag{
+  font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;
+  background:rgba(252,60,68,0.15);color:var(--brand2);
+  padding:3px 10px;border-radius:99px;border:1px solid rgba(252,60,68,0.25);
 }
 
-/* ── SECTION ── */
-.page-body{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:0 20px 100px}
-.sec{margin-bottom:80px}
-.sec-label{
-  font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
-  color:var(--red2);margin-bottom:10px;
-}
-.sec-title{font-size:clamp(1.8rem,4vw,3rem);font-weight:900;letter-spacing:-0.03em;line-height:1.1;margin-bottom:8px}
-.sec-sub{font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:32px;max-width:560px}
-
-/* ── CARD BASE ── */
+/* ── Cards ── */
 .card{
-  background:var(--surface);border:1px solid var(--border);border-radius:20px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:20px;
   overflow:hidden;
   transition:border-color 0.3s,transform 0.3s,box-shadow 0.3s;
 }
-.card:hover{border-color:rgba(252,60,68,0.25);transform:translateY(-3px);box-shadow:0 20px 60px rgba(0,0,0,0.4)}
-.card-inner{padding:24px}
+.card:hover{border-color:rgba(252,60,68,0.3);box-shadow:0 8px 32px rgba(252,60,68,0.08)}
 
-/* ── FEATURE GRID ── */
-.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2px;border-radius:20px;overflow:hidden;border:1px solid var(--border)}
-.feat-item{
-  background:var(--surface);padding:32px 28px;
-  transition:background 0.2s;
+/* ── Ranking ── */
+.rank-list{display:flex;flex-direction:column;gap:2px}
+.rank-item{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 16px;border-radius:14px;cursor:pointer;
+  transition:background 0.2s,transform 0.15s;
+  position:relative;
 }
-.feat-item:hover{background:var(--surface2)}
-.feat-icon{font-size:32px;margin-bottom:14px}
-.feat-name{font-size:17px;font-weight:700;margin-bottom:8px}
-.feat-desc{font-size:14px;color:var(--muted);line-height:1.6}
-
-/* ── RANKING ── */
-.rank-tabs{display:flex;gap:0;background:var(--surface2);border-radius:12px;padding:3px;margin-bottom:16px;overflow-x:auto;scrollbar-width:none}
-.rank-tabs::-webkit-scrollbar{display:none}
-.rtab{
-  flex:1;min-width:80px;text-align:center;padding:8px 16px;border-radius:9px;
-  font-size:13px;font-weight:600;cursor:pointer;color:var(--muted);
-  border:none;background:none;font-family:inherit;transition:all 0.2s;white-space:nowrap;
+.rank-item:hover,.rank-item.selected{background:rgba(255,255,255,0.06)}
+.rank-item.selected{border:1px solid rgba(252,60,68,0.3)}
+.rank-item.selected .track-title{color:var(--brand2)}
+.rank-num{
+  font-size:15px;font-weight:900;letter-spacing:-0.03em;
+  width:28px;text-align:center;flex-shrink:0;
 }
-.rtab.on{background:var(--surface);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,0.4)}
-.rank-list{display:flex;flex-direction:column}
-.ri{
-  display:flex;align-items:center;gap:14px;padding:14px 0;
-  border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer;
-  transition:all 0.2s;border-radius:10px;padding:12px 10px;
-}
-.ri:last-child{border-bottom:none}
-.ri:hover,.ri.sel{background:rgba(255,255,255,0.04)}
-.ri.sel .ri-title{color:var(--red2)}
-.ri-num{width:24px;text-align:center;font-size:14px;font-weight:800;flex-shrink:0}
-.gold{color:var(--yellow)}.silver{color:#aeaeb2}.bronze{color:#c96f2c}.grey{color:var(--muted)}
-.ri-art{
-  width:48px;height:48px;border-radius:10px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;font-size:22px;
-}
-.ri-info{flex:1;min-width:0}
-.ri-title{font-size:14px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ri-artist{font-size:12px;color:var(--muted);margin-top:2px}
-.ri-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.tbadge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:99px;white-space:nowrap}
-.thot{background:rgba(255,159,10,0.15);color:var(--orange);border:1px solid rgba(255,159,10,0.2)}
-.tnew{background:rgba(10,132,255,0.15);color:var(--blue);border:1px solid rgba(10,132,255,0.2)}
-.tup{background:rgba(48,209,88,0.15);color:var(--green);border:1px solid rgba(48,209,88,0.2)}
-.hbtn{
-  display:flex;align-items:center;gap:4px;
-  border:none;background:none;cursor:pointer;color:var(--muted);font-size:12px;font-weight:600;
-  padding:6px 10px;border-radius:99px;font-family:inherit;
-  transition:all 0.2s;
-}
-.hbtn:hover{color:#ff375f;background:rgba(255,55,95,0.1)}
-.hbtn.on{color:#ff375f}
-.hbtn.on .hi{animation:hpop 0.3s cubic-bezier(0.2,0,0.2,1)}
-@keyframes hpop{0%{transform:scale(1)}50%{transform:scale(1.45)}100%{transform:scale(1)}}
-.hi{font-size:16px}
-
-/* ── NOW PLAYING ── */
-#np{
-  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(90px);
-  z-index:500;display:flex;align-items:center;gap:14px;
-  background:rgba(28,28,30,0.96);backdrop-filter:blur(30px);
-  border:1px solid rgba(255,255,255,0.12);border-radius:99px;
-  padding:10px 22px 10px 12px;
-  box-shadow:0 20px 60px rgba(0,0,0,0.6);
-  min-width:280px;max-width:92vw;
-  transition:transform 0.45s cubic-bezier(0.2,0,0.2,1);
-}
-#np.show{transform:translateX(-50%) translateY(0)}
-#np-art{width:38px;height:38px;border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px}
-#np-info{flex:1;min-width:0}
-#np-title{font-size:13px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#np-artist{font-size:11px;color:var(--muted);margin-top:1px}
-.np-eq{display:flex;align-items:flex-end;gap:2px;height:18px;flex-shrink:0}
-.np-eq span{width:3px;border-radius:2px;background:var(--red);animation:eqAnim 0.9s ease-in-out infinite alternate}
-.np-eq span:nth-child(1){height:8px;animation-delay:0s}
-.np-eq span:nth-child(2){height:14px;animation-delay:0.25s}
-.np-eq span:nth-child(3){height:10px;animation-delay:0.5s}
-@keyframes eqAnim{to{height:4px}}
-
-/* ── PLAYER ── */
-.player-frame{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:16px;overflow:hidden}
-.player-frame iframe{border-radius:14px;display:block}
-
-/* ── EMOJI ── */
-.emo-grid{display:flex;gap:8px;flex-wrap:wrap}
-.emo-btn{
-  display:flex;align-items:center;gap:6px;
-  background:var(--surface2);border:1px solid var(--border);border-radius:99px;
-  padding:8px 14px;cursor:pointer;font-size:14px;font-weight:600;color:var(--text);
-  font-family:inherit;transition:all 0.15s;
-}
-.emo-btn:hover{background:rgba(255,255,255,0.1);transform:scale(1.06)}
-.emo-btn.on{background:rgba(252,60,68,0.12);border-color:rgba(252,60,68,0.3)}
-.emo-c{font-size:12px;color:var(--muted)}
-
-/* ── LIKE ROW ── */
-.like-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;padding-top:20px;border-top:1px solid var(--border)}
-.like-chip{
-  display:flex;align-items:center;gap:6px;
-  background:var(--surface2);border:1px solid var(--border);
-  border-radius:99px;padding:8px 16px;cursor:pointer;
-  font-size:14px;font-weight:600;font-family:inherit;color:var(--text);
-  transition:all 0.2s;
-}
-.like-chip:hover{border-color:rgba(255,55,95,0.3);background:rgba(255,55,95,0.08)}
-.like-chip.on{background:rgba(255,55,95,0.12);border-color:rgba(255,55,95,0.35);color:#ff375f}
-.like-chip.on .lci{animation:hpop 0.3s cubic-bezier(0.2,0,0.2,1)}
-.lci{font-size:18px}
-
-/* ── MESSAGES ── */
-.msg-scroll{max-height:340px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding-right:4px;margin-bottom:16px}
-.msg-scroll::-webkit-scrollbar{width:4px}
-.msg-scroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
-.msg-item{background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:14px 16px;animation:fadeUp 0.4s both}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.msg-top{display:flex;align-items:center;gap:8px;margin-bottom:7px}
-.msg-av{
-  width:30px;height:30px;border-radius:50%;flex-shrink:0;
+.rank-num.gold{color:#ffd60a}
+.rank-num.silver{color:#aeaeb2}
+.rank-num.bronze{color:#c96f2c}
+.rank-num.normal{color:var(--muted)}
+.rank-art{
+  width:44px;height:44px;border-radius:10px;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:800;color:#fff;
-  background:linear-gradient(135deg,var(--red),var(--purple));
+  font-size:20px;
+}
+.rank-info{flex:1;min-width:0}
+.track-title{font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.track-artist{font-size:12px;color:var(--muted);margin-top:2px}
+.rank-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.heart-btn{
+  display:flex;align-items:center;gap:4px;
+  background:none;border:none;cursor:pointer;
+  color:var(--muted);font-size:12px;font-weight:600;
+  padding:5px 10px;border-radius:99px;
+  transition:all 0.2s;
+}
+.heart-btn:hover{color:#ff375f;background:rgba(255,55,95,0.12)}
+.heart-btn.liked{color:#ff375f}
+.heart-btn.liked .hicon{animation:heartPop 0.3s cubic-bezier(0.2,0,0.2,1)}
+@keyframes heartPop{0%{transform:scale(1)}50%{transform:scale(1.4)}100%{transform:scale(1)}}
+.hicon{font-size:16px;line-height:1}
+.trend-badge{
+  font-size:10px;font-weight:700;
+  padding:2px 8px;border-radius:99px;
+  white-space:nowrap;
+}
+.trend-up{background:rgba(48,209,88,0.15);color:var(--green);border:1px solid rgba(48,209,88,0.2)}
+.trend-hot{background:rgba(255,159,10,0.15);color:var(--orange);border:1px solid rgba(255,159,10,0.2)}
+.trend-new{background:rgba(10,132,255,0.15);color:var(--blue);border:1px solid rgba(10,132,255,0.2)}
+
+/* ── Now Playing bar ── */
+#now-playing{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(80px);
+  z-index:200;
+  display:flex;align-items:center;gap:14px;
+  background:rgba(30,28,48,0.95);
+  backdrop-filter:blur(24px);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:99px;padding:10px 20px 10px 12px;
+  box-shadow:0 16px 48px rgba(0,0,0,0.5);
+  min-width:260px;max-width:90vw;
+  transition:transform 0.4s cubic-bezier(0.2,0,0.2,1);
+}
+#now-playing.show{transform:translateX(-50%) translateY(0)}
+.np-art{
+  width:36px;height:36px;border-radius:8px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+}
+.np-info{flex:1;min-width:0}
+.np-title{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.np-artist{font-size:11px;color:var(--muted)}
+.np-eq{display:flex;align-items:flex-end;gap:2px;height:16px;flex-shrink:0}
+.np-eq span{
+  width:3px;border-radius:2px;background:var(--brand);
+  animation:eq 0.8s ease-in-out infinite alternate;
+}
+.np-eq span:nth-child(2){animation-delay:0.2s;height:10px}
+.np-eq span:nth-child(3){animation-delay:0.4s;height:14px}
+.np-eq span:nth-child(1){height:8px}
+@keyframes eq{to{height:4px}}
+
+/* ── Emoji Reaction ── */
+.emoji-bar{display:flex;gap:6px;flex-wrap:wrap}
+.emoji-btn{
+  display:flex;align-items:center;gap:5px;
+  background:rgba(255,255,255,0.06);border:1px solid var(--border);
+  border-radius:99px;padding:6px 12px;cursor:pointer;
+  font-size:14px;font-weight:600;color:var(--text);
+  transition:all 0.15s;user-select:none;
+}
+.emoji-btn:hover{background:rgba(255,255,255,0.12);transform:scale(1.05)}
+.emoji-btn.reacted{background:rgba(252,60,68,0.15);border-color:rgba(252,60,68,0.3)}
+.emoji-btn.reacted{animation:emojiBounce 0.3s cubic-bezier(0.2,0,0.2,1)}
+@keyframes emojiBounce{0%{transform:scale(1)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
+.emoji-count{font-size:12px;color:var(--muted)}
+
+/* ── Message ── */
+.msg-list{display:flex;flex-direction:column;gap:12px;max-height:320px;overflow-y:auto;padding-right:4px}
+.msg-list::-webkit-scrollbar{width:4px}
+.msg-list::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.msg-item{
+  background:var(--surface2);border-radius:14px;padding:12px 14px;
+  border:1px solid var(--border);
+  animation:fadeUp 0.4s cubic-bezier(0.2,0,0.2,1) both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.msg-header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.msg-avatar{
+  width:28px;height:28px;border-radius:50%;
+  background:linear-gradient(135deg,var(--brand),var(--accent));
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;color:#fff;flex-shrink:0;
 }
 .msg-name{font-size:13px;font-weight:700}
 .msg-time{font-size:11px;color:var(--muted);margin-left:auto}
-.msg-body{font-size:13px;color:rgba(255,255,255,0.8);line-height:1.65}
-.msg-song-tag{
-  display:inline-flex;align-items:center;gap:5px;margin-top:8px;
+.msg-text{font-size:13px;color:rgba(255,255,255,0.8);line-height:1.6}
+.msg-song{
+  display:inline-flex;align-items:center;gap:4px;
   background:rgba(252,60,68,0.1);border:1px solid rgba(252,60,68,0.2);
-  color:var(--red2);font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px;
+  color:var(--brand2);font-size:11px;font-weight:600;
+  padding:2px 8px;border-radius:99px;margin-top:6px;
 }
-.msg-form{display:grid;gap:8px}
-.msg-row{display:flex;gap:8px;flex-wrap:wrap}
-.minput{
-  background:var(--surface2);border:1px solid var(--border);border-radius:12px;
-  padding:10px 14px;color:var(--text);font-size:13px;font-family:inherit;
-  outline:none;transition:border-color 0.2s;
+.msg-form{display:flex;gap:8px;margin-top:12px}
+.msg-input{
+  flex:1;background:var(--surface2);border:1px solid var(--border);
+  border-radius:12px;padding:10px 14px;
+  color:var(--text);font-size:13px;font-family:inherit;
+  outline:none;transition:border-color 0.2s;resize:none;
 }
-.minput:focus{border-color:rgba(252,60,68,0.4)}
-.minput::placeholder{color:var(--muted)}
-.mselect{cursor:pointer;appearance:none}
-.mtextarea{resize:none;flex:1;min-width:0}
-.msend{
-  background:var(--red);color:#fff;border:none;border-radius:12px;
-  padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer;
-  font-family:inherit;white-space:nowrap;
-  transition:opacity 0.2s,transform 0.2s;
+.msg-input:focus{border-color:rgba(252,60,68,0.4)}
+.msg-input::placeholder{color:var(--muted)}
+.msg-send{
+  background:var(--brand);color:#fff;border:none;border-radius:12px;
+  padding:10px 16px;font-size:13px;font-weight:700;cursor:pointer;
+  font-family:inherit;transition:opacity 0.2s,transform 0.2s;white-space:nowrap;
 }
-.msend:hover{opacity:0.85;transform:scale(1.03)}
+.msg-send:hover{opacity:0.85;transform:scale(1.03)}
 
-/* ── SHARE ── */
-.share-row{display:flex;gap:8px;flex-wrap:wrap}
-.sbtn{
+/* ── Share ── */
+.share-btns{display:flex;gap:8px;flex-wrap:wrap}
+.share-btn{
   display:inline-flex;align-items:center;gap:6px;
-  background:var(--surface2);border:1px solid var(--border);border-radius:12px;
-  color:var(--text);font-size:13px;font-weight:600;
-  padding:10px 18px;cursor:pointer;font-family:inherit;text-decoration:none;
+  padding:9px 16px;border-radius:12px;border:1px solid var(--border);
+  background:rgba(255,255,255,0.05);
+  color:var(--text);font-size:13px;font-weight:600;cursor:pointer;
+  text-decoration:none;font-family:inherit;
   transition:all 0.2s;
 }
-.sbtn:hover{background:rgba(255,255,255,0.08)}
-.sbtn.copied{background:rgba(48,209,88,0.12);border-color:rgba(48,209,88,0.3);color:var(--green)}
+.share-btn:hover{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.15)}
+.share-btn.copied{background:rgba(48,209,88,0.15);border-color:rgba(48,209,88,0.3);color:var(--green)}
 
-/* ── AM PROMO ── */
-.am-hero{
-  background:linear-gradient(135deg,#200010 0%,#300820 40%,#180828 100%);
-  border:1px solid rgba(252,60,68,0.15);border-radius:28px;
-  padding:48px 40px;display:flex;gap:36px;align-items:center;flex-wrap:wrap;
+/* ── About section ── */
+.about-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.about-card{
+  background:var(--surface2);border:1px solid var(--border);border-radius:16px;
+  padding:16px;
+}
+.about-card .icon{font-size:24px;margin-bottom:10px}
+.about-card h4{font-size:14px;font-weight:700;margin-bottom:6px}
+.about-card p{font-size:12px;color:var(--muted);line-height:1.6}
+
+/* ── Apple Music Promo ── */
+.am-promo{
+  background:linear-gradient(135deg,#1c0a0a 0%,#2d0a1a 50%,#1a0a2e 100%);
+  border:1px solid rgba(252,60,68,0.2);
+  border-radius:24px;padding:32px;
+  display:flex;align-items:center;gap:24px;flex-wrap:wrap;
   position:relative;overflow:hidden;
 }
-.am-hero::before{
-  content:'';position:absolute;
-  width:500px;height:500px;border-radius:50%;
-  background:radial-gradient(circle,rgba(252,60,68,0.15) 0%,transparent 70%);
-  right:-100px;top:-100px;pointer-events:none;
+.am-promo::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(252,60,68,0.15),transparent);
+  pointer-events:none;
 }
-.am-logo-wrap{flex-shrink:0;text-align:center}
-.am-logo-img{
-  width:120px;height:120px;border-radius:27px;
-  background:linear-gradient(135deg,#fc3c44,#ff6b9d,#bf5af2);
-  display:flex;align-items:center;justify-content:center;
-  font-size:56px;
-  box-shadow:0 20px 60px rgba(252,60,68,0.4);
+.am-logo{font-size:56px;flex-shrink:0}
+.am-text{flex:1;min-width:200px}
+.am-text h3{font-size:22px;font-weight:900;margin-bottom:8px;letter-spacing:-0.03em}
+.am-text p{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:16px}
+.am-features{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.am-feat{
+  font-size:11px;font-weight:600;color:rgba(255,255,255,0.7);
+  background:rgba(255,255,255,0.08);border-radius:99px;padding:4px 10px;
 }
-.am-body{flex:1;min-width:220px;position:relative;z-index:1}
-.am-body h3{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:12px}
-.am-body p{font-size:15px;color:rgba(255,255,255,0.7);line-height:1.7;margin-bottom:20px}
-.am-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
-.am-chip{
-  font-size:12px;font-weight:600;color:rgba(255,255,255,0.65);
-  background:rgba(255,255,255,0.08);border-radius:99px;padding:5px 12px;
-}
-.am-price{
-  display:inline-flex;align-items:center;gap:6px;
-  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);
-  border-radius:14px;padding:12px 16px;margin-bottom:20px;font-size:13px;
-}
-.am-price-free{font-size:20px;font-weight:900;color:var(--red2)}
-.am-price-detail{color:var(--muted)}
 
-/* ── TOAST ── */
+/* ── iframe wrapper ── */
+.player-wrap{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:20px;padding:16px;overflow:hidden;
+}
+.player-wrap iframe{border-radius:12px;display:block}
+
+/* ── Track select ── */
+.track-select-hint{
+  text-align:center;padding:10px;
+  font-size:12px;color:var(--muted);
+}
+
+/* ── Tabs ── */
+.tabs{display:flex;gap:4px;background:var(--surface2);border-radius:12px;padding:4px;margin-bottom:16px}
+.tab{
+  flex:1;text-align:center;padding:8px;border-radius:8px;
+  font-size:13px;font-weight:600;cursor:pointer;color:var(--muted);
+  transition:all 0.2s;border:none;background:none;font-family:inherit;
+}
+.tab.active{background:var(--surface);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,0.3)}
+
+/* ── Grid layout ── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.grid-2{grid-template-columns:1fr}}
+
+section{margin-bottom:24px}
+
+/* ── Fade in ── */
+.fade-in{opacity:0;transform:translateY(16px);transition:opacity 0.6s,transform 0.6s}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+/* ── Toast ── */
 #toast{
-  position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);
-  background:rgba(48,209,88,0.92);color:#fff;font-size:13px;font-weight:700;
-  padding:10px 22px;border-radius:99px;z-index:600;
-  opacity:0;pointer-events:none;transition:all 0.3s;white-space:nowrap;
+  position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:rgba(48,209,88,0.9);color:#fff;font-size:13px;font-weight:700;
+  padding:10px 20px;border-radius:99px;z-index:300;
+  opacity:0;pointer-events:none;transition:all 0.3s;
 }
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
-/* ── FADE IN ── */
-.fi{opacity:0;transform:translateY(20px);transition:opacity 0.7s cubic-bezier(0.2,0,0.2,1),transform 0.7s cubic-bezier(0.2,0,0.2,1)}
-.fi.vis{opacity:1;transform:translateY(0)}
-
-@media(max-width:640px){
-  .am-hero{padding:28px 20px;gap:20px}
-  .am-logo-img{width:80px;height:80px;font-size:36px;border-radius:18px}
-  .card-inner{padding:16px}
-}
 </style>
 </head>
 <body>
 
-<!-- BG -->
-<div id="bg-canvas"></div>
-
-<!-- Toast -->
-<div id="toast"></div>
+<div id="bg-layer"></div>
+<div id="toast">✓ コピーしました！</div>
 
 <!-- Now Playing -->
-<div id="np">
-  <div id="np-art">🎵</div>
-  <div id="np-info">
-    <div id="np-title">曲を選んでください</div>
-    <div id="np-artist">— Music Diary</div>
+<div id="now-playing">
+  <div class="np-art" id="np-art">🎵</div>
+  <div class="np-info">
+    <div class="np-title" id="np-title">曲を選択してください</div>
+    <div class="np-artist" id="np-artist">— Music Diary</div>
   </div>
   <div class="np-eq"><span></span><span></span><span></span></div>
 </div>
 
-<!-- NAV -->
-<nav class="gj-nav">
-  <a href="index.html" class="nav-logo">Gadget Journal</a>
-  <div class="nav-links-wrap">
-    <ul class="nav-links">
-      <li><a href="review.html">MacBook Air</a></li>
-      <li><a href="macbook-pro.html">MacBook Pro</a></li>
-      <li><a href="mac-studio.html">Mac Studio</a></li>
-      <li><a href="macbook-neo.html">MacBook Neo</a></li>
-      <li><a href="ipad.html">iPad Pro</a></li>
-      <li><a href="ipad-air.html">iPad Air</a></li>
-      <li><a href="iphone.html">iPhone</a></li>
-      <li><a href="history.html">History</a></li>
-      <li><a href="security.html">Security</a></li>
-      <li><a href="apple-watch.html">Apple Watch</a></li>
-      <li><a href="airpods.html">AirPods</a></li>
-      <li><a href="vision-pro.html">Vision Pro</a></li>
-      <li><a href="music.html" class="cur">Music Diary</a></li>
-      <li><a href="experience.html">Experience</a></li>
-    </ul>
+<!-- Nav -->
+<nav>
+  <a href="#" class="nav-logo">♫ MusicDiary</a>
+  <div class="nav-links">
+    <a href="#ranking" class="nav-links-item">ランキング</a>
+    <a href="#player" class="nav-links-item">プレイヤー</a>
+    <a href="#reactions" class="nav-links-item">リアクション</a>
+    <a href="#messages" class="nav-links-item">メッセージ</a>
+    <a href="#about" class="nav-links-item">このサイトについて</a>
+    <a href="#am-promo" class="nav-links-item">Apple Music</a>
   </div>
-  <div class="nav-fade-right"></div>
+  <a href="https://music.apple.com/jp/playlist/%E5%A5%BD%E3%81%8D%E3%81%A0%E3%81%A3%E3%81%9F%E6%9B%B2/pl.u-Ymb098PUP8Pemx5"
+     target="_blank" rel="noopener" class="nav-am-btn">
+    🎵 Apple Music
+  </a>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-inner fi">
-    <div class="hero-eyebrow"><span class="pulse"></span>2026 Spring Playlist</div>
-    <h1>記憶に寄り添う、<br><span class="grad">「好きだった曲」</span>たち</h1>
-    <p class="hero-sub">ふとした瞬間に頭に流れるメロディ。特定の季節になると思い出すフレーズ。心に深く残っている大切な曲たちを、Apple Musicで。</p>
+<div class="page">
+
+  <!-- Hero -->
+  <div class="hero fade-in">
+    <div class="hero-badge"><span class="dot"></span>2026 Spring Playlist</div>
+    <h1>記憶に寄り添う、<br><span>「好きだった曲」</span>たち</h1>
+    <p>ふとした瞬間に頭に流れるメロディ。特定の季節になると思い出すフレーズ。私の記憶と強く結びついている大切な曲をまとめました。</p>
     <div class="hero-btns">
       <a href="https://music.apple.com/jp/playlist/%E5%A5%BD%E3%81%8D%E3%81%A0%E3%81%A3%E3%81%9F%E6%9B%B2/pl.u-Ymb098PUP8Pemx5"
-         target="_blank" rel="noopener" class="btn-red">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.5 14.5l-7-4V11l7-4v9.5z"/></svg>
-        Apple Musicで開く
-      </a>
-      <a href="#ranking" class="btn-outline">📊 ランキングを見る</a>
-    </div>
-    <div class="hero-img-wrap" style="margin-top:48px">
-      <img src="https://www.apple.com/v/apple-music/s/images/overview/hero__bwm2t4q66ua2_large.jpg"
-           onerror="this.style.display='none'"
-           alt="Apple Music" loading="lazy">
-      <div class="hero-img-badge">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="#fc3c44"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.5 14.5l-7-4V11l7-4v9.5z"/></svg>
-        Apple Music · 1億曲以上
-      </div>
+         target="_blank" rel="noopener" class="btn-primary">🎵 Apple Musicで開く</a>
+      <a href="#ranking" class="btn-ghost">📊 ランキングを見る</a>
     </div>
   </div>
-</section>
-
-<div class="page-body">
 
   <!-- ── RANKING ── -->
-  <section class="sec fi" id="ranking">
-    <div class="sec-label">🏆 Top Charts</div>
-    <div class="sec-title">今週のランキング</div>
-    <p class="sec-sub">いいね数をもとに毎週更新。曲をタップすると背景色がその曲のカラーに変わります。</p>
-    <div class="card card-inner">
-      <div class="rank-tabs" id="rank-tabs">
-        <button class="rtab on" onclick="switchTab('all',this)">すべて</button>
-        <button class="rtab" onclick="switchTab('hot',this)">🔥 急上昇</button>
-        <button class="rtab" onclick="switchTab('new',this)">✨ 新着</button>
-        <button class="rtab" onclick="switchTab('up',this)">↑ 人気上昇</button>
+  <section id="ranking" class="fade-in">
+    <div class="section-head">
+      <h2>🏆 今週のランキング</h2>
+      <span class="tag">LIVE</span>
+    </div>
+    <div class="card" style="padding:16px">
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab('all',this)">すべて</button>
+        <button class="tab" onclick="switchTab('hot',this)">🔥 急上昇</button>
+        <button class="tab" onclick="switchTab('new',this)">✨ 新着</button>
       </div>
       <div class="rank-list" id="rank-list"></div>
-      <p style="text-align:center;font-size:12px;color:var(--muted);margin-top:14px">👆 曲をタップ → 背景色が変化します</p>
+      <div class="track-select-hint">👆 曲をタップすると背景色が変わります</div>
     </div>
   </section>
 
   <!-- ── PLAYER ── -->
-  <section class="sec fi" id="player">
-    <div class="sec-label">🎧 Apple Music Embed</div>
-    <div class="sec-title">プレイリスト</div>
-    <p class="sec-sub">Apple Musicのプレイヤーで直接再生できます。</p>
-    <div class="player-frame">
+  <section id="player" class="fade-in">
+    <div class="section-head">
+      <h2>🎧 プレイリスト</h2>
+      <span class="tag">Apple Music</span>
+    </div>
+    <div class="player-wrap">
       <iframe
         allow="autoplay *; encrypted-media *;"
-        frameborder="0" height="450"
+        frameborder="0"
+        height="450"
         style="width:100%;max-width:100%;overflow:hidden;background:transparent;"
         sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
         src="https://embed.music.apple.com/jp/playlist/%E5%A5%BD%E3%81%8D%E3%81%A0%E3%81%A3%E3%81%9F%E6%9B%B2/pl.u-Ymb098PUP8Pemx5"
@@ -470,96 +445,121 @@ nav.gj-nav{
   </section>
 
   <!-- ── REACTIONS ── -->
-  <section class="sec fi" id="reactions">
-    <div class="sec-label">💬 Community</div>
-    <div class="sec-title">みんなのリアクション</div>
-    <p class="sec-sub">このプレイリストへの気持ちを絵文字で。</p>
-    <div class="card card-inner">
-      <div class="emo-grid" id="emo-grid"></div>
-      <div class="like-row" id="like-row"></div>
+  <section id="reactions" class="fade-in">
+    <div class="section-head">
+      <h2>💬 みんなのリアクション</h2>
+      <span class="tag">EMOJI</span>
+    </div>
+    <div class="card" style="padding:20px">
+      <p style="font-size:13px;color:var(--muted);margin-bottom:14px">このプレイリストへの気持ちを絵文字で教えてください！</p>
+      <div class="emoji-bar" id="emoji-bar"></div>
+      <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border)">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:10px">いいね・ハート</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="heart-btn" id="like-btn" onclick="toggleLike('like')">
+            <span class="hicon">👍</span>
+            <span id="like-count">247</span>
+          </button>
+          <button class="heart-btn" id="heart-btn" onclick="toggleLike('heart')">
+            <span class="hicon">❤️</span>
+            <span id="heart-count">183</span>
+          </button>
+          <button class="heart-btn" id="star-btn" onclick="toggleLike('star')">
+            <span class="hicon">⭐</span>
+            <span id="star-count">95</span>
+          </button>
+          <button class="heart-btn" id="fire-btn" onclick="toggleLike('fire')">
+            <span class="hicon">🔥</span>
+            <span id="fire-count">312</span>
+          </button>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- ── MESSAGES ── -->
-  <section class="sec fi" id="messages">
-    <div class="sec-label">✉️ Message Board</div>
-    <div class="sec-title">メッセージボード</div>
-    <p class="sec-sub">曲への想いや思い出を投稿しよう。</p>
-    <div class="card card-inner">
-      <div class="msg-scroll" id="msg-scroll"></div>
-      <div class="msg-form">
-        <div class="msg-row">
-          <input class="minput" id="m-name" placeholder="名前（任意）" maxlength="20" style="max-width:160px">
-          <select class="minput mselect" id="m-song" style="max-width:220px;flex:1">
+  <section id="messages" class="fade-in">
+    <div class="section-head">
+      <h2>✉️ メッセージボード</h2>
+      <span class="tag">COMMUNITY</span>
+    </div>
+    <div class="card" style="padding:20px">
+      <div class="msg-list" id="msg-list"></div>
+      <div style="margin-top:14px">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:8px">メッセージを送る</div>
+        <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap">
+          <input id="msg-name-input" class="msg-input" style="max-width:160px;flex:none" placeholder="名前（任意）" maxlength="20">
+          <select id="msg-song-select" class="msg-input" style="max-width:200px;flex:none;cursor:pointer">
             <option value="">曲を選択（任意）</option>
           </select>
         </div>
-        <div style="display:flex;gap:8px">
-          <textarea class="minput mtextarea" id="m-text" rows="2" placeholder="この曲への想いを書いてください… (Enterで送信)" maxlength="200"></textarea>
-          <button class="msend" onclick="sendMsg()">送信 →</button>
+        <div class="msg-form">
+          <textarea class="msg-input" id="msg-text-input" rows="2" placeholder="この曲への想いを書いてください…" maxlength="200"></textarea>
+          <button class="msg-send" onclick="sendMessage()">送信 →</button>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ── SHARE ── -->
-  <section class="sec fi">
-    <div class="sec-label">📤 Share</div>
-    <div class="sec-title">シェア</div>
-    <div class="card card-inner">
-      <p style="font-size:14px;color:var(--muted);margin-bottom:16px">このプレイリストを広めよう</p>
-      <div class="share-row">
-        <button class="sbtn" onclick="doShareX()">𝕏 (Twitter)</button>
-        <button class="sbtn" onclick="doShareLine()">💬 LINE</button>
-        <button class="sbtn" id="copy-btn" onclick="doCopy(this)">🔗 リンクをコピー</button>
+  <section class="fade-in">
+    <div class="section-head">
+      <h2>📤 シェア</h2>
+    </div>
+    <div class="card" style="padding:20px">
+      <p style="font-size:13px;color:var(--muted);margin-bottom:14px">このプレイリストをシェアして音楽を広めよう</p>
+      <div class="share-btns">
+        <button class="share-btn" onclick="shareTwitter()">🐦 X (Twitter)</button>
+        <button class="share-btn" onclick="shareLine()">💬 LINE</button>
+        <button class="share-btn" onclick="copyLink(this)">🔗 リンクをコピー</button>
         <a href="https://music.apple.com/jp/playlist/%E5%A5%BD%E3%81%8D%E3%81%A0%E3%81%A3%E3%81%9F%E6%9B%B2/pl.u-Ymb098PUP8Pemx5"
-           target="_blank" rel="noopener" class="sbtn">🎵 Apple Musicで開く</a>
+           target="_blank" rel="noopener" class="share-btn">🎵 Apple Musicで開く</a>
       </div>
     </div>
   </section>
 
-  <!-- ── FEATURES ── -->
-  <section class="sec fi" id="about">
-    <div class="sec-label">📖 About</div>
-    <div class="sec-title">このページについて</div>
-    <p class="sec-sub">通学中、夜眠れない時、少し落ち込んだ時に寄り添ってくれた曲たちの記録です。</p>
-    <div class="feat-grid">
-      <div class="feat-item"><div class="feat-icon">🏆</div><div class="feat-name">ランキング</div><div class="feat-desc">いいね数をリアルタイム集計。今一番聴かれている曲がすぐわかります。</div></div>
-      <div class="feat-item"><div class="feat-icon">🎨</div><div class="feat-name">カラー連動背景</div><div class="feat-desc">曲を選ぶと、そのイメージカラーに合わせて背景がグラデーションで変化します。</div></div>
-      <div class="feat-item"><div class="feat-icon">❤️</div><div class="feat-name">ハート・いいね</div><div class="feat-desc">気に入った曲にハートを。押した履歴はブラウザに保存されます。</div></div>
-      <div class="feat-item"><div class="feat-icon">😊</div><div class="feat-name">絵文字リアクション</div><div class="feat-desc">プレイリスト全体への気持ちを8種類の絵文字で表現できます。</div></div>
-      <div class="feat-item"><div class="feat-icon">✉️</div><div class="feat-name">メッセージ</div><div class="feat-desc">曲への想いや思い出をコメントとして投稿。みんなのメッセージを読めます。</div></div>
-      <div class="feat-item"><div class="feat-icon">📤</div><div class="feat-name">シェア</div><div class="feat-desc">Twitter・LINE・リンクコピーでプレイリストをシェアできます。</div></div>
+  <!-- ── ABOUT ── -->
+  <section id="about" class="fade-in">
+    <div class="section-head">
+      <h2>📖 このサイトについて</h2>
+    </div>
+    <div class="card" style="padding:20px;margin-bottom:16px">
+      <p style="font-size:14px;color:rgba(255,255,255,0.8);line-height:1.8;margin-bottom:16px">
+        音楽は不思議な力を持っています。たった数分の曲を聴くだけで、当時の匂いや空気感、感情まで鮮明に蘇ってくることがありますよね。<br>
+        このサイトは、私がこれまで何度もリピートし、心に深く残っている「好きだった曲」を記録するために作りました。通学中、夜眠れない時、少し落ち込んだ時に寄り添ってくれた曲たちです。
+      </p>
+      <div class="about-grid">
+        <div class="about-card"><div class="icon">🏆</div><h4>ランキング機能</h4><p>みんなのいいね数を集計してリアルタイムでランキングを更新。今一番聴かれている曲がわかります。</p></div>
+        <div class="about-card"><div class="icon">❤️</div><h4>ハート・いいね機能</h4><p>気に入った曲にハートやいいねを押してリアクション。押した曲は記録されます。</p></div>
+        <div class="about-card"><div class="icon">😊</div><h4>絵文字リアクション</h4><p>プレイリスト全体への気持ちを絵文字で表現。みんなの感情が一目でわかります。</p></div>
+        <div class="about-card"><div class="icon">✉️</div><h4>メッセージ機能</h4><p>曲への想いや思い出をメッセージとして投稿。みんなのコメントを読めます。</p></div>
+        <div class="about-card"><div class="icon">📤</div><h4>シェア機能</h4><p>Twitter・LINE・リンクコピーでプレイリストをシェア。音楽の輪を広げよう。</p></div>
+        <div class="about-card"><div class="icon">🎨</div><h4>カラー連動背景</h4><p>曲を選択すると、その曲のイメージカラーに背景がグラデーションで変化します。</p></div>
+      </div>
     </div>
   </section>
 
-  <!-- ── AM PROMO ── -->
-  <section class="sec fi" id="am">
-    <div class="am-hero">
-      <div class="am-logo-wrap">
-        <div class="am-logo-img">🎵</div>
-      </div>
-      <div class="am-body">
-        <div class="sec-label" style="margin-bottom:8px">🍎 Apple Music</div>
-        <h3>音楽を愛する。</h3>
-        <p>1億曲以上が広告なしで聴き放題。空間オーディオ（Dolby Atmos）とロスレスオーディオで最高の音質を。AIがあなたの好みに合わせたプレイリストを自動生成します。</p>
-        <div class="am-chips">
-          <span class="am-chip">🎼 1億曲以上</span>
-          <span class="am-chip">🔊 空間オーディオ</span>
-          <span class="am-chip">📴 オフライン再生</span>
-          <span class="am-chip">✨ AI推薦</span>
-          <span class="am-chip">🎤 歌詞・カラオケ</span>
-          <span class="am-chip">📻 ライブラジオ</span>
-        </div>
-        <div class="am-price">
-          <div>
-            <div class="am-price-free">3か月間無料</div>
-            <div class="am-price-detail">その後 月額1,080円〜 · いつでもキャンセル可</div>
-          </div>
+  <!-- ── APPLE MUSIC PROMO ── -->
+  <section id="am-promo" class="fade-in">
+    <div class="section-head">
+      <h2>🍎 Apple Music とは</h2>
+    </div>
+    <div class="am-promo">
+      <div class="am-logo">🎵</div>
+      <div class="am-text">
+        <h3>Apple Music</h3>
+        <p>1億曲以上を広告なしで聴き放題。ロスレス・ハイレゾ音質、空間オーディオ（Dolby Atmos）対応。あなたの好みに合わせたプレイリストをAIが自動生成します。</p>
+        <div class="am-features">
+          <span class="am-feat">🎼 1億曲以上</span>
+          <span class="am-feat">🔊 空間オーディオ</span>
+          <span class="am-feat">📴 オフライン再生</span>
+          <span class="am-feat">✨ AI推薦</span>
+          <span class="am-feat">🎤 歌詞表示</span>
+          <span class="am-feat">📻 ラジオ</span>
         </div>
         <a href="https://music.apple.com/jp/playlist/%E5%A5%BD%E3%81%8D%E3%81%A0%E3%81%A3%E3%81%9F%E6%9B%B2/pl.u-Ymb098PUP8Pemx5"
-           target="_blank" rel="noopener" class="btn-red" style="display:inline-flex">
-          🎵 プレイリストをApple Musicで開く
+           target="_blank" rel="noopener" class="btn-primary" style="display:inline-flex">
+          🎵 このプレイリストをApple Musicで開く
         </a>
       </div>
     </div>
@@ -567,258 +567,288 @@ nav.gj-nav{
 
 </div>
 
-<!-- FOOTER -->
-<footer style="position:relative;z-index:1;border-top:1px solid var(--border);padding:32px 20px;text-align:center;background:var(--bg)">
-  <div style="max-width:980px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
-    <a href="index.html" style="font-size:14px;font-weight:700;color:#fff;text-decoration:none;letter-spacing:-0.03em">Gadget Journal</a>
-    <div style="display:flex;gap:20px;align-items:center">
-      <a href="https://music.apple.com/jp/playlist/%E5%A5%BD%E3%81%8D%E3%81%A0%E3%81%A3%E3%81%9F%E6%9B%B2/pl.u-Ymb098PUP8Pemx5"
-         target="_blank" rel="noopener" style="color:var(--red2);font-size:13px;font-weight:600;text-decoration:none">🎵 Apple Music</a>
+<!-- Footer -->
+<footer style="position:relative;z-index:1;border-top:1px solid var(--border);padding:28px 16px;text-align:center">
+  <div style="max-width:960px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+    <span style="font-size:13px;font-weight:700;background:linear-gradient(135deg,#fc3c44,#bf5af2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">♫ Music Diary</span>
+    <div style="display:flex;gap:16px">
+      <a href="https://music.apple.com/jp/playlist/%E5%A5%BD%E3%81%8D%E3%81%A0%E3%81%A3%E3%81%9F%E6%9B%B2/pl.u-Ymb098PUP8Pemx5" target="_blank" rel="noopener" style="color:var(--brand);font-size:13px;font-weight:600;text-decoration:none">🎵 Apple Music</a>
     </div>
-    <span style="font-size:12px;color:var(--muted)">&copy; 2026 Gadget Journal</span>
+    <span style="font-size:12px;color:var(--muted)">&copy; 2026 Music Diary</span>
   </div>
 </footer>
 
 <script>
-// ──────────────────────────────────────────
-// TRACK DATA
-// ──────────────────────────────────────────
-const TRACKS=[
-  {id:1,title:"夜に駆ける",artist:"YOASOBI",e:"🌙",bg:["#03050f","#05122b","#021830"],trend:"hot",hearts:312,badge:"🔥急上昇"},
-  {id:2,title:"Subtitle",artist:"Official髭男dism",e:"💙",bg:["#020810","#061428","#030f22"],trend:"up",hearts:287,badge:"↑人気"},
-  {id:3,title:"怪物",artist:"YOASOBI",e:"🟣",bg:["#120520","#200a38","#0e0418"],trend:"hot",hearts:256,badge:"🔥急上昇"},
-  {id:4,title:"Lemon",artist:"米津玄師",e:"🍋",bg:["#111000","#1e1c00","#111000"],trend:"up",hearts:231,badge:"↑人気"},
-  {id:5,title:"カエルノウタ",artist:"藤井風",e:"🌿",bg:["#02100a","#051c10","#02100a"],trend:"new",hearts:198,badge:"✨新着"},
-  {id:6,title:"Dynamite",artist:"BTS",e:"💛",bg:["#120d00","#201800","#120d00"],trend:"up",hearts:175,badge:"↑人気"},
-  {id:7,title:"愛にできることはまだあるかい",artist:"RADWIMPS",e:"🌸",bg:["#160408","#2a0812","#160408"],trend:"new",hearts:154,badge:"✨新着"},
-  {id:8,title:"ミックスナッツ",artist:"Official髭男dism",e:"🟤",bg:["#110800","#201400","#110800"],trend:"hot",hearts:143,badge:"🔥急上昇"},
-  {id:9,title:"群青",artist:"YOASOBI",e:"💙",bg:["#030e1a","#071830","#030e1a"],trend:"up",hearts:129,badge:"↑人気"},
-  {id:10,title:"地球儀",artist:"米津玄師",e:"🌍",bg:["#031008","#061c10","#031008"],trend:"new",hearts:98,badge:"✨新着"},
+// ── Track Data (色も定義) ──
+const TRACKS = [
+  { id:1, title:"夜に駆ける",        artist:"YOASOBI",      emoji:"🌙", color:["#0a1628","#1a2a4a","#0d2137"], trend:"hot",  hearts:312, badge:"🔥急上昇" },
+  { id:2, title:"Subtitle",          artist:"Official髭男dism", emoji:"💙", color:["#0a1020","#0d1f3c","#0a1830"], trend:"up",  hearts:287, badge:"↑人気" },
+  { id:3, title:"怪物",              artist:"YOASOBI",      emoji:"🟣", color:["#1a0a2e","#2d1048","#1a0820"], trend:"hot",  hearts:256, badge:"🔥急上昇" },
+  { id:4, title:"Lemon",             artist:"米津玄師",      emoji:"🍋", color:["#1a1a08","#2a2810","#1a1600"], trend:"up",  hearts:231, badge:"↑人気" },
+  { id:5, title:"カエルノウタ",      artist:"藤井風",        emoji:"🌿", color:["#081a10","#0d2a18","#081a0c"], trend:"new",  hearts:198, badge:"✨新着" },
+  { id:6, title:"Dynamite",          artist:"BTS",           emoji:"💛", color:["#1a1200","#2a2000","#1a1400"], trend:"up",  hearts:175, badge:"↑人気" },
+  { id:7, title:"愛にできることはまだあるかい", artist:"RADWIMPS", emoji:"🌸", color:["#200a14","#3a1022","#200814"], trend:"new", hearts:154, badge:"✨新着" },
+  { id:8, title:"ミックスナッツ",    artist:"Official髭男dism", emoji:"🟤", color:["#1a0a00","#2e1a08","#1a1000"], trend:"hot",  hearts:143, badge:"🔥急上昇" },
+  { id:9, title:"群青",              artist:"YOASOBI",      emoji:"💙", color:["#081828","#102440","#081a30"], trend:"up",  hearts:129, badge:"↑人気" },
+  {id:10, title:"地球儀",            artist:"米津玄師",      emoji:"🌍", color:["#0a1a0a","#142814","#0a1e0a"], trend:"new",  hearts: 98, badge:"✨新着" },
 ];
 
-let sel=null;
-const liked={};
-const emoState={};
+let selectedTrack = null;
+const liked = {};
+const emojiState = {};
 
-// ──────────────────────────────────────────
-// INIT
-// ──────────────────────────────────────────
-function init(){
+// ── Init ──
+function init() {
   renderRanking('all');
   renderEmoji();
-  renderMsgs();
-  fillSongSelect();
+  renderMessages();
+  populateSongSelect();
+  initFadeIn();
   loadState();
-  initFI();
-  initNavScroll();
 }
 
-// ──────────────────────────────────────────
-// RANKING
-// ──────────────────────────────────────────
-function renderRanking(tab){
-  let list=[...TRACKS];
-  if(tab==='hot') list=list.filter(t=>t.trend==='hot');
-  else if(tab==='new') list=list.filter(t=>t.trend==='new');
-  else if(tab==='up') list=list.filter(t=>t.trend==='up');
-  list.sort((a,b)=>b.hearts-a.hearts);
-  const numClass=i=>i===0?'gold':i===1?'silver':i===2?'bronze':'grey';
-  const badgeClass=t=>t.trend==='hot'?'tbadge thot':t.trend==='new'?'tbadge tnew':'tbadge tup';
-  document.getElementById('rank-list').innerHTML=list.map((t,i)=>{
-    const lk=liked['h_'+t.id];
-    const cnt=t.hearts+(lk?1:0);
-    return`<div class="ri${sel?.id===t.id?' sel':''}" onclick="selectTrack(${t.id})">
-      <div class="ri-num ${numClass(i)}">${i+1}</div>
-      <div class="ri-art">${t.e}</div>
-      <div class="ri-info">
-        <div class="ri-title">${t.title}</div>
-        <div class="ri-artist">${t.artist}</div>
+// ── Ranking ──
+function renderRanking(tab) {
+  const list = document.getElementById('rank-list');
+  let tracks = [...TRACKS];
+  if (tab === 'hot') tracks = tracks.filter(t => t.trend === 'hot');
+  else if (tab === 'new') tracks = tracks.filter(t => t.trend === 'new');
+  tracks.sort((a,b) => b.hearts - a.hearts);
+
+  list.innerHTML = tracks.map((t, i) => {
+    const numClass = i===0?'gold':i===1?'silver':i===2?'bronze':'normal';
+    const trendClass = t.trend==='hot'?'trend-hot':t.trend==='new'?'trend-new':'trend-up';
+    const isLiked = liked['heart_'+t.id];
+    const count = t.hearts + (isLiked ? 1 : 0);
+    return `<div class="rank-item ${selectedTrack?.id===t.id?'selected':''}" onclick="selectTrack(${t.id})">
+      <div class="rank-num ${numClass}">${i+1}</div>
+      <div class="rank-art">${t.emoji}</div>
+      <div class="rank-info">
+        <div class="track-title">${t.title}</div>
+        <div class="track-artist">${t.artist}</div>
       </div>
-      <div class="ri-right">
-        <span class="${badgeClass(t)}">${t.badge}</span>
-        <button class="hbtn${lk?' on':''}" onclick="event.stopPropagation();likeTrack(${t.id})">
-          <span class="hi">${lk?'❤️':'🤍'}</span>
-          <span id="hc-${t.id}">${cnt}</span>
+      <div class="rank-actions">
+        <span class="trend-badge ${trendClass}">${t.badge}</span>
+        <button class="heart-btn ${isLiked?'liked':''}" onclick="event.stopPropagation();likeTrack(${t.id})">
+          <span class="hicon">${isLiked?'❤️':'🤍'}</span>
+          <span id="tc-${t.id}">${count}</span>
         </button>
       </div>
     </div>`;
   }).join('');
 }
 
-function switchTab(tab,el){
-  document.querySelectorAll('.rtab').forEach(t=>t.classList.remove('on'));
-  el.classList.add('on');
+function switchTab(tab, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
   renderRanking(tab);
 }
 
-// ──────────────────────────────────────────
-// SELECT TRACK → BG
-// ──────────────────────────────────────────
-function selectTrack(id){
-  const t=TRACKS.find(x=>x.id===id);
-  if(!t)return;
-  sel=t;
-  const[c1,c2,c3]=t.bg;
-  document.body.style.backgroundColor=c1;
-  document.getElementById('bg-canvas').style.background=
-    `radial-gradient(ellipse 120% 70% at 50% -5%, ${c2}ee 0%, ${c1}88 45%, transparent 75%),
-     radial-gradient(ellipse 70% 50% at 85% 70%, ${c3}88 0%, transparent 55%)`;
-  document.getElementById('np-art').textContent=t.e;
-  document.getElementById('np-title').textContent=t.title;
-  document.getElementById('np-artist').textContent=t.artist;
-  document.getElementById('np').classList.add('show');
-  const activeTab=document.querySelector('.rtab.on');
-  const tabName=activeTab?.textContent.includes('急')?'hot':activeTab?.textContent.includes('新')?'new':activeTab?.textContent.includes('↑')?'up':'all';
+// ── Select Track → change BG ──
+const BG_DEFAULTS = [
+  "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(252,60,68,0.18) 0%, transparent 70%)"
+];
+function selectTrack(id) {
+  const t = TRACKS.find(x => x.id === id);
+  if (!t) return;
+  selectedTrack = t;
+
+  // 背景変更
+  const [c1, c2, c3] = t.color;
+  document.body.style.backgroundColor = c1;
+  document.getElementById('bg-layer').style.background =
+    `radial-gradient(ellipse 100% 80% at 50% 0%, ${c2}cc 0%, ${c1}88 40%, transparent 70%),
+     radial-gradient(ellipse 60% 50% at 80% 60%, ${c3}66 0%, transparent 60%)`;
+
+  // Now Playing
+  document.getElementById('np-art').textContent = t.emoji;
+  document.getElementById('np-title').textContent = t.title;
+  document.getElementById('np-artist').textContent = t.artist;
+  const np = document.getElementById('now-playing');
+  np.classList.add('show');
+
+  // re-render to show selected
+  const tabs = document.querySelectorAll('.tab');
+  const activeTab = [...tabs].find(t=>t.classList.contains('active'));
+  const tabName = activeTab?.textContent.includes('急')? 'hot': activeTab?.textContent.includes('新')? 'new': 'all';
+  renderRanking(tabName);
+
+  saveState();
+}
+
+// ── Like track ──
+function likeTrack(id) {
+  const key = 'heart_'+id;
+  liked[key] = !liked[key];
+  const t = TRACKS.find(x=>x.id===id);
+  const count = t.hearts + (liked[key]?1:0);
+  const el = document.getElementById('tc-'+id);
+  if (el) el.textContent = count;
+  // re-render btn
+  const tabs = document.querySelectorAll('.tab');
+  const activeTab = [...tabs].find(t=>t.classList.contains('active'));
+  const tabName = activeTab?.textContent.includes('急')? 'hot': activeTab?.textContent.includes('新')? 'new': 'all';
   renderRanking(tabName);
   saveState();
 }
 
-// ──────────────────────────────────────────
-// LIKE TRACK
-// ──────────────────────────────────────────
-function likeTrack(id){
-  const k='h_'+id;
-  liked[k]=!liked[k];
-  const t=TRACKS.find(x=>x.id===id);
-  const activeTab=document.querySelector('.rtab.on');
-  const tabName=activeTab?.textContent.includes('急')?'hot':activeTab?.textContent.includes('新')?'new':activeTab?.textContent.includes('↑')?'up':'all';
-  renderRanking(tabName);
+// ── Like / Heart buttons ──
+const LIKE_DEFAULTS = { like:247, heart:183, star:95, fire:312 };
+function toggleLike(type) {
+  liked[type] = !liked[type];
+  const btn = document.getElementById(type+'-btn');
+  const countEl = document.getElementById(type+'-count');
+  const base = LIKE_DEFAULTS[type];
+  btn.classList.toggle('liked', liked[type]);
+  countEl.textContent = base + (liked[type]?1:0);
   saveState();
 }
 
-// ──────────────────────────────────────────
-// EMOJI
-// ──────────────────────────────────────────
-const EMOJIS=[
-  {e:'😭',label:'泣ける',n:142},{e:'🥺',label:'エモい',n:98},
-  {e:'🔥',label:'熱い',n:76},{e:'💜',label:'大好き',n:201},
-  {e:'😌',label:'落ち着く',n:115},{e:'🎶',label:'神曲',n:87},
-  {e:'😍',label:'最高',n:163},{e:'🤝',label:'わかる',n:54},
+// ── Emoji ──
+const EMOJIS = [
+  {e:'😭',label:'泣ける',count:142},
+  {e:'🥺',label:'エモい',count:98},
+  {e:'🔥',label:'熱い',count:76},
+  {e:'💜',label:'大好き',count:201},
+  {e:'😌',label:'落ち着く',count:115},
+  {e:'🎶',label:'神曲',count:87},
+  {e:'😍',label:'最高',count:163},
+  {e:'🤝',label:'わかる',count:54},
 ];
-function renderEmoji(){
-  document.getElementById('emo-grid').innerHTML=EMOJIS.map((em,i)=>{
-    const on=emoState[i];
-    return`<button class="emo-btn${on?' on':''}" onclick="togEmo(${i})">
-      <span>${em.e}</span><span class="emo-c">${em.n+(on?1:0)}</span><span style="font-size:11px;color:var(--muted)">${em.label}</span>
+function renderEmoji() {
+  const bar = document.getElementById('emoji-bar');
+  bar.innerHTML = EMOJIS.map((e,i) => {
+    const reacted = emojiState[i];
+    return `<button class="emoji-btn ${reacted?'reacted':''}" onclick="toggleEmoji(${i})">
+      <span>${e.e}</span>
+      <span class="emoji-count">${e.count+(reacted?1:0)}</span>
+      <span style="font-size:11px;color:var(--muted)">${e.label}</span>
     </button>`;
   }).join('');
 }
-function togEmo(i){emoState[i]=!emoState[i];renderEmoji();saveState();}
-
-// ──────────────────────────────────────────
-// LIKE CHIPS
-// ──────────────────────────────────────────
-const LIKES=[{k:'like',e:'👍',label:'いいね',n:247},{k:'heart',e:'❤️',label:'ハート',n:183},{k:'star',e:'⭐',label:'お気に入り',n:95},{k:'fire',e:'🔥',label:'熱い',n:312}];
-function renderLikes(){
-  document.getElementById('like-row').innerHTML=LIKES.map(l=>{
-    const on=liked[l.k];
-    return`<button class="like-chip${on?' on':''}" onclick="togLike('${l.k}')">
-      <span class="lci">${l.e}</span>
-      <span>${l.label}</span>
-      <span style="font-size:12px;opacity:0.6">${l.n+(on?1:0)}</span>
-    </button>`;
-  }).join('');
+function toggleEmoji(i) {
+  emojiState[i] = !emojiState[i];
+  renderEmoji();
+  saveState();
 }
-function togLike(k){liked[k]=!liked[k];renderLikes();saveState();}
 
-// ──────────────────────────────────────────
-// MESSAGES
-// ──────────────────────────────────────────
-const INIT_MSGS=[
-  {name:"みお",song:"夜に駆ける",text:"この曲聴くと高校の帰り道を思い出す…夕焼けと一緒に記憶に刻まれてる",time:"3分前"},
-  {name:"たくや",song:"Subtitle",text:"雨の日に聴きたくなる曲No.1。歌詞が刺さりすぎて泣いた",time:"12分前"},
-  {name:"さくら",song:"Lemon",text:"大切な人を思い出す曲。ずっと大好きな曲です",time:"1時間前"},
-  {name:"ゆうき",song:"怪物",text:"アニメで知って最初から最後まで鳥肌。YOASOBI天才すぎる",time:"2時間前"},
-  {name:"ひな",song:"ミックスナッツ",text:"スパイファミリー好きすぎてこの曲だけで100回は聴いてる笑",time:"3時間前"},
+// ── Messages ──
+const INIT_MSGS = [
+  { name:"みお",     song:"夜に駆ける",   text:"この曲聴くと高校の帰り道を思い出す…放課後の夕焼けと一緒に記憶に刻まれてます",   time:"3分前"  },
+  { name:"たくや",   song:"Subtitle",     text:"雨の日に聴きたくなる曲No.1。歌詞が刺さりすぎて泣いた",                             time:"12分前" },
+  { name:"さくら",   song:"Lemon",        text:"大切な人を思い出す曲です。ずっと大好きな曲",                                       time:"1時間前"},
+  { name:"ゆうき",   song:"怪物",         text:"アニメで知って最初から最後まで鳥肌。YOASOBI天才すぎる",                           time:"2時間前"},
+  { name:"ひな",     song:"ミックスナッツ", text:"スパイファミリー好きすぎてこの曲だけで100回は聴いてる笑",                       time:"3時間前"},
 ];
-let msgs=[...INIT_MSGS];
-function renderMsgs(){
-  const scroll=document.getElementById('msg-scroll');
-  scroll.innerHTML=msgs.slice().reverse().slice(0,20).map(m=>`
-    <div class="msg-item">
-      <div class="msg-top">
-        <div class="msg-av">${m.name?m.name[0]:'?'}</div>
+let messages = [...INIT_MSGS];
+function renderMessages() {
+  const list = document.getElementById('msg-list');
+  list.innerHTML = messages.slice().reverse().slice(0,20).map(m => {
+    const initials = m.name ? m.name.slice(0,1) : '?';
+    return `<div class="msg-item">
+      <div class="msg-header">
+        <div class="msg-avatar">${initials}</div>
         <span class="msg-name">${m.name||'匿名'}</span>
         <span class="msg-time">${m.time}</span>
       </div>
-      <div class="msg-body">${m.text}</div>
-      ${m.song?`<div class="msg-song-tag">🎵 ${m.song}</div>`:''}
-    </div>`).join('');
-  scroll.scrollTop=0;
+      <div class="msg-text">${m.text}</div>
+      ${m.song?`<div class="msg-song">🎵 ${m.song}</div>`:''}
+    </div>`;
+  }).join('');
+  list.scrollTop = 0;
 }
-function fillSongSelect(){
-  const sel=document.getElementById('m-song');
-  TRACKS.forEach(t=>{const o=document.createElement('option');o.value=t.title;o.textContent=`${t.e} ${t.title} — ${t.artist}`;sel.appendChild(o);});
+function sendMessage() {
+  const textEl = document.getElementById('msg-text-input');
+  const nameEl = document.getElementById('msg-name-input');
+  const songEl = document.getElementById('msg-song-select');
+  const text = textEl.value.trim();
+  if (!text) { textEl.focus(); return; }
+  messages.push({
+    name: nameEl.value.trim() || '匿名',
+    song: songEl.value || '',
+    text: text,
+    time: 'たった今'
+  });
+  textEl.value = '';
+  renderMessages();
+  document.getElementById('msg-list').scrollTop = 0;
 }
-function sendMsg(){
-  const text=document.getElementById('m-text').value.trim();
-  if(!text)return;
-  msgs.push({name:document.getElementById('m-name').value.trim()||'匿名',song:document.getElementById('m-song').value,text,time:'たった今'});
-  document.getElementById('m-text').value='';
-  renderMsgs();
+function populateSongSelect() {
+  const sel = document.getElementById('msg-song-select');
+  TRACKS.forEach(t => {
+    const opt = document.createElement('option');
+    opt.value = t.title;
+    opt.textContent = `${t.emoji} ${t.title} — ${t.artist}`;
+    sel.appendChild(opt);
+  });
 }
 
-// ──────────────────────────────────────────
-// SHARE
-// ──────────────────────────────────────────
-const AM_URL='https://music.apple.com/jp/playlist/%E5%A5%BD%E3%81%8D%E3%81%A0%E3%81%A3%E3%81%9F%E6%9B%B2/pl.u-Ymb098PUP8Pemx5';
-function doShareX(){window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent('🎵 好きだった曲 #MusicDiary #AppleMusic')}&url=${encodeURIComponent(AM_URL)}`,'_blank')}
-function doShareLine(){window.open(`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(AM_URL)}`,'_blank')}
-function doCopy(btn){
-  navigator.clipboard.writeText(AM_URL).then(()=>{
-    btn.classList.add('copied');btn.textContent='✓ コピーしました！';
+// ── Share ──
+function shareTwitter() {
+  const url = encodeURIComponent(location.href);
+  const text = encodeURIComponent('🎵 好きだった曲のプレイリストをシェア！ #MusicDiary #AppleMusic');
+  window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`,'_blank');
+}
+function shareLine() {
+  const url = encodeURIComponent(location.href);
+  window.open(`https://social-plugins.line.me/lineit/share?url=${url}`,'_blank');
+}
+function copyLink(btn) {
+  navigator.clipboard.writeText(location.href).then(() => {
+    btn.classList.add('copied');
+    btn.textContent = '✓ コピーしました！';
     showToast('✓ リンクをコピーしました！');
-    setTimeout(()=>{btn.classList.remove('copied');btn.textContent='🔗 リンクをコピー';},2500);
+    setTimeout(()=>{ btn.classList.remove('copied'); btn.textContent='🔗 リンクをコピー'; }, 2500);
   });
 }
-function showToast(msg){
-  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2200);
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2200);
 }
 
-// ──────────────────────────────────────────
-// FADE IN
-// ──────────────────────────────────────────
-function initFI(){
-  const obs=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});
-  },{threshold:0.06});
-  document.querySelectorAll('.fi').forEach(el=>obs.observe(el));
+// ── Fade in observer ──
+function initFadeIn() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, {threshold:0.08});
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
 }
 
-// ──────────────────────────────────────────
-// NAV SCROLL
-// ──────────────────────────────────────────
-function initNavScroll(){
-  const wrap=document.querySelector('.nav-links-wrap');
-  const cur=document.querySelector('.nav-links a.cur');
-  if(wrap&&cur){const offset=cur.offsetLeft-20;wrap.scrollLeft=offset>0?offset:0;}
+// ── Persist state (localStorage) ──
+function saveState() {
+  localStorage.setItem('md_liked', JSON.stringify(liked));
+  localStorage.setItem('md_emoji', JSON.stringify(emojiState));
+  localStorage.setItem('md_selected', selectedTrack?.id || '');
+}
+function loadState() {
+  try {
+    const l = JSON.parse(localStorage.getItem('md_liked')||'{}');
+    Object.assign(liked, l);
+    const em = JSON.parse(localStorage.getItem('md_emoji')||'{}');
+    Object.assign(emojiState, em);
+    const sid = localStorage.getItem('md_selected');
+    if (sid) selectTrack(parseInt(sid));
+    renderRanking('all');
+    renderEmoji();
+    // sync like buttons
+    ['like','heart','star','fire'].forEach(type => {
+      if(liked[type]) {
+        document.getElementById(type+'-btn')?.classList.add('liked');
+        const base = LIKE_DEFAULTS[type];
+        const el = document.getElementById(type+'-count');
+        if(el) el.textContent = base + 1;
+      }
+    });
+  } catch(e){}
 }
 
-// ──────────────────────────────────────────
-// PERSIST
-// ──────────────────────────────────────────
-function saveState(){
-  localStorage.setItem('md2_liked',JSON.stringify(liked));
-  localStorage.setItem('md2_emo',JSON.stringify(emoState));
-  localStorage.setItem('md2_sel',sel?.id||'');
-}
-function loadState(){
-  try{
-    Object.assign(liked,JSON.parse(localStorage.getItem('md2_liked')||'{}'));
-    Object.assign(emoState,JSON.parse(localStorage.getItem('md2_emo')||'{}'));
-    renderLikes();renderEmoji();renderRanking('all');
-    const sid=localStorage.getItem('md2_sel');
-    if(sid)selectTrack(parseInt(sid));
-  }catch(e){}
-}
-
-// Enter to send
-document.addEventListener('DOMContentLoaded',()=>{
-  document.getElementById('m-text').addEventListener('keydown',e=>{
-    if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}
+// ── Msg input Enter ──
+document.addEventListener('DOMContentLoaded', ()=>{
+  document.getElementById('msg-text-input').addEventListener('keydown', e => {
+    if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); sendMessage(); }
   });
-  renderLikes();
 });
 
 init();
