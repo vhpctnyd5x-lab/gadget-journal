@@ -46,18 +46,19 @@ nav{
   display:flex;align-items:center;
   background:rgba(0,0,0,0.88);position:relative;z-index:2;
 }
-.nav-logo::after{content:'';position:absolute;right:-16px;top:0;width:16px;height:100%;background:linear-gradient(to right,rgba(0,0,0,0.88),transparent)}
+.nav-logo::after{content:'';position:absolute;right:-20px;top:0;width:20px;height:100%;background:linear-gradient(to right,rgba(0,0,0,0.88),transparent)}
 .nav-links-wrap{
   flex:1;overflow-x:auto;overflow-y:hidden;
-  scrollbar-width:none;height:44px;display:flex;align-items:center;
-  padding:0 36px 0 6px;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;-ms-overflow-style:none;height:44px;display:flex;align-items:center;
+  min-width:0;padding:0 40px 0 8px;
 }
 .nav-links-wrap::-webkit-scrollbar{display:none}
-.nav-links{display:flex;gap:24px;list-style:none;white-space:nowrap;font-size:12px}
+.nav-links{display:flex;gap:28px;list-style:none;white-space:nowrap;font-size:12px;font-weight:400;letter-spacing:-0.01em;flex-wrap:nowrap}
 .nav-links a{color:rgba(255,255,255,0.75);text-decoration:none;transition:color 0.2s}
 .nav-links a:hover{color:#fff}
 .nav-links a.cur{color:#fff;font-weight:700}
-.nav-fade-right{position:absolute;right:0;top:0;width:36px;height:44px;background:linear-gradient(to right,transparent,rgba(0,0,0,0.88));pointer-events:none;z-index:3}
+.nav-fade-right{position:absolute;right:0;top:0;width:40px;height:44px;background:linear-gradient(to right,transparent,rgba(0,0,0,0.88));pointer-events:none;z-index:3}
 
 /* BG */
 #bgc{position:fixed;inset:0;z-index:0;pointer-events:none;transition:background 1.4s cubic-bezier(0.4,0,0.2,1);background:radial-gradient(ellipse 80% 50% at 50% -5%,rgba(252,60,68,0.14) 0%,transparent 65%)}
