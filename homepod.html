@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Apple Vision Pro 2: 空間コンピューティングの成熟 - My Gadget Journal</title>
-  <meta name="description" content="Apple Vision Pro 2 の詳細レビュー。M5チップ、120Hz OLEDマイクロディスプレイ、12ms遅延。空間コンピューティングの未来。" />
+  <title>HomePod: 部屋が、音楽になる。 - Gadget Journal</title>
+  <meta name="description" content="HomePod（第2世代）&HomePod miniの徹底レビュー。空間オーディオ、スマートホームハブとしての進化、そしてSiriとの新しい関係を解説。" />
   <style>
     :root {
       --text: #1d1d1f;
@@ -98,10 +98,13 @@
     .article-body a { color: var(--brand); font-weight: 600; }
     .article-body a:hover { text-decoration: underline; }
 
-    .spec-box { background: var(--bg-light); border-radius: 1.2rem; padding: 30px; margin: 2rem 0; border: 1px solid var(--line); }
-    .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .spec-item h4 { font-size: 12px; color: var(--muted); text-transform: uppercase; margin-bottom: 5px; }
-    .spec-item p { font-size: 1.2rem; font-weight: 600; margin: 0; }
+    .compare-table { width: 100%; border-collapse: collapse; margin: 2rem 0; border-radius: 1rem; overflow: hidden; border: 1px solid var(--line); }
+    .compare-table th { background: var(--bg-light); padding: 14px 18px; text-align: left; font-size: 13px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .compare-table td { padding: 14px 18px; font-size: 15px; border-top: 1px solid var(--line); }
+    .compare-table tr:hover td { background: #fafafa; }
+
+    .highlight-box { background: linear-gradient(135deg, #f0f7ff 0%, #e8f4fd 100%); border-radius: 1.2rem; padding: 28px 32px; margin: 2.5rem 0; border: 1px solid #c8dff5; }
+    .highlight-box p { margin: 0; font-size: 1.1rem; color: #1d3557; font-weight: 500; }
 
     .article-footer { margin-top: 5rem; padding-top: 2.5rem; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
     .tags { display: flex; gap: 0.6rem; flex-wrap: wrap; }
@@ -119,15 +122,14 @@
       .article-header { margin-bottom: 2rem; }
       .article-body h2 { font-size: 1.5rem; margin-top: 2rem; }
       .article-body h3 { font-size: 1.2rem; margin-top: 1.5rem; }
-      .spec-grid { grid-template-columns: 1fr; }
+      .compare-table { font-size: 13px; }
+      .compare-table th, .compare-table td { padding: 10px 12px; }
       .meta-row { flex-wrap: wrap; gap: 0.5rem; }
       .article-footer { flex-direction: column; align-items: flex-start; gap: 1rem; }
     }
   </style>
 </head>
 <body>
-
-
 
   <nav>
     <a href="index.html" class="nav-logo">Gadget Journal</a>
@@ -156,7 +158,7 @@
           <span class="nav-group-btn">Audio</span>
           <ul class="nav-dropdown">
             <li><a href="airpods.html">AirPods</a></li>
-            <li><a href="homepod.html">HomePod</a></li>
+            <li><a href="homepod.html" class="nav-active">HomePod</a></li>
           </ul>
         </li>
         <li><a href="vision-pro.html">Vision Pro</a></li>
@@ -178,104 +180,139 @@
   <main>
     <article>
       <header class="article-header fade-in">
-        <div class="badge">Spatial Computing</div>
-        <h1>Apple Vision Pro 2: <br />空間コンピューティングの成熟へ。</h1>
+        <div class="badge">Audio & Smart Home</div>
+        <h1>HomePod: <br>部屋が、音楽になる。</h1>
         <div class="meta-row">
           <span class="author-name">Gadget Journal 筆者</span>
-          <span>2026.03.24 公開</span>
+          <span>2026.03.30 公開</span>
         </div>
       </header>
 
       <div class="figure-wrap fade-in">
         <div class="figure-card">
-          <img src="assets/mwqLtfoHvDwk.jpg" alt="Apple Vision Pro 2 Hero Image">
+          <img src="assets/UgjkrdorFTbp.jpg" alt="HomePod">
         </div>
         <span class="cite-tag">出典: Apple Newsroom</span>
       </div>
 
       <section class="article-body fade-in">
         <p>
-          Apple Vision Pro 2は、第一世代で指摘された重量や快適性の課題を解決しつつ、
-          処理能力を劇的に向上させた、空間コンピューティングの完成形です。
-          M5チップによるMacBook Proクラスの演算能力、120Hz OLEDマイクロディスプレイ、
-          そしてわずか12ミリ秒という人間の知覚限界以下の遅延。
-          これらが実現する、新しい現実とは何か。その全貌を解き明かします。
+          HomePodは、Appleのスマートスピーカーだ。しかしこれを単なる「スマートスピーカー」と
+          呼ぶのは的外れかもしれない。HomePodは部屋の音響特性を自動的に分析し、
+          最適なサウンドを常にリアルタイムで計算しながら再生するコンピューターでもある。
         </p>
 
-        <h2>セクション1：M5とR1のデュアルプロセッサ、12msの壁を超える</h2>
+        <h2>Spatial Audioが生み出す体験</h2>
         <p>
-          Vision Pro 2の心臓部には、MacBook Proクラスの演算能力を持つM5チップと、
-          センサー処理に特化したR1チップが搭載されています。
-          R1チップは、12個のカメラ、5つのセンサー、6つのマイクからの膨大なデータを
-          ミリ秒単位で処理し、現実の世界をわずか12ミリ秒という
-          人間の知覚限界以下の遅延でディスプレイに映し出します。
-          この「12msの壁」を超えることで、VR酔いは完全に解消され、
-          あなたは本当に「その場にいる」という感覚を得られるのです。
+          HomePod（第2世代）の核心は、S9チップが駆動する空間オーディオ処理だ。
+          5基のツイーターと1基のウーファーが各方向を担当しながら、
+          S9チップが室内の反射音をリアルタイムで解析する。
+          スピーカーを壁際に置いても、開放空間に置いても、
+          HomePodは最適な音響バランスに自動調整する。
+        </p>
+        <p>
+          Apple Music上のDolby Atmos音源を再生したとき、
+          その没入感は既存のどのBluetoothスピーカーとも異なっていた。
+          音が前後左右から降り注ぐような感覚は、スピーカー1台から生まれているとは
+          信じがたいほどだ。
         </p>
 
-        <div class="spec-box">
-          <h3>Apple Vision Pro 2 主要スペック</h3>
-          <div class="spec-grid">
-            <div class="spec-item">
-              <h4>プロセッサ</h4>
-              <p>M5 + R1 (デュアルチップ)</p>
-            </div>
-            <div class="spec-item">
-              <h4>ディスプレイ</h4>
-              <p>120Hz マイクロOLED 2,300万ピクセル</p>
-            </div>
-            <div class="spec-item">
-              <h4>遅延</h4>
-              <p>12ミリ秒以下</p>
-            </div>
-            <div class="spec-item">
-              <h4>価格 (税込)</h4>
-              <p>649,800円〜</p>
-            </div>
-          </div>
+        <div class="highlight-box">
+          <p>「HomePodをリビングに置いた翌朝、目が覚めたとき最初にしたのは音楽を流すことだった。それほど自然に生活に溶け込む。」</p>
         </div>
 
-        <h2>セクション2：120Hz OLEDマイクロディスプレイ、映像制作のプロフェッショナル環境</h2>
+        <h2>HomePod miniとの違い</h2>
+
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>仕様</th>
+              <th>HomePod（第2世代）</th>
+              <th>HomePod mini</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>チップ</td>
+              <td>S9</td>
+              <td>S5</td>
+            </tr>
+            <tr>
+              <td>ウーファー</td>
+              <td>高振幅 4インチ</td>
+              <td>フルレンジ 3.3cm</td>
+            </tr>
+            <tr>
+              <td>ツイーター</td>
+              <td>5基</td>
+              <td>なし</td>
+            </tr>
+            <tr>
+              <td>温度・湿度センサー</td>
+              <td>あり</td>
+              <td>なし</td>
+            </tr>
+            <tr>
+              <td>サイズ</td>
+              <td>168 × 142mm</td>
+              <td>84 × 98mm</td>
+            </tr>
+            <tr>
+              <td>価格（税込）</td>
+              <td>44,800円</td>
+              <td>12,800円</td>
+            </tr>
+          </tbody>
+        </table>
+
         <p>
-          ディスプレイシステムは、両眼で2,300万ピクセルという驚異的な解像度を維持しながら、
-          リフレッシュレートを最大120Hzに引き上げました。
-          これにより、頭部を素早く動かした際の残像感が完全に解消され、
-          VR酔いのリスクが大幅に低減されています。
-          また、DCI-P3を92%カバーする広色域は、映像制作のプロフェッショナルが
-          バーチャルなモニタリング環境として活用するに足る品質を提供しています。
+          音質を最優先するならHomePod（第2世代）、
+          コンパクトさと価格を重視するならHomePod miniという選択になる。
+          2台のHomePodでステレオペアを組む使い方もAppleが推奨しており、
+          その場合の音響体験はさらに格段に向上する。
         </p>
 
-        <h2>セクション3：Mac Virtual Display、物理的ディスプレイの終焉</h2>
+        <h2>スマートホームの中心として</h2>
         <p>
-          OS面では、visionOS 26が導入され、iPhoneやMacとのシームレスな連携が強化されました。
-          Macの画面を空間上に巨大なディスプレイとして映し出す機能（Mac Virtual Display）は、
-          M5チップの恩恵により遅延がさらに低減され、
-          物理的なディスプレイが不要な未来を予感させます。
-          これは、リモートワークやクリエイティブワークの概念を根本から変えるものです。
+          HomePodはMatterに対応したスマートホームハブとして動作する。
+          照明、エアコン、電子錠、カメラ——対応するスマートデバイスを
+          「Hey Siri」の一声でコントロールできる。
+          iPhone・iPadがホームから離れている間も、
+          HomePodが常にハブとして機能し続ける。
         </p>
 
-        <h2>結論：現実と仮想の境界線が消える</h2>
+        <h3>Siriへの音声入力精度</h3>
         <p>
-          Apple Vision Pro 2は、単なる「VRゴーグル」ではなく、
-          現実と仮想の境界線を完全に消し去る「新しい次元のコンピュータ」です。
-          M5チップの演算能力、120Hz OLEDの映像品質、
-          そして12ms以下の遅延が実現する、究極の没入感。
-          これが、あなたの仕事と人生にもたらす価値は、
-          価格をはるかに上回るものです。
+          第2世代では遠距離でのウェイクワード認識が向上し、
+          音楽再生中でも「Hey Siri」をほぼ確実に認識するようになった。
+          Apple Intelligenceとの連携により、
+          「今日の予定を教えて」「リマインダーを追加して」といった
+          パーソナルなリクエストにも応じる。
+        </p>
+
+        <h2>誰に勧めるか</h2>
+        <p>
+          Apple Musicを日常的に使い、Appleデバイスを中心としたエコシステムで
+          生活している人にとって、HomePodは最高の音楽体験を提供する。
+          Amazon EchoやGoogle Nestと比べ、音質は圧倒的に優れている。
+          一方で、Spotify専用ユーザーや複数プラットフォームを行き来する人には
+          若干の制約を感じるかもしれない。
         </p>
         <p>
-          詳細は <a href="https://www.apple.com/jp/apple-vision-pro/" target="_blank" rel="noopener noreferrer">Apple公式サイト</a> で確認してみてください。
+          それでも、HomePodが持つ「部屋の音響を読んで最適化する」という機能は
+          他のスピーカーには存在しない唯一の体験だ。
+          音楽を、もう一度発見したい方にぜひ試してほしい一台だ。
         </p>
       </section>
 
       <footer class="article-footer fade-in">
         <div class="tags">
-          <span class="tag">#VisionPro2</span>
-          <span class="tag">#SpatialComputing</span>
-          <span class="tag">#M5Chip</span>
-          <span class="tag">#120HzOLED</span>
+          <span class="tag">HomePod</span>
+          <span class="tag">空間オーディオ</span>
+          <span class="tag">スマートホーム</span>
+          <span class="tag">Apple Music</span>
         </div>
-        <a href="index.html" class="back-link">← Homeに戻る</a>
+        <a href="index.html" class="back-link">← トップへ戻る</a>
       </footer>
     </article>
   </main>
@@ -290,12 +327,9 @@
   <script>
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
+        if (entry.isIntersecting) entry.target.classList.add('visible');
       });
     }, { threshold: 0.1 });
-
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
     // ナビ：アクティブリンクのハイライトとドロップダウン
@@ -319,9 +353,7 @@
         var dd = item.querySelector('.nav-dropdown');
         var timer;
         item.addEventListener('mouseenter', function() {
-          clearTimeout(timer);
-          positionDropdown(item);
-          dd.style.display = 'block';
+          clearTimeout(timer); positionDropdown(item); dd.style.display = 'block';
         });
         item.addEventListener('mouseleave', function() {
           timer = setTimeout(function() { dd.style.display = ''; }, 120);

@@ -25,6 +25,7 @@
       height: 44px; display: flex; align-items: center;
       background: rgba(255,255,255,0.92); backdrop-filter: saturate(180%) blur(20px);
       border-bottom: 1px solid rgba(0,0,0,0.1);
+      overflow: hidden;
     }
     .nav-logo {
       flex-shrink: 0; padding: 0 16px 0 22px;
@@ -38,13 +39,14 @@
       background: linear-gradient(to right, rgba(255,255,255,0.92), transparent); pointer-events: none;
     }
     .nav-links-wrap {
-      flex: 1; overflow: visible; padding: 0 22px 0 8px;
-      height: 44px; display: flex; align-items: center; min-width: 0;
+      flex: 1; overflow-x: auto; overflow-y: hidden;
+      -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none;
+      padding: 0 22px 0 8px; height: 44px; display: flex; align-items: center; min-width: 0;
     }
+    .nav-links-wrap::-webkit-scrollbar { display: none; }
     .nav-links {
       display: flex; gap: 28px; list-style: none;
-      white-space: nowrap; font-size: 12px; font-weight: 400;
-      letter-spacing: -0.01em; position: relative;
+      white-space: nowrap; font-size: 12px; font-weight: 400; letter-spacing: -0.01em;
     }
     .nav-links > li > a { color: #86868b; transition: color 0.3s; text-decoration: none; }
     .nav-links > li > a:hover { color: #1d1d1f; }
@@ -61,15 +63,12 @@
     .has-dropdown.open .nav-group-btn,
     .nav-group-btn.nav-active { color: #1d1d1f; font-weight: 600; }
     .nav-dropdown {
-      display: none; position: absolute;
-      top: calc(100% + 10px); left: 50%; transform: translateX(-50%);
+      display: none; position: fixed; transform: translateX(-50%);
       background: rgba(255,255,255,0.98); backdrop-filter: saturate(180%) blur(20px);
       border-radius: 12px; padding: 6px 0; min-width: 140px;
       list-style: none; border: 1px solid rgba(0,0,0,0.1);
-      box-shadow: 0 8px 30px rgba(0,0,0,0.12); z-index: 200;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12); z-index: 2000;
     }
-    .has-dropdown:hover .nav-dropdown,
-    .has-dropdown.open .nav-dropdown { display: block; }
     .nav-dropdown li a {
       display: block; padding: 9px 18px; color: #86868b;
       font-size: 13px; transition: color 0.2s, background 0.2s;
@@ -114,9 +113,20 @@
 
     .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.2, 0, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0, 0.2, 1); }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 600px) {
+      main { padding-top: 70px; padding-bottom: 60px; }
+      .article-header { margin-bottom: 2rem; }
+      .article-body h2 { font-size: 1.5rem; margin-top: 2rem; }
+      .article-body h3 { font-size: 1.2rem; margin-top: 1.5rem; }
+      .spec-grid { grid-template-columns: 1fr; }
+      .meta-row { flex-wrap: wrap; gap: 0.5rem; }
+      .article-footer { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    }
   </style>
 </head>
 <body>
+
 
 
   <nav>
@@ -130,6 +140,7 @@
             <li><a href="macbook-pro.html">MacBook Pro</a></li>
             <li><a href="macbook-neo.html">MacBook Neo</a></li>
             <li><a href="mac-studio.html">Mac Studio</a></li>
+            <li><a href="mac-mini.html">Mac mini</a></li>
           </ul>
         </li>
         <li class="has-dropdown">
@@ -141,7 +152,13 @@
         </li>
         <li><a href="iphone.html">iPhone</a></li>
         <li><a href="apple-watch.html">Apple Watch</a></li>
-        <li><a href="airpods.html">AirPods</a></li>
+        <li class="has-dropdown">
+          <span class="nav-group-btn">Audio</span>
+          <ul class="nav-dropdown">
+            <li><a href="airpods.html">AirPods</a></li>
+            <li><a href="homepod.html">HomePod</a></li>
+          </ul>
+        </li>
         <li><a href="vision-pro.html">Vision Pro</a></li>
         <li class="has-dropdown">
           <span class="nav-group-btn">Music</span>
@@ -153,6 +170,7 @@
         <li><a href="history.html">History</a></li>
         <li><a href="security.html">Security</a></li>
         <li><a href="experience.html">Experience</a></li>
+        <li><a href="apple-intelligence.html">Apple Intelligence</a></li>
       </ul>
     </div>
   </nav>
@@ -286,15 +304,37 @@
         activeDropLink.classList.add('nav-active');
         activeDropLink.closest('.has-dropdown').querySelector('.nav-group-btn').classList.add('nav-active');
       }
+      function positionDropdown(item) {
+        var btn = item.querySelector('.nav-group-btn');
+        var dd = item.querySelector('.nav-dropdown');
+        var r = btn.getBoundingClientRect();
+        dd.style.top = (r.bottom + 8) + 'px';
+        dd.style.left = (r.left + r.width / 2) + 'px';
+      }
       document.querySelectorAll('.has-dropdown').forEach(function(item) {
-        item.querySelector('.nav-group-btn').addEventListener('click', function() {
-          var isOpen = item.classList.contains('open');
+        var dd = item.querySelector('.nav-dropdown');
+        var timer;
+        item.addEventListener('mouseenter', function() {
+          clearTimeout(timer);
+          positionDropdown(item);
+          dd.style.display = 'block';
+        });
+        item.addEventListener('mouseleave', function() {
+          timer = setTimeout(function() { dd.style.display = ''; }, 120);
+        });
+        dd.addEventListener('mouseenter', function() { clearTimeout(timer); });
+        dd.addEventListener('mouseleave', function() { dd.style.display = ''; });
+        item.querySelector('.nav-group-btn').addEventListener('click', function(e) {
+          e.stopPropagation();
+          var isOpen = dd.style.display === 'block';
+          document.querySelectorAll('.nav-dropdown').forEach(function(d) { d.style.display = ''; });
           document.querySelectorAll('.has-dropdown').forEach(function(d) { d.classList.remove('open'); });
-          if (!isOpen) item.classList.add('open');
+          if (!isOpen) { positionDropdown(item); dd.style.display = 'block'; item.classList.add('open'); }
         });
       });
       document.addEventListener('click', function(e) {
         if (!e.target.closest('.has-dropdown')) {
+          document.querySelectorAll('.nav-dropdown').forEach(function(d) { d.style.display = ''; });
           document.querySelectorAll('.has-dropdown').forEach(function(d) { d.classList.remove('open'); });
         }
       });

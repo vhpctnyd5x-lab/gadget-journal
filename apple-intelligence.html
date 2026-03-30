@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Apple Vision Pro 2: 空間コンピューティングの成熟 - My Gadget Journal</title>
-  <meta name="description" content="Apple Vision Pro 2 の詳細レビュー。M5チップ、120Hz OLEDマイクロディスプレイ、12ms遅延。空間コンピューティングの未来。" />
+  <title>Apple Intelligence: あなたのデバイスが、考える。 - Gadget Journal</title>
+  <meta name="description" content="Apple Intelligenceの全貌を解説。Writing Tools、Image Playground、Siriの進化、プライバシーを守るPrivate Cloud Computeまで。" />
   <style>
     :root {
       --text: #1d1d1f;
@@ -13,6 +13,7 @@
       --bg-light: #f5f5f7;
       --brand: #0071e3;
       --white: #ffffff;
+      --purple: #bf5af2;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -81,7 +82,7 @@
     article { max-width: 820px; margin: 0 auto; padding: 0 22px; }
 
     .article-header { margin-bottom: 4rem; text-align: left; }
-    .badge { display: inline-flex; padding: 5px 12px; border-radius: 99px; background: var(--bg-light); color: #3a3a3c; font-size: 12px; font-weight: 600; margin-bottom: 1.5rem; }
+    .badge { display: inline-flex; padding: 5px 12px; border-radius: 99px; background: linear-gradient(135deg, #f3e8ff, #ede0ff); color: #7b2ff7; font-size: 12px; font-weight: 600; margin-bottom: 1.5rem; }
     h1 { font-size: clamp(2.25rem, 6vw, 4rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 1.5rem; }
     .meta-row { display: flex; gap: 1.5rem; color: var(--muted); font-size: 14px; }
     .author-name { font-weight: 600; color: var(--text); }
@@ -98,10 +99,17 @@
     .article-body a { color: var(--brand); font-weight: 600; }
     .article-body a:hover { text-decoration: underline; }
 
-    .spec-box { background: var(--bg-light); border-radius: 1.2rem; padding: 30px; margin: 2rem 0; border: 1px solid var(--line); }
-    .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .spec-item h4 { font-size: 12px; color: var(--muted); text-transform: uppercase; margin-bottom: 5px; }
-    .spec-item p { font-size: 1.2rem; font-weight: 600; margin: 0; }
+    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 2rem 0; }
+    .feature-card { background: var(--bg-light); border-radius: 1rem; padding: 22px; border: 1px solid var(--line); }
+    .feature-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+    .feature-card p { font-size: 14px; color: var(--muted); margin: 0; line-height: 1.6; }
+
+    .highlight-box { background: linear-gradient(135deg, #faf0ff 0%, #f3e8ff 100%); border-radius: 1.2rem; padding: 28px 32px; margin: 2.5rem 0; border: 1px solid #e2c8f5; }
+    .highlight-box p { margin: 0; font-size: 1.1rem; color: #4a1080; font-weight: 500; }
+
+    .privacy-banner { background: #1d1d1f; color: #fff; border-radius: 1.2rem; padding: 28px 32px; margin: 2.5rem 0; }
+    .privacy-banner h3 { color: #fff; font-size: 1.2rem; margin-bottom: 10px; }
+    .privacy-banner p { color: rgba(255,255,255,0.75); font-size: 1rem; margin: 0; }
 
     .article-footer { margin-top: 5rem; padding-top: 2.5rem; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
     .tags { display: flex; gap: 0.6rem; flex-wrap: wrap; }
@@ -119,15 +127,13 @@
       .article-header { margin-bottom: 2rem; }
       .article-body h2 { font-size: 1.5rem; margin-top: 2rem; }
       .article-body h3 { font-size: 1.2rem; margin-top: 1.5rem; }
-      .spec-grid { grid-template-columns: 1fr; }
+      .feature-grid { grid-template-columns: 1fr; }
       .meta-row { flex-wrap: wrap; gap: 0.5rem; }
       .article-footer { flex-direction: column; align-items: flex-start; gap: 1rem; }
     }
   </style>
 </head>
 <body>
-
-
 
   <nav>
     <a href="index.html" class="nav-logo">Gadget Journal</a>
@@ -170,7 +176,7 @@
         <li><a href="history.html">History</a></li>
         <li><a href="security.html">Security</a></li>
         <li><a href="experience.html">Experience</a></li>
-        <li><a href="apple-intelligence.html">Apple Intelligence</a></li>
+        <li><a href="apple-intelligence.html" class="nav-active">Apple Intelligence</a></li>
       </ul>
     </div>
   </nav>
@@ -178,104 +184,128 @@
   <main>
     <article>
       <header class="article-header fade-in">
-        <div class="badge">Spatial Computing</div>
-        <h1>Apple Vision Pro 2: <br />空間コンピューティングの成熟へ。</h1>
+        <div class="badge">Apple Intelligence</div>
+        <h1>あなたのデバイスが、<br>考える。</h1>
         <div class="meta-row">
           <span class="author-name">Gadget Journal 筆者</span>
-          <span>2026.03.24 公開</span>
+          <span>2026.03.30 公開</span>
         </div>
       </header>
 
       <div class="figure-wrap fade-in">
         <div class="figure-card">
-          <img src="assets/mwqLtfoHvDwk.jpg" alt="Apple Vision Pro 2 Hero Image">
+          <img src="assets/gSNm86lvh9DE.jpg" alt="Apple Intelligence">
         </div>
         <span class="cite-tag">出典: Apple Newsroom</span>
       </div>
 
       <section class="article-body fade-in">
         <p>
-          Apple Vision Pro 2は、第一世代で指摘された重量や快適性の課題を解決しつつ、
-          処理能力を劇的に向上させた、空間コンピューティングの完成形です。
-          M5チップによるMacBook Proクラスの演算能力、120Hz OLEDマイクロディスプレイ、
-          そしてわずか12ミリ秒という人間の知覚限界以下の遅延。
-          これらが実現する、新しい現実とは何か。その全貌を解き明かします。
+          2024年のWWDCで発表されたApple Intelligence——これはAppleにとって単なる新機能ではなく、
+          コンピューティングの根本的なパラダイムシフトの始まりだ。
+          「パーソナルインテリジェンス」と名付けられたこのシステムは、
+          あなた自身のデータを深く理解し、あなたのためだけに動く。
         </p>
 
-        <h2>セクション1：M5とR1のデュアルプロセッサ、12msの壁を超える</h2>
+        <h2>Apple Intelligenceとは何か</h2>
         <p>
-          Vision Pro 2の心臓部には、MacBook Proクラスの演算能力を持つM5チップと、
-          センサー処理に特化したR1チップが搭載されています。
-          R1チップは、12個のカメラ、5つのセンサー、6つのマイクからの膨大なデータを
-          ミリ秒単位で処理し、現実の世界をわずか12ミリ秒という
-          人間の知覚限界以下の遅延でディスプレイに映し出します。
-          この「12msの壁」を超えることで、VR酔いは完全に解消され、
-          あなたは本当に「その場にいる」という感覚を得られるのです。
+          Apple Intelligenceは、iOS 18.1以降、iPadOS 18.1以降、macOS Sequoia 15.1以降で
+          段階的に展開されている一連のAI機能だ。ChatGPTのような汎用AIとは異なり、
+          あくまでAppleデバイスとあなたの個人データを起点とした
+          「パーソナルなインテリジェンス」である点が最大の特徴だ。
         </p>
 
-        <div class="spec-box">
-          <h3>Apple Vision Pro 2 主要スペック</h3>
-          <div class="spec-grid">
-            <div class="spec-item">
-              <h4>プロセッサ</h4>
-              <p>M5 + R1 (デュアルチップ)</p>
-            </div>
-            <div class="spec-item">
-              <h4>ディスプレイ</h4>
-              <p>120Hz マイクロOLED 2,300万ピクセル</p>
-            </div>
-            <div class="spec-item">
-              <h4>遅延</h4>
-              <p>12ミリ秒以下</p>
-            </div>
-            <div class="spec-item">
-              <h4>価格 (税込)</h4>
-              <p>649,800円〜</p>
-            </div>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h4>Writing Tools</h4>
+            <p>文章の校正・要約・トーン変更をどのアプリでも瞬時に実行。メモ、メール、Safariすべてで使える。</p>
+          </div>
+          <div class="feature-card">
+            <h4>Image Playground</h4>
+            <p>テキストから即座にイラストを生成。アニメ・スケッチ・水彩など複数スタイルに対応。</p>
+          </div>
+          <div class="feature-card">
+            <h4>Photo Cleanup</h4>
+            <p>写真内の不要な人物・物体をAIが自然に消去。プロ並みの仕上がりをワンタップで。</p>
+          </div>
+          <div class="feature-card">
+            <h4>Priority Notifications</h4>
+            <p>大量の通知から重要なものだけをAIが選別・要約して最上部に表示する。</p>
           </div>
         </div>
 
-        <h2>セクション2：120Hz OLEDマイクロディスプレイ、映像制作のプロフェッショナル環境</h2>
+        <h2>進化したSiri</h2>
         <p>
-          ディスプレイシステムは、両眼で2,300万ピクセルという驚異的な解像度を維持しながら、
-          リフレッシュレートを最大120Hzに引き上げました。
-          これにより、頭部を素早く動かした際の残像感が完全に解消され、
-          VR酔いのリスクが大幅に低減されています。
-          また、DCI-P3を92%カバーする広色域は、映像制作のプロフェッショナルが
-          バーチャルなモニタリング環境として活用するに足る品質を提供しています。
+          Apple Intelligenceの中核を担うのが、大幅に強化されたSiriだ。
+          従来のSiriは「天気を教えて」「タイマーを設定して」といった単純な命令には強かったが、
+          複数の操作を組み合わせた複雑なリクエストには対応できなかった。
+        </p>
+        <p>
+          新しいSiriは「先週Tomから届いたメールを要約して、その内容に基づいてカレンダーに予定を追加して」
+          といったマルチステップの操作を自然言語で実行できる。
+          さらに、画面上に表示されているコンテキストを理解し、
+          「これについてもっと調べて」という曖昧な指示にも応答できるようになった。
         </p>
 
-        <h2>セクション3：Mac Virtual Display、物理的ディスプレイの終焉</h2>
+        <div class="highlight-box">
+          <p>「Siriはついに、あなたの言葉の意図を理解する段階に到達した。」</p>
+        </div>
+
+        <h3>ChatGPT連携</h3>
         <p>
-          OS面では、visionOS 26が導入され、iPhoneやMacとのシームレスな連携が強化されました。
-          Macの画面を空間上に巨大なディスプレイとして映し出す機能（Mac Virtual Display）は、
-          M5チップの恩恵により遅延がさらに低減され、
-          物理的なディスプレイが不要な未来を予感させます。
-          これは、リモートワークやクリエイティブワークの概念を根本から変えるものです。
+          Apple IntelligenceはOpenAIのChatGPT-4oとも連携している。
+          SiriがApple Intelligence単独では対応しきれないリクエストを受け取った際、
+          ユーザーの承認を経てChatGPTに処理を委託する仕組みだ。
+          重要なのは、この連携が完全にオプトインであり、
+          ユーザーの同意なしにデータが外部に送信されることはない点だ。
         </p>
 
-        <h2>結論：現実と仮想の境界線が消える</h2>
+        <h2>プライバシーを守る設計</h2>
         <p>
-          Apple Vision Pro 2は、単なる「VRゴーグル」ではなく、
-          現実と仮想の境界線を完全に消し去る「新しい次元のコンピュータ」です。
-          M5チップの演算能力、120Hz OLEDの映像品質、
-          そして12ms以下の遅延が実現する、究極の没入感。
-          これが、あなたの仕事と人生にもたらす価値は、
-          価格をはるかに上回るものです。
+          多くのAIサービスが「クラウドにデータを送信して処理する」モデルを採用する中、
+          Apple Intelligenceは可能な限りデバイス上でAI処理を完結させる。
+          M1以降のチップに搭載されたニューラルエンジンが、
+          あなたのデータをデバイスの外に出さずに処理する。
+        </p>
+
+        <div class="privacy-banner">
+          <h3>Private Cloud Compute</h3>
+          <p>デバイス上で処理しきれない大規模なAIタスクは、Appleが設計した専用サーバー群「Private Cloud Compute」に委託される。このサーバーはAppleを含む誰もユーザーデータにアクセスできないよう設計されており、処理後にデータは即座に削除される。セキュリティ研究者による独立した検証も公開されている。</p>
+        </div>
+
+        <h2>日本語対応と今後の展開</h2>
+        <p>
+          2025年4月のアップデートにより、Apple Intelligenceは日本語に正式対応した。
+          Writing Toolsの日本語校正、Siriへの日本語での複雑な指示、
+          日本語コンテンツのAI要約が利用できる。
         </p>
         <p>
-          詳細は <a href="https://www.apple.com/jp/apple-vision-pro/" target="_blank" rel="noopener noreferrer">Apple公式サイト</a> で確認してみてください。
+          今後もAppleはApple Intelligenceの機能を継続的に拡充していく方針を示している。
+          対応デバイスはA17 Pro以降のiPhone（iPhone 15 Pro以降）、
+          M1以降のiPad・Mac・MacBook、および今後の新製品すべてだ。
+        </p>
+
+        <h2>AIとの新しい関係</h2>
+        <p>
+          Apple Intelligenceが示す方向性は、「汎用AIアシスタント」ではなく
+          「あなたをよく知るパーソナルなAI」だ。
+          カレンダー、写真、メール、連絡先——あなたの生活データを深く理解した上で、
+          必要なときだけ、必要な形で助力する。
+        </p>
+        <p>
+          Appleが40年かけて磨き続けた「人に寄り添うプロダクト哲学」が、
+          ついにAIの時代にも結実しようとしている。
         </p>
       </section>
 
       <footer class="article-footer fade-in">
         <div class="tags">
-          <span class="tag">#VisionPro2</span>
-          <span class="tag">#SpatialComputing</span>
-          <span class="tag">#M5Chip</span>
-          <span class="tag">#120HzOLED</span>
+          <span class="tag">Apple Intelligence</span>
+          <span class="tag">AI</span>
+          <span class="tag">Siri</span>
+          <span class="tag">プライバシー</span>
         </div>
-        <a href="index.html" class="back-link">← Homeに戻る</a>
+        <a href="index.html" class="back-link">← トップへ戻る</a>
       </footer>
     </article>
   </main>
@@ -290,12 +320,9 @@
   <script>
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
+        if (entry.isIntersecting) entry.target.classList.add('visible');
       });
     }, { threshold: 0.1 });
-
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
     // ナビ：アクティブリンクのハイライトとドロップダウン
@@ -319,9 +346,7 @@
         var dd = item.querySelector('.nav-dropdown');
         var timer;
         item.addEventListener('mouseenter', function() {
-          clearTimeout(timer);
-          positionDropdown(item);
-          dd.style.display = 'block';
+          clearTimeout(timer); positionDropdown(item); dd.style.display = 'block';
         });
         item.addEventListener('mouseleave', function() {
           timer = setTimeout(function() { dd.style.display = ''; }, 120);
