@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://gadget-journal.vercel.app/index.html</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://gadget-journal.vercel.app/review.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gadget-journal.vercel.app/macbook-pro.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gadget-journal.vercel.app/macbook-neo.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gadget-journal.vercel.app/mac-studio.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gadget-journal.vercel.app/mac-mini.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gadget-journal.vercel.app/ipad.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gadget-journal.vercel.app/ipad-air.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gadget-journal.vercel.app/iphone.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gadget-journal.vercel.app/apple-watch.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gadget-journal.vercel.app/airpods.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gadget-journal.vercel.app/homepod.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gadget-journal.vercel.app/vision-pro.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gadget-journal.vercel.app/apple-intelligence.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gadget-journal.vercel.app/music.html</loc><priority>0.7</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://gadget-journal.vercel.app/music-trend.html</loc><priority>0.7</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://gadget-journal.vercel.app/history.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gadget-journal.vercel.app/security.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://gadget-journal.vercel.app/experience.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+</urlset>

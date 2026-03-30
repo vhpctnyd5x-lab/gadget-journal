@@ -232,6 +232,62 @@
       .card { padding: 28px; min-height: auto; }
       .card h3 { font-size: 1.8rem; }
     }
+
+    /* ── Featured Carousel (Scroll Snap) ── */
+    .featured-section {
+      padding: 60px 0 20px;
+      background: #f5f5f7;
+    }
+    .featured-title {
+      text-align: center; margin-bottom: 28px; padding: 0 22px;
+    }
+    .featured-title h2 {
+      font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 700;
+      letter-spacing: -0.03em; color: #1d1d1f;
+    }
+    .featured-title p { font-size: 14px; color: #86868b; margin-top: 6px; }
+
+    .snap-wrap {
+      display: flex; overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; -ms-overflow-style: none;
+      gap: 16px; padding: 8px 22px 24px;
+    }
+    .snap-wrap::-webkit-scrollbar { display: none; }
+
+    .snap-card {
+      flex: 0 0 82%; max-width: 360px;
+      scroll-snap-align: center;
+      border-radius: 20px; overflow: hidden;
+      background: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      text-decoration: none; color: inherit;
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex; flex-direction: column;
+    }
+    @media (min-width: 600px) { .snap-card { flex: 0 0 46%; } }
+    @media (min-width: 1000px) { .snap-card { flex: 0 0 30%; } }
+    .snap-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,0.14); }
+    .snap-card-img {
+      width: 100%; aspect-ratio: 4/3; object-fit: cover;
+    }
+    .snap-card-body { padding: 20px; flex: 1; }
+    .snap-card-badge {
+      font-size: 11px; font-weight: 700; color: #0071e3;
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;
+    }
+    .snap-card-title { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
+    .snap-card-desc { font-size: 13px; color: #86868b; line-height: 1.5; }
+
+    .snap-dots {
+      display: flex; justify-content: center; gap: 6px; padding-bottom: 8px;
+    }
+    .snap-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #d2d2d7; transition: background 0.3s, transform 0.3s;
+      cursor: pointer;
+    }
+    .snap-dot.active { background: #0071e3; transform: scale(1.3); }
   </style>
 </head>
 <body>
@@ -317,6 +373,73 @@
           <input class="search-input" id="searchinput" type="text" placeholder="記事を検索… (例: MacBook、iPhone、AirPods)" autocomplete="off">
           <span class="search-icon">🔍</span>
           <div class="search-results" id="searchresults"></div>
+        </div>
+
+
+        <!-- ★ Scroll Snap Carousel ★ -->
+        <div class="featured-section">
+          <div class="featured-title fade-in">
+            <h2>注目の記事</h2>
+            <p>← スワイプして探索 →</p>
+          </div>
+          <div class="snap-wrap" id="snapWrap">
+            <a href="review.html" class="snap-card">
+              <img loading="lazy" class="snap-card-img" src="assets/mwqLtfoHvDwk.jpg" alt="M5 MacBook Air">
+              <div class="snap-card-body">
+                <div class="snap-card-badge">New Release</div>
+                <div class="snap-card-title">M5 MacBook Air</div>
+                <div class="snap-card-desc">驚異的なパフォーマンスと薄さを両立した新世代Air。</div>
+              </div>
+            </a>
+            <a href="iphone.html" class="snap-card">
+              <img loading="lazy" class="snap-card-img" src="assets/zx2qYV5F4Tpc.jpg" alt="iPhone 17e">
+              <div class="snap-card-body">
+                <div class="snap-card-badge">Essential</div>
+                <div class="snap-card-title">iPhone 17e</div>
+                <div class="snap-card-desc">Apple Intelligenceを手軽に体験できる新スタンダード。</div>
+              </div>
+            </a>
+            <a href="apple-intelligence.html" class="snap-card">
+              <img loading="lazy" class="snap-card-img" src="assets/gSNm86lvh9DE.jpg" alt="Apple Intelligence">
+              <div class="snap-card-body">
+                <div class="snap-card-badge">AI Feature</div>
+                <div class="snap-card-title">Apple Intelligence</div>
+                <div class="snap-card-desc">Writing Tools、Image Playground。AI新時代の幕開け。</div>
+              </div>
+            </a>
+            <a href="ipad.html" class="snap-card">
+              <img loading="lazy" class="snap-card-img" src="assets/JgkFy5R64E18.jpg" alt="iPad Pro">
+              <div class="snap-card-body">
+                <div class="snap-card-badge">Pro Performance</div>
+                <div class="snap-card-title">iPad Pro M5</div>
+                <div class="snap-card-desc">Tandem OLEDとM5チップ。究極のタブレット体験。</div>
+              </div>
+            </a>
+            <a href="mac-mini.html" class="snap-card">
+              <img loading="lazy" class="snap-card-img" src="assets/0MzY9mPnH5Jf.jpg" alt="Mac mini">
+              <div class="snap-card-body">
+                <div class="snap-card-badge">Desktop Power</div>
+                <div class="snap-card-title">Mac mini M4 Pro</div>
+                <div class="snap-card-desc">手のひらサイズで圧倒的なパフォーマンス。</div>
+              </div>
+            </a>
+            <a href="vision-pro.html" class="snap-card">
+              <img loading="lazy" class="snap-card-img" src="assets/DfMi0pbXqqGF.jpg" alt="Vision Pro">
+              <div class="snap-card-body">
+                <div class="snap-card-badge">Spatial</div>
+                <div class="snap-card-title">Apple Vision Pro</div>
+                <div class="snap-card-desc">空間コンピューティングが切り開く、次の10年。</div>
+              </div>
+            </a>
+          </div>
+          <div class="snap-dots" id="snapDots">
+            <div class="snap-dot active"></div>
+            <div class="snap-dot"></div>
+            <div class="snap-dot"></div>
+            <div class="snap-dot"></div>
+            <div class="snap-dot"></div>
+            <div class="snap-dot"></div>
+          </div>
         </div>
 
         <div class="grid">
@@ -593,7 +716,25 @@
   inp.addEventListener('keydown', function(e) {
     if(e.key === 'Escape') { res.classList.remove('show'); inp.blur(); }
   });
-  </script>
+  
+  // Scroll Snap dots indicator
+  (function(){
+    var wrap = document.getElementById('snapWrap');
+    var dots = document.querySelectorAll('#snapDots .snap-dot');
+    if(!wrap || !dots.length) return;
+    wrap.addEventListener('scroll', function(){
+      var idx = Math.round(wrap.scrollLeft / (wrap.scrollWidth / dots.length));
+      idx = Math.max(0, Math.min(idx, dots.length - 1));
+      dots.forEach(function(d, i){ d.classList.toggle('active', i === idx); });
+    }, {passive: true});
+    dots.forEach(function(dot, i){
+      dot.addEventListener('click', function(){
+        var itemW = wrap.scrollWidth / dots.length;
+        wrap.scrollTo({left: itemW * i, behavior: 'smooth'});
+      });
+    });
+  })();
+</script>
 </body>
 </html>
 
