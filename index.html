@@ -147,53 +147,53 @@
     <a href="index.html" class="nav-logo">Gadget Journal</a>
     <div class="nav-menu" aria-label="Primary Navigation">
       <div class="dd">
-        <button class="dd-btn" aria-expanded="false" aria-controls="menu-mac">Mac <span class="dd-arrow">▾</span></button>
-        <ul class="dd-menu" id="menu-mac">
-          <li><a href="review.html">MacBook Air</a></li>
-          <li><a href="macbook-pro.html">MacBook Pro</a></li>
-          <li><a href="mac-studio.html">Mac Studio</a></li>
-          <li><a href="macbook-neo.html">MacBook Neo</a></li>
+        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menu-mac">Mac <span class="dd-arrow">▾</span></button>
+        <ul class="dd-menu" role="menu" id="menu-mac">
+          <li><a role="menuitem" href="review.html">MacBook Air</a></li>
+          <li><a role="menuitem" href="macbook-pro.html">MacBook Pro</a></li>
+          <li><a role="menuitem" href="mac-studio.html">Mac Studio</a></li>
+          <li><a role="menuitem" href="macbook-neo.html">MacBook Neo</a></li>
         </ul>
       </div>
       <div class="dd">
-        <button class="dd-btn" aria-expanded="false" aria-controls="menu-ipad">iPad <span class="dd-arrow">▾</span></button>
-        <ul class="dd-menu" id="menu-ipad">
-          <li><a href="ipad.html">iPad Pro</a></li>
-          <li><a href="ipad-air.html">iPad Air</a></li>
+        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menu-ipad">iPad <span class="dd-arrow">▾</span></button>
+        <ul class="dd-menu" role="menu" id="menu-ipad">
+          <li><a role="menuitem" href="ipad.html">iPad Pro</a></li>
+          <li><a role="menuitem" href="ipad-air.html">iPad Air</a></li>
         </ul>
       </div>
       <div class="dd">
-        <button class="dd-btn" aria-expanded="false" aria-controls="menu-iphone">iPhone <span class="dd-arrow">▾</span></button>
-        <ul class="dd-menu" id="menu-iphone">
-          <li><a href="iphone.html">iPhone</a></li>
+        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menu-iphone">iPhone <span class="dd-arrow">▾</span></button>
+        <ul class="dd-menu" role="menu" id="menu-iphone">
+          <li><a role="menuitem" href="iphone.html">iPhone</a></li>
         </ul>
       </div>
       <div class="dd">
-        <button class="dd-btn" aria-expanded="false" aria-controls="menu-watch">Apple Watch <span class="dd-arrow">▾</span></button>
-        <ul class="dd-menu" id="menu-watch">
-          <li><a href="apple-watch.html">Apple Watch</a></li>
+        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menu-watch">Apple Watch <span class="dd-arrow">▾</span></button>
+        <ul class="dd-menu" role="menu" id="menu-watch">
+          <li><a role="menuitem" href="apple-watch.html">Apple Watch</a></li>
         </ul>
       </div>
       <div class="dd">
-        <button class="dd-btn" aria-expanded="false" aria-controls="menu-audio">Audio <span class="dd-arrow">▾</span></button>
-        <ul class="dd-menu" id="menu-audio">
-          <li><a href="airpods.html">AirPods</a></li>
-          <li><a href="music.html">Music Diary</a></li>
-          <li><a href="music-trend.html">Japan Chart</a></li>
+        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menu-audio">Audio <span class="dd-arrow">▾</span></button>
+        <ul class="dd-menu" role="menu" id="menu-audio">
+          <li><a role="menuitem" href="airpods.html">AirPods</a></li>
+          <li><a role="menuitem" href="music.html">Music Diary</a></li>
+          <li><a role="menuitem" href="music-trend.html">Japan Chart</a></li>
         </ul>
       </div>
       <div class="dd">
-        <button class="dd-btn" aria-expanded="false" aria-controls="menu-vision">Vision Pro <span class="dd-arrow">▾</span></button>
-        <ul class="dd-menu" id="menu-vision">
-          <li><a href="vision-pro.html">Vision Pro</a></li>
+        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menu-vision">Vision Pro <span class="dd-arrow">▾</span></button>
+        <ul class="dd-menu" role="menu" id="menu-vision">
+          <li><a role="menuitem" href="vision-pro.html">Vision Pro</a></li>
         </ul>
       </div>
       <div class="dd">
-        <button class="dd-btn" aria-expanded="false" aria-controls="menu-site">Site <span class="dd-arrow">▾</span></button>
-        <ul class="dd-menu" id="menu-site">
-          <li><a href="history.html">History</a></li>
-          <li><a href="security.html">Security</a></li>
-          <li><a href="experience.html">Experience</a></li>
+        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menu-site">Site <span class="dd-arrow">▾</span></button>
+        <ul class="dd-menu" role="menu" id="menu-site">
+          <li><a role="menuitem" href="history.html">History</a></li>
+          <li><a role="menuitem" href="security.html">Security</a></li>
+          <li><a role="menuitem" href="experience.html">Experience</a></li>
         </ul>
       </div>
     </div>
@@ -334,6 +334,7 @@
 
     buttons.forEach((btn, index) => {
       const dd = btn.closest('.dd');
+      const items = Array.from(dd.querySelectorAll('[role=\"menuitem\"]'));
 
       btn.addEventListener('click', () => {
         const isOpen = dd.classList.contains('open');
@@ -353,6 +354,15 @@
           closeAll();
           btn.focus();
         }
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          if (!dd.classList.contains('open')) {
+            closeAll();
+            dd.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+          }
+          items[0]?.focus();
+        }
         if (e.key === 'ArrowRight') {
           e.preventDefault();
           buttons[(index + 1) % buttons.length].focus();
@@ -361,6 +371,25 @@
           e.preventDefault();
           buttons[(index - 1 + buttons.length) % buttons.length].focus();
         }
+      });
+
+      items.forEach((item, itemIndex) => {
+        item.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            e.preventDefault();
+            closeAll();
+            btn.focus();
+          }
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            items[(itemIndex + 1) % items.length]?.focus();
+          }
+          if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            items[(itemIndex - 1 + items.length) % items.length]?.focus();
+          }
+        });
+        item.addEventListener('click', () => closeAll());
       });
     });
 
