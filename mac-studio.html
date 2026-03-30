@@ -15,6 +15,11 @@
   <meta name="twitter:title" content="Mac Studio レビュー | Gadget Journal" />
   <meta name="twitter:description" content="M4 Ultra搭載Mac Studioの徹底レビュー。" />
   <meta name="twitter:image" content="https://gadget-journal.vercel.app/assets/mwqLtfoHvDwk.jpg" />
+  <link rel="apple-touch-icon" href="assets/DfMi0pbXqqGF.jpg" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="view-transition" content="same-origin" />
   <style>
     :root {
       --text: #1d1d1f;
@@ -102,7 +107,8 @@ nav {
 
     .figure-wrap { margin-bottom: 4rem; }
     .figure-card { overflow: hidden; border-radius: 1.5rem; border: 1px solid var(--line); background: var(--bg-light); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-    .figure-card img { width: 100%; height: auto; transition: transform 0.6s cubic-bezier(0.2, 0, 0.2, 1); }
+    .figure-card img { width: 100%; height: auto; transition: transform 0.6s cubic-bezier(0.2, 0, 0.2, 1);   aspect-ratio: 16 / 9; object-fit: cover;
+    }
     .figure-card:hover img { transform: scale(1.02); }
     .cite-tag { display: block; text-align: right; font-size: 11px; color: var(--muted); margin-top: 0.75rem; }
 
@@ -166,9 +172,42 @@ nav {
       cursor: pointer; padding: 0 4px; line-height: 1;
     }
     .announce-close:hover { color: #fff; }
+
+    /* ── Reading Progress Bar ── */
+    #reading-progress {
+      position: fixed; top: 0; left: 0; height: 3px;
+      background: linear-gradient(90deg, #0071e3, #bf5af2);
+      width: 0%; z-index: 9999; transition: width 0.1s linear;
+      pointer-events: none;
+    }
+
+    /* ── Toast Notification ── */
+    #toast {
+      position: fixed; top: -60px; left: 50%; transform: translateX(-50%);
+      background: rgba(0,0,0,0.88); backdrop-filter: blur(12px);
+      color: #fff; padding: 12px 24px; border-radius: 30px;
+      transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 9998; font-size: 14px; font-weight: 600;
+      white-space: nowrap; box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      pointer-events: none;
+    }
+    #toast.show { top: 20px; }
+
+    /* ── Share Button ── */
+    .share-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 10px 20px; border-radius: 99px;
+      background: #0071e3; color: #fff;
+      font-size: 14px; font-weight: 600; cursor: pointer;
+      border: none; font-family: inherit;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .share-btn:hover { background: #0077ed; transform: translateY(-1px); }
   </style>
 </head>
 <body>
+  <div id="reading-progress"></div>
+  <div id="toast"></div>
 
 
 
@@ -450,6 +489,43 @@ nav {
     var minutes = Math.max(1, Math.round(chars / 400));
     var el = document.querySelector('.reading-time');
     if (el) el.textContent = '約' + minutes + '分で読めます';
+  })();
+
+  // Reading progress bar
+  (function(){
+    var bar = document.getElementById('reading-progress');
+    if(!bar) return;
+    function update(){
+      var s = document.documentElement.scrollTop;
+      var h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      bar.style.width = (h > 0 ? (s/h*100) : 0) + '%';
+    }
+    window.addEventListener('scroll', update, {passive:true});
+  })();
+
+  // Toast helper
+  function showToast(msg){
+    var t = document.getElementById('toast');
+    if(!t) return;
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(function(){ t.classList.remove('show'); }, 3000);
+  }
+
+  // Web Share API
+  (function(){
+    var btns = document.querySelectorAll('.share-btn');
+    btns.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        if(navigator.share){
+          navigator.share({title: document.title, url: location.href})
+            .catch(function(){});
+        } else {
+          navigator.clipboard.writeText(location.href).then(function(){
+            showToast('URLをコピーしました ✓');
+          });
+        }
+      });
+    });
   })();
 </script>
 
