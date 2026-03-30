@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Japan Trend Chart 2026 | Gadget Journal</title>
+<link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -37,7 +38,7 @@ nav{
   background:rgba(0,0,0,0.88);
   backdrop-filter:saturate(180%) blur(20px);
   border-bottom:1px solid rgba(255,255,255,0.1);
-  overflow:hidden;
+  overflow: hidden;
 }
 .nav-logo{
   flex-shrink:0;padding:0 16px 0 22px;
@@ -46,18 +47,18 @@ nav{
   display:flex;align-items:center;
   background:rgba(0,0,0,0.88);position:relative;z-index:2;
 }
-.nav-logo::after{content:'';position:absolute;right:-16px;top:0;width:16px;height:100%;background:linear-gradient(to right,rgba(0,0,0,0.88),transparent)}
+.nav-logo::after{content:'';position:absolute;right:-20px;top:0;width:20px;height:100%;background:linear-gradient(to right,rgba(0,0,0,0.88),transparent)}
 .nav-links-wrap{
   flex:1;overflow-x:auto;overflow-y:hidden;
-  scrollbar-width:none;height:44px;display:flex;align-items:center;
-  padding:0 36px 0 6px;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;-ms-overflow-style:none;height:44px;display:flex;align-items:center;
+  min-width:0;padding:0 40px 0 8px;
 }
 .nav-links-wrap::-webkit-scrollbar{display:none}
-.nav-links{display:flex;gap:24px;list-style:none;white-space:nowrap;font-size:12px}
+.nav-links{display:flex;gap:28px;list-style:none;white-space:nowrap;font-size:12px;font-weight:400;letter-spacing:-0.01em;flex-wrap:nowrap}
 .nav-links a{color:rgba(255,255,255,0.75);text-decoration:none;transition:color 0.2s}
 .nav-links a:hover{color:#fff}
 .nav-links a.cur{color:#fff;font-weight:700}
-.nav-fade-right{position:absolute;right:0;top:0;width:36px;height:44px;background:linear-gradient(to right,transparent,rgba(0,0,0,0.88));pointer-events:none;z-index:3}
 
 /* BG */
 #bgc{position:fixed;inset:0;z-index:0;pointer-events:none;transition:background 1.4s cubic-bezier(0.4,0,0.2,1);background:radial-gradient(ellipse 80% 50% at 50% -5%,rgba(252,60,68,0.14) 0%,transparent 65%)}
@@ -253,29 +254,7 @@ textarea.minput{resize:none;flex:1;min-width:0}
 </div>
 
 <!-- NAV -->
-<nav>
-  <a href="index.html" class="nav-logo">Gadget Journal</a>
-  <div class="nav-links-wrap">
-    <ul class="nav-links">
-      <li><a href="review.html">MacBook Air</a></li>
-      <li><a href="macbook-pro.html">MacBook Pro</a></li>
-      <li><a href="mac-studio.html">Mac Studio</a></li>
-      <li><a href="macbook-neo.html">MacBook Neo</a></li>
-      <li><a href="ipad.html">iPad Pro</a></li>
-      <li><a href="ipad-air.html">iPad Air</a></li>
-      <li><a href="iphone.html">iPhone</a></li>
-      <li><a href="history.html">History</a></li>
-      <li><a href="security.html">Security</a></li>
-      <li><a href="apple-watch.html">Apple Watch</a></li>
-      <li><a href="airpods.html">AirPods</a></li>
-      <li><a href="vision-pro.html">Vision Pro</a></li>
-      <li><a href="music.html">Music Diary</a></li>
-      <li><a href="music-trend.html" class="cur">Japan Chart</a></li>
-      <li><a href="experience.html">Experience</a></li>
-    </ul>
-  </div>
-  <div class="nav-fade-right"></div>
-</nav>
+  <div id="header-placeholder"></div>
 
 <div class="wrap">
 
@@ -286,7 +265,7 @@ textarea.minput{resize:none;flex:1;min-width:0}
     <p class="hero-sub">Apple Music Japan トップ100をもとにした、今まさに日本で最も聴かれているJ-POPのリアルタイムランキング。</p>
     <div class="hbtns">
       <a href="https://music.apple.com/jp/playlist/%E3%83%88%E3%83%83%E3%83%97100-%E6%97%A5%E6%9C%AC/pl.043a2c9876114d95a4659988497567be"
-         target="_blank" rel="noopener" class="btn-r">🎵 Apple Music トップ100</a>
+         target="_blank" rel="noopener noreferrer" class="btn-r">🎵 Apple Music トップ100</a>
       <a href="#chart" class="btn-g">📊 チャートを見る</a>
     </div>
   </div>
@@ -369,7 +348,7 @@ textarea.minput{resize:none;flex:1;min-width:0}
         <button class="sbtn" onclick="doLine()">💬 LINE</button>
         <button class="sbtn" id="copybtn" onclick="doCopy(this)">🔗 リンクをコピー</button>
         <a href="https://music.apple.com/jp/playlist/%E3%83%88%E3%83%83%E3%83%97100-%E6%97%A5%E6%9C%AC/pl.043a2c9876114d95a4659988497567be"
-           target="_blank" rel="noopener" class="sbtn">🎵 Apple Musicで開く</a>
+           target="_blank" rel="noopener noreferrer" class="sbtn">🎵 Apple Musicで開く</a>
       </div>
     </div>
   </section>
@@ -406,7 +385,7 @@ textarea.minput{resize:none;flex:1;min-width:0}
           <span class="amchip">✨ AI推薦</span>
         </div>
         <a href="https://music.apple.com/jp/playlist/%E3%83%88%E3%83%83%E3%83%97100-%E6%97%A5%E6%9C%AC/pl.043a2c9876114d95a4659988497567be"
-           target="_blank" rel="noopener" class="btn-r" style="display:inline-flex">🎵 Apple Music トップ100を開く</a>
+           target="_blank" rel="noopener noreferrer" class="btn-r" style="display:inline-flex">🎵 Apple Music トップ100を開く</a>
       </div>
     </div>
   </section>
@@ -414,16 +393,7 @@ textarea.minput{resize:none;flex:1;min-width:0}
 </div>
 
 <!-- FOOTER -->
-<footer style="position:relative;z-index:1;border-top:1px solid var(--border);padding:28px 18px;background:var(--bg)">
-  <div style="max-width:960px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
-    <a href="index.html" style="color:#fff;font-size:14px;font-weight:700;text-decoration:none;letter-spacing:-0.03em">Gadget Journal</a>
-    <div style="display:flex;gap:20px">
-      <a href="music.html" style="color:var(--muted);font-size:13px;text-decoration:none">🎵 Music Diary</a>
-      <a href="https://music.apple.com/jp/playlist/%E3%83%88%E3%83%83%E3%83%97100-%E6%97%A5%E6%9C%AC/pl.043a2c9876114d95a4659988497567be" target="_blank" rel="noopener" style="color:var(--red2);font-size:13px;font-weight:600;text-decoration:none">Apple Music Japan</a>
-    </div>
-    <span style="font-size:12px;color:var(--muted)">&copy; 2026 Gadget Journal</span>
-  </div>
-</footer>
+  <div id="footer-placeholder"></div>
 
 <script>
 // ═══════════════════════════════════
@@ -474,6 +444,15 @@ let selId = null;
 const liked = {};
 const emoState = {};
 let msgs = [...INIT_MSGS];
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, ch => (
+    ch === '&' ? '&amp;' :
+    ch === '<' ? '&lt;' :
+    ch === '>' ? '&gt;' :
+    ch === '"' ? '&quot;' : '&#39;'
+  ));
+}
 
 // RANKING
 function renderRanking(tab) {
@@ -571,12 +550,12 @@ function renderMsgs() {
   document.getElementById('msgscroll').innerHTML = msgs.slice().reverse().slice(0,20).map(m=>`
     <div class="mitem">
       <div class="mtop">
-        <div class="mav">${m.name?m.name[0]:'?'}</div>
-        <span class="mname">${m.name||'匿名'}</span>
-        <span class="mtime">${m.time}</span>
+        <div class="mav">${escapeHTML(m.name ? m.name[0] : '?')}</div>
+        <span class="mname">${escapeHTML(m.name || '匿名')}</span>
+        <span class="mtime">${escapeHTML(m.time || '')}</span>
       </div>
-      <div class="mbody">${m.text}</div>
-      ${m.song?`<div class="msong">🎵 ${m.song}</div>`:''}
+      <div class="mbody">${escapeHTML(m.text || '')}</div>
+      ${m.song?`<div class="msong">🎵 ${escapeHTML(m.song)}</div>`:''}
     </div>`).join('');
   document.getElementById('msgscroll').scrollTop=0;
 }
@@ -592,9 +571,11 @@ function fillSelect() {
 function sendMsg() {
   const text=document.getElementById('m-text').value.trim();
   if(!text){document.getElementById('m-text').focus();return;}
+  const song=document.getElementById('m-song').value;
+  const isValidSong=TRACKS.some(t=>t.title===song);
   msgs.push({
     name:document.getElementById('m-name').value.trim()||'匿名',
-    song:document.getElementById('m-song').value,
+    song:isValidSong?song:'',
     text,time:'たった今'
   });
   document.getElementById('m-text').value='';
@@ -602,8 +583,20 @@ function sendMsg() {
 }
 
 // SHARE
-function doX(){window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent('🎵 日本のトレンド曲チャート2026 #JapanChart #AppleMusic')}&url=${encodeURIComponent(CHART_URL)}`,'_blank')}
-function doLine(){window.open(`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(location.href)}`,'_blank')}
+function doX(){
+  window.open(
+    `https://twitter.com/intent/tweet?text=${encodeURIComponent('🎵 日本のトレンド曲チャート2026 #JapanChart #AppleMusic')}&url=${encodeURIComponent(CHART_URL)}`,
+    '_blank',
+    'noopener,noreferrer'
+  );
+}
+function doLine(){
+  window.open(
+    `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(location.href)}`,
+    '_blank',
+    'noopener,noreferrer'
+  );
+}
 function doCopy(btn){
   navigator.clipboard.writeText(location.href).then(()=>{
     btn.classList.add('copied');btn.textContent='✓ コピーしました！';
@@ -622,11 +615,6 @@ function initFI(){
     entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});
   },{threshold:0.06});
   document.querySelectorAll('.fi').forEach(el=>obs.observe(el));
-}
-function initNav(){
-  const wrap=document.querySelector('.nav-links-wrap');
-  const cur=document.querySelector('.nav-links a.cur');
-  if(wrap&&cur){const off=cur.offsetLeft-20;wrap.scrollLeft=off>0?off:0;}
 }
 
 // PERSIST
@@ -650,11 +638,12 @@ function load(){
 // BOOT
 document.addEventListener('DOMContentLoaded',()=>{
   fillSelect();renderMsgs();renderEmoji();renderLikes();renderRanking('all');
-  load();initFI();initNav();
+  load();initFI();
   document.getElementById('m-text').addEventListener('keydown',e=>{
     if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}
   });
 });
 </script>
+  <script src="main.js" defer></script>
 </body>
 </html>

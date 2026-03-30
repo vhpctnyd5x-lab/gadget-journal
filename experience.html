@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Appleの魅力 - 究極のユーザー体験 | My Gadget Journal</title>
   <meta name="description" content="Apple製品がなぜ愛されるのか。エコシステム、プライバシー、デザイン、アクセシビリティ、そして環境への取り組み。" />
+  <link rel="stylesheet" href="style.css">
   <style>
     :root {
       --text: #1d1d1f;
@@ -79,16 +80,6 @@
     }
     .nav-links a { color: var(--muted); transition: color 0.3s; text-decoration: none; }
     .nav-links a:hover { color: var(--text); }
-    .nav-fade-right {
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: 40px;
-      height: 44px;
-      background: linear-gradient(to right, transparent, rgba(255,255,255,0.92));
-      pointer-events: none;
-      z-index: 3;
-    }
     /* ── Hero Section ── */
     .hero { padding-top: 120px; padding-bottom: 80px; text-align: center; }
     .hero h1 { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 20px; }
@@ -122,27 +113,7 @@
   </style>
 </head>
 <body>
-
-  <nav>
-    <a href="index.html" class="nav-logo">Gadget Journal</a>
-    <div class="nav-links-wrap">
-      <ul class="nav-links">
-        <li><a href="review.html">MacBook Air</a></li>
-        <li><a href="macbook-pro.html">MacBook Pro</a></li>
-        <li><a href="mac-studio.html">Mac Studio</a></li>
-        <li><a href="macbook-neo.html">MacBook Neo</a></li>
-        <li><a href="ipad.html">iPad Pro</a></li>
-        <li><a href="ipad-air.html">iPad Air</a></li>
-        <li><a href="iphone.html">iPhone</a></li>
-        <li><a href="history.html">History</a></li>
-        <li><a href="security.html">Security</a></li>
-        <li><a href="experience.html" style="color: var(--text); font-weight: 600;">Experience</a></li>
-        <li><a href="music.html">Music Diary</a></li>
-      <li><a href="music-trend.html">Japan Chart</a></li>
-      </ul>
-    </div>
-    <div class="nav-fade-right"></div>
-  </nav>
+  <div id="header-placeholder"></div>
 
   <main>
     <section class="hero">
@@ -162,7 +133,7 @@
               <p>Macで書き始めたメールをiPhoneで仕上げる。iPadをMacのセカンドディスプレイにする。デバイスの境界線は、もう存在しません。</p>
             </div>
             <div class="figure-card">
-              <img src="assets/mwqLtfoHvDwk.jpg" alt="Apple Ecosystem">
+              <img src="assets/mwqLtfoHvDwk.jpg" alt="Apple Ecosystem" loading="lazy" decoding="async">
             </div>
             <span class="cite-tag">出典: Apple Newsroom</span>
           </div>
@@ -173,7 +144,7 @@
               <p>あなたのデータは、あなただけのもの。Appleは設計の段階からプライバシーを組み込み、個人情報を守り抜きます。</p>
             </div>
             <div class="figure-card">
-              <img src="assets/PK04D3WaeSNi.jpg" alt="Apple Privacy">
+              <img src="assets/PK04D3WaeSNi.jpg" alt="Apple Privacy" loading="lazy" decoding="async">
             </div>
             <span class="cite-tag">出典: Apple Newsroom</span>
           </div>
@@ -184,7 +155,7 @@
               <p>アルミニウムの質感、Retinaディスプレイの輝き、そして滑らかなタイポグラフィ。指先に触れる感触から、目に映るピクセルまで、美しさは細部に宿ります。</p>
             </div>
             <div class="figure-card" style="max-width: 600px; margin: 30px auto 0;">
-              <img src="assets/LQr4zsUeOs7E.jpg" alt="Apple Design">
+              <img src="assets/LQr4zsUeOs7E.jpg" alt="Apple Design" loading="lazy" decoding="async">
             </div>
             <span class="cite-tag">出典: Apple Newsroom</span>
           </div>
@@ -195,7 +166,7 @@
               <p>最新のEye TrackingやMusic Hapticsなど、Appleはテクノロジーを通じてすべての人を力づけます。どんな個性も置き去りにしない、先進のアクセシビリティ。</p>
             </div>
             <div class="figure-card">
-              <img src="assets/mwqLtfoHvDwk.jpg" alt="Apple Accessibility">
+              <img src="assets/mwqLtfoHvDwk.jpg" alt="Apple Accessibility" loading="lazy" decoding="async">
             </div>
             <span class="cite-tag">出典: Apple Newsroom</span>
           </div>
@@ -206,7 +177,7 @@
               <p>2030年までに、すべての製品をカーボンニュートラルに。再生素材の使用を加速させ、未来のためのイノベーションを続けています。</p>
             </div>
             <div class="figure-card">
-              <img src="assets/DAkrndqNhREz.jpg" alt="Apple Environment">
+              <img src="assets/DAkrndqNhREz.jpg" alt="Apple Environment" loading="lazy" decoding="async">
             </div>
             <span class="cite-tag">出典: Apple Newsroom</span>
           </div>
@@ -215,13 +186,7 @@
       </div>
     </section>
   </main>
-
-  <footer>
-    <div class="footer-content">
-      <p>&copy; 2026 Gadget Journal. All rights reserved.</p>
-      <p>製品画像・ロゴは Apple Inc. の商標です。本サイトは報道・批評・解説を目的とした引用を行っています。</p>
-    </div>
-  </footer>
+  <div id="footer-placeholder"></div>
 
   <script>
     const observer = new IntersectionObserver((entries) => {
@@ -233,17 +198,7 @@
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-    // ナビ：現在のページのリンクが見えるよう自動スクロール
-    (function() {
-      var wrap = document.querySelector('.nav-links-wrap');
-      var currentPage = location.pathname.split('/').pop() || 'index.html';
-      var active = document.querySelector('.nav-links a[href="' + currentPage + '"]');
-      if (wrap && active) {
-        var offset = active.offsetLeft - 20;
-        wrap.scrollLeft = offset > 0 ? offset : 0;
-      }
-    })();
   </script>
+  <script src="main.js" defer></script>
 </body>
 </html>

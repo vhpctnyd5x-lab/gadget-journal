@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Music Diary — 好きだった曲 | Gadget Journal</title>
+<link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -38,7 +39,7 @@ nav{
   background:rgba(0,0,0,0.88);
   backdrop-filter:saturate(180%) blur(20px);
   border-bottom:1px solid rgba(255,255,255,0.1);
-  overflow:hidden;
+  overflow: hidden;
 }
 .nav-logo{
   flex-shrink:0;padding:0 16px 0 22px;
@@ -49,19 +50,22 @@ nav{
   position:relative;z-index:2;
 }
 .nav-logo::after{
-  content:'';position:absolute;right:-16px;top:0;width:16px;height:100%;
+  content:'';position:absolute;right:-20px;top:0;width:20px;height:100%;
   background:linear-gradient(to right,rgba(0,0,0,0.88),transparent);
 }
 .nav-links-wrap{
   flex:1;overflow-x:auto;overflow-y:hidden;
+  -webkit-overflow-scrolling:touch;
   scrollbar-width:none;-ms-overflow-style:none;
   height:44px;display:flex;align-items:center;
-  padding:0 36px 0 6px;
+  min-width:0;
+  padding:0 40px 0 8px;
 }
 .nav-links-wrap::-webkit-scrollbar{display:none}
 .nav-links{
-  display:flex;gap:24px;list-style:none;
-  white-space:nowrap;font-size:12px;
+  display:flex;gap:28px;list-style:none;
+  white-space:nowrap;font-size:12px;font-weight:400;letter-spacing:-0.01em;
+  flex-wrap:nowrap;
 }
 .nav-links a{
   color:rgba(255,255,255,0.75);text-decoration:none;
@@ -69,11 +73,6 @@ nav{
 }
 .nav-links a:hover{color:#fff}
 .nav-links a.cur{color:#fff;font-weight:700}
-.nav-fade-right{
-  position:absolute;right:0;top:0;width:36px;height:44px;
-  background:linear-gradient(to right,transparent,rgba(0,0,0,0.88));
-  pointer-events:none;z-index:3;
-}
 
 /* ────── BG CANVAS ────── */
 #bgc{
@@ -404,29 +403,7 @@ textarea.minput{resize:none;flex:1;min-width:0}
 </div>
 
 <!-- NAV -->
-<nav>
-  <a href="index.html" class="nav-logo">Gadget Journal</a>
-  <div class="nav-links-wrap">
-    <ul class="nav-links">
-      <li><a href="review.html">MacBook Air</a></li>
-      <li><a href="macbook-pro.html">MacBook Pro</a></li>
-      <li><a href="mac-studio.html">Mac Studio</a></li>
-      <li><a href="macbook-neo.html">MacBook Neo</a></li>
-      <li><a href="ipad.html">iPad Pro</a></li>
-      <li><a href="ipad-air.html">iPad Air</a></li>
-      <li><a href="iphone.html">iPhone</a></li>
-      <li><a href="history.html">History</a></li>
-      <li><a href="security.html">Security</a></li>
-      <li><a href="apple-watch.html">Apple Watch</a></li>
-      <li><a href="airpods.html">AirPods</a></li>
-      <li><a href="vision-pro.html">Vision Pro</a></li>
-      <li><a href="music.html" class="cur">Music Diary</a></li>
-      <li><a href="music-trend.html">Japan Chart</a></li>
-      <li><a href="experience.html">Experience</a></li>
-    </ul>
-  </div>
-  <div class="nav-fade-right"></div>
-</nav>
+  <div id="header-placeholder"></div>
 
 <div class="wrap">
 
@@ -437,7 +414,7 @@ textarea.minput{resize:none;flex:1;min-width:0}
     <p class="hero-sub">ふとした瞬間に頭に流れるメロディ。特定の季節になると思い出すフレーズ。心に深く残っている大切な曲を、Apple Musicで共有します。</p>
     <div class="hbtns">
       <a href="https://music.apple.com/jp/playlist/%E5%A5%BD%E3%81%8D%E3%81%A0%E3%81%A3%E3%81%9F%E6%9B%B2/pl.u-Ymb098PUP8Pemx5"
-         target="_blank" rel="noopener" class="btn-r">🎵 Apple Musicで開く</a>
+         target="_blank" rel="noopener noreferrer" class="btn-r">🎵 Apple Musicで開く</a>
       <a href="#ranking" class="btn-g">📊 ランキングを見る</a>
     </div>
   </div>
@@ -516,7 +493,7 @@ textarea.minput{resize:none;flex:1;min-width:0}
         <button class="sbtn" onclick="doLine()">💬 LINE</button>
         <button class="sbtn" id="copybtn" onclick="doCopy(this)">🔗 リンクをコピー</button>
         <a href="https://music.apple.com/jp/playlist/%E5%A5%BD%E3%81%8D%E3%81%A0%E3%81%A3%E3%81%9F%E6%9B%B2/pl.u-Ymb098PUP8Pemx5"
-           target="_blank" rel="noopener" class="sbtn">🎵 Apple Musicで開く</a>
+           target="_blank" rel="noopener noreferrer" class="sbtn">🎵 Apple Musicで開く</a>
       </div>
     </div>
   </section>
@@ -557,7 +534,7 @@ textarea.minput{resize:none;flex:1;min-width:0}
           <span class="amdetail">その後 月額1,080円〜 · いつでもキャンセル可</span>
         </div><br>
         <a href="https://music.apple.com/jp/playlist/%E5%A5%BD%E3%81%8D%E3%81%A0%E3%81%A3%E3%81%9F%E6%9B%B2/pl.u-Ymb098PUP8Pemx5"
-           target="_blank" rel="noopener" class="btn-r" style="display:inline-flex">🎵 プレイリストをApple Musicで開く</a>
+           target="_blank" rel="noopener noreferrer" class="btn-r" style="display:inline-flex">🎵 プレイリストをApple Musicで開く</a>
       </div>
     </div>
   </section>
@@ -565,14 +542,7 @@ textarea.minput{resize:none;flex:1;min-width:0}
 </div>
 
 <!-- FOOTER -->
-<footer style="position:relative;z-index:1;border-top:1px solid var(--border);padding:28px 18px;background:var(--bg)">
-  <div style="max-width:960px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
-    <a href="index.html" style="color:#fff;font-size:14px;font-weight:700;text-decoration:none;letter-spacing:-0.03em">Gadget Journal</a>
-    <a href="https://music.apple.com/jp/playlist/%E5%A5%BD%E3%81%8D%E3%81%A0%E3%81%A3%E3%81%9F%E6%9B%B2/pl.u-Ymb098PUP8Pemx5"
-       target="_blank" rel="noopener" style="color:var(--red2);font-size:13px;font-weight:600;text-decoration:none">🎵 Apple Music</a>
-    <span style="font-size:12px;color:var(--muted)">&copy; 2026 Gadget Journal</span>
-  </div>
-</footer>
+  <div id="footer-placeholder"></div>
 
 <script>
 // ═══════════════════════════════════
@@ -619,6 +589,15 @@ let selId = null;
 const liked = {};
 const emoState = {};
 let msgs = [...INIT_MSGS];
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, ch => (
+    ch === '&' ? '&amp;' :
+    ch === '<' ? '&lt;' :
+    ch === '>' ? '&gt;' :
+    ch === '"' ? '&quot;' : '&#39;'
+  ));
+}
 
 // ═══════════════════════════════════
 // RANKING
@@ -738,12 +717,12 @@ function renderMsgs() {
   document.getElementById('msgscroll').innerHTML = msgs.slice().reverse().slice(0,20).map(m => `
     <div class="mitem">
       <div class="mtop">
-        <div class="mav">${m.name ? m.name[0] : '?'}</div>
-        <span class="mname">${m.name||'匿名'}</span>
-        <span class="mtime">${m.time}</span>
+        <div class="mav">${escapeHTML(m.name ? m.name[0] : '?')}</div>
+        <span class="mname">${escapeHTML(m.name || '匿名')}</span>
+        <span class="mtime">${escapeHTML(m.time || '')}</span>
       </div>
-      <div class="mbody">${m.text}</div>
-      ${m.song ? `<div class="msong">🎵 ${m.song}</div>` : ''}
+      <div class="mbody">${escapeHTML(m.text || '')}</div>
+      ${m.song ? `<div class="msong">🎵 ${escapeHTML(m.song)}</div>` : ''}
     </div>`).join('');
   document.getElementById('msgscroll').scrollTop = 0;
 }
@@ -760,9 +739,11 @@ function fillSelect() {
 function sendMsg() {
   const text = document.getElementById('m-text').value.trim();
   if (!text) { document.getElementById('m-text').focus(); return; }
+  const song = document.getElementById('m-song').value;
+  const isValidSong = TRACKS.some(t => t.title === song);
   msgs.push({
     name: document.getElementById('m-name').value.trim() || '匿名',
-    song: document.getElementById('m-song').value,
+    song: isValidSong ? song : '',
     text, time: 'たった今'
   });
   document.getElementById('m-text').value = '';
@@ -773,10 +754,18 @@ function sendMsg() {
 // SHARE
 // ═══════════════════════════════════
 function doX() {
-  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent('🎵 好きだった曲 #MusicDiary #AppleMusic')}&url=${encodeURIComponent(AM_URL)}`, '_blank');
+  window.open(
+    `https://twitter.com/intent/tweet?text=${encodeURIComponent('🎵 好きだった曲 #MusicDiary #AppleMusic')}&url=${encodeURIComponent(AM_URL)}`,
+    '_blank',
+    'noopener,noreferrer'
+  );
 }
 function doLine() {
-  window.open(`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(AM_URL)}`, '_blank');
+  window.open(
+    `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(AM_URL)}`,
+    '_blank',
+    'noopener,noreferrer'
+  );
 }
 function doCopy(btn) {
   navigator.clipboard.writeText(AM_URL).then(() => {
@@ -799,18 +788,6 @@ function initFI() {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
   }, { threshold: 0.06 });
   document.querySelectorAll('.fi').forEach(el => obs.observe(el));
-}
-
-// ═══════════════════════════════════
-// NAV AUTO SCROLL
-// ═══════════════════════════════════
-function initNav() {
-  const wrap = document.querySelector('.nav-links-wrap');
-  const cur  = document.querySelector('.nav-links a.cur');
-  if (wrap && cur) {
-    const off = cur.offsetLeft - 20;
-    wrap.scrollLeft = off > 0 ? off : 0;
-  }
 }
 
 // ═══════════════════════════════════
@@ -844,12 +821,12 @@ document.addEventListener('DOMContentLoaded', () => {
   renderRanking('all');
   load();
   initFI();
-  initNav();
 
   document.getElementById('m-text').addEventListener('keydown', e => {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMsg(); }
   });
 });
 </script>
+  <script src="main.js" defer></script>
 </body>
 </html>
