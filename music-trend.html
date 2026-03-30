@@ -58,7 +58,6 @@ nav{
 .nav-links a{color:rgba(255,255,255,0.75);text-decoration:none;transition:color 0.2s}
 .nav-links a:hover{color:#fff}
 .nav-links a.cur{color:#fff;font-weight:700}
-.nav-fade-right{position:absolute;right:0;top:0;width:40px;height:44px;background:linear-gradient(to right,transparent,rgba(0,0,0,0.88));pointer-events:none;z-index:3}
 
 /* BG */
 #bgc{position:fixed;inset:0;z-index:0;pointer-events:none;transition:background 1.4s cubic-bezier(0.4,0,0.2,1);background:radial-gradient(ellipse 80% 50% at 50% -5%,rgba(252,60,68,0.14) 0%,transparent 65%)}
@@ -275,7 +274,6 @@ textarea.minput{resize:none;flex:1;min-width:0}
       <li><a href="experience.html">Experience</a></li>
     </ul>
   </div>
-  <div class="nav-fade-right"></div>
 </nav>
 
 <div class="wrap">
@@ -647,11 +645,6 @@ function initFI(){
   },{threshold:0.06});
   document.querySelectorAll('.fi').forEach(el=>obs.observe(el));
 }
-function initNav(){
-  const wrap=document.querySelector('.nav-links-wrap');
-  const cur=document.querySelector('.nav-links a.cur');
-  if(wrap&&cur){const off=cur.offsetLeft-20;wrap.scrollLeft=off>0?off:0;}
-}
 
 // PERSIST
 function save(){
@@ -674,7 +667,7 @@ function load(){
 // BOOT
 document.addEventListener('DOMContentLoaded',()=>{
   fillSelect();renderMsgs();renderEmoji();renderLikes();renderRanking('all');
-  load();initFI();initNav();
+  load();initFI();
   document.getElementById('m-text').addEventListener('keydown',e=>{
     if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}
   });

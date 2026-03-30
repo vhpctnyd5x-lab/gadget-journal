@@ -85,16 +85,6 @@
     .nav-links a:hover { color: #fff; }
 
     /* 右端フェード（右に続きがあることを示す） */
-    .nav-fade-right {
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: 40px;
-      height: 44px;
-      background: linear-gradient(to right, transparent, rgba(0,0,0,0.85));
-      pointer-events: none;
-      z-index: 3;
-    }
 
     /* ── Hero Section ── */
     .hero {
@@ -186,7 +176,6 @@
         <li><a href="experience.html">Experience</a></li>
       </ul>
     </div>
-    <div class="nav-fade-right"></div>
   </nav>
 
   <main>
@@ -308,17 +297,6 @@
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-    // ナビ：現在のページのリンクが見えるよう自動スクロール
-    (function() {
-      var wrap = document.querySelector('.nav-links-wrap');
-      var currentPage = location.pathname.split('/').pop() || 'index.html';
-      var active = document.querySelector('.nav-links a[href="' + currentPage + '"]');
-      if (wrap && active) {
-        var offset = active.offsetLeft - 20;
-        wrap.scrollLeft = offset > 0 ? offset : 0;
-      }
-    })();
   </script>
 </body>
 </html>
