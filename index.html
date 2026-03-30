@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gadget Journal - Apple Intelligenceの時代へ</title>
   <meta name="description" content="M5 MacBook Air、iPad Pro、iPhone 17e。Apple製品の革新を深掘りする総合情報サイト。" />
+  <link rel="stylesheet" href="style.css">
   <style>
     :root {
       --text: #f5f5f7;
@@ -18,68 +19,6 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
     a { text-decoration: none; color: inherit; }
-
-    /* ── Navigation (semantic dropdown) ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      min-height: 52px; display: flex; align-items: center;
-      background: rgba(0, 0, 0, 0.88); backdrop-filter: saturate(180%) blur(20px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 0 16px;
-      gap: 18px;
-    }
-    .nav-logo {
-      flex-shrink: 0;
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      font-size: 18px;
-      color: #fff;
-      line-height: 1;
-      white-space: nowrap;
-    }
-    .nav-menu {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      overflow-x: auto;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      min-width: 0;
-      flex: 1;
-      padding: 6px 0;
-    }
-    .nav-menu::-webkit-scrollbar { display: none; }
-    .dd { position: relative; flex-shrink: 0; }
-    .dd-btn {
-      border: none; background: transparent; color: rgba(255,255,255,0.85);
-      font-size: 14px; font-weight: 500; padding: 8px 10px; border-radius: 10px;
-      cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
-      transition: background 0.2s, color 0.2s; font-family: inherit; white-space: nowrap;
-    }
-    .dd-btn:hover, .dd-btn:focus-visible { background: rgba(255,255,255,0.12); color: #fff; outline: none; }
-    .dd-arrow {
-      width: 7px; height: 7px;
-      border-right: 1.5px solid currentColor;
-      border-bottom: 1.5px solid currentColor;
-      transform: rotate(45deg) translateY(-1px);
-      transition: transform 0.2s ease;
-      display: inline-block;
-      opacity: 0.9;
-    }
-    .dd-btn[aria-expanded="true"] .dd-arrow { transform: rotate(180deg); }
-    .dd-menu {
-      position: absolute; top: calc(100% + 8px); left: 0; min-width: 200px;
-      background: rgba(20,20,22,0.98); border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 12px; padding: 8px; box-shadow: 0 20px 40px rgba(0,0,0,0.45);
-      list-style: none; opacity: 0; transform: translateY(-6px); visibility: hidden;
-      pointer-events: none; transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
-    }
-    .dd.open .dd-menu { opacity: 1; transform: translateY(0); visibility: visible; pointer-events: auto; }
-    .dd-menu a {
-      display: block; color: rgba(255,255,255,0.9); padding: 9px 10px;
-      border-radius: 8px; font-size: 13px;
-    }
-    .dd-menu a:hover, .dd-menu a:focus-visible { background: rgba(255,255,255,0.12); color: #fff; outline: none; }
 
     /* ── Hero Section ── */
     .hero {
@@ -151,62 +90,8 @@
 </head>
 <body>
 
-  <nav>
-    <a href="index.html" class="nav-logo">Gadget Journal</a>
-    <div class="nav-menu" aria-label="Primary Navigation">
-      <div class="dd">
-        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menu-mac">Mac <span class="dd-arrow" aria-hidden="true"></span></button>
-        <ul class="dd-menu" role="menu" id="menu-mac">
-          <li><a role="menuitem" href="review.html">MacBook Air</a></li>
-          <li><a role="menuitem" href="macbook-pro.html">MacBook Pro</a></li>
-          <li><a role="menuitem" href="mac-studio.html">Mac Studio</a></li>
-          <li><a role="menuitem" href="macbook-neo.html">MacBook Neo</a></li>
-        </ul>
-      </div>
-      <div class="dd">
-        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menu-ipad">iPad <span class="dd-arrow" aria-hidden="true"></span></button>
-        <ul class="dd-menu" role="menu" id="menu-ipad">
-          <li><a role="menuitem" href="ipad.html">iPad Pro</a></li>
-          <li><a role="menuitem" href="ipad-air.html">iPad Air</a></li>
-        </ul>
-      </div>
-      <div class="dd">
-        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menu-iphone">iPhone <span class="dd-arrow" aria-hidden="true"></span></button>
-        <ul class="dd-menu" role="menu" id="menu-iphone">
-          <li><a role="menuitem" href="iphone.html">iPhone</a></li>
-        </ul>
-      </div>
-      <div class="dd">
-        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menu-watch">Apple Watch <span class="dd-arrow" aria-hidden="true"></span></button>
-        <ul class="dd-menu" role="menu" id="menu-watch">
-          <li><a role="menuitem" href="apple-watch.html">Apple Watch</a></li>
-        </ul>
-      </div>
-      <div class="dd">
-        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menu-audio">Audio <span class="dd-arrow" aria-hidden="true"></span></button>
-        <ul class="dd-menu" role="menu" id="menu-audio">
-          <li><a role="menuitem" href="airpods.html">AirPods</a></li>
-          <li><a role="menuitem" href="homepod.html">HomePod 3</a></li>
-          <li><a role="menuitem" href="music.html">Music Diary</a></li>
-          <li><a role="menuitem" href="music-trend.html">Japan Chart</a></li>
-        </ul>
-      </div>
-      <div class="dd">
-        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menu-vision">Vision Pro <span class="dd-arrow" aria-hidden="true"></span></button>
-        <ul class="dd-menu" role="menu" id="menu-vision">
-          <li><a role="menuitem" href="vision-pro.html">Vision Pro</a></li>
-        </ul>
-      </div>
-      <div class="dd">
-        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menu-site">Site <span class="dd-arrow" aria-hidden="true"></span></button>
-        <ul class="dd-menu" role="menu" id="menu-site">
-          <li><a role="menuitem" href="history.html">History</a></li>
-          <li><a role="menuitem" href="security.html">Security</a></li>
-          <li><a role="menuitem" href="experience.html">Experience</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <div id="header-placeholder"></div>
+
 
   <main>
     <section class="hero">
@@ -322,12 +207,8 @@
     </section>
   </main>
 
-  <footer>
-    <div class="footer-content">
-      <p>&copy; 2026 Gadget Journal. All rights reserved.</p>
-      <p>製品画像・ロゴは Apple Inc. の商標です。本サイトは報道・批評・解説を目的とした引用を行っています。</p>
-    </div>
-  </footer>
+  <div id="footer-placeholder"></div>
+
 
   <script>
     const observer = new IntersectionObserver((entries) => {
@@ -339,94 +220,7 @@
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-    const dropdowns = Array.from(document.querySelectorAll('.dd'));
-    const buttons = dropdowns.map(dd => dd.querySelector('.dd-btn'));
-
-    function closeAll(except = null) {
-      dropdowns.forEach(dd => {
-        const btn = dd.querySelector('.dd-btn');
-        if (dd !== except) {
-          dd.classList.remove('open');
-          btn.setAttribute('aria-expanded', 'false');
-        }
-      });
-    }
-
-    buttons.forEach((btn, index) => {
-      const dd = btn.closest('.dd');
-      const items = Array.from(dd.querySelectorAll('[role=\"menuitem\"]'));
-
-      btn.addEventListener('click', () => {
-        const isOpen = dd.classList.contains('open');
-        closeAll();
-        if (!isOpen) {
-          dd.classList.add('open');
-          btn.setAttribute('aria-expanded', 'true');
-        }
-      });
-
-      btn.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          btn.click();
-        }
-        if (e.key === 'Escape') {
-          closeAll();
-          btn.focus();
-        }
-        if (e.key === 'ArrowDown') {
-          e.preventDefault();
-          if (!dd.classList.contains('open')) {
-            closeAll();
-            dd.classList.add('open');
-            btn.setAttribute('aria-expanded', 'true');
-          }
-          items[0]?.focus();
-        }
-        if (e.key === 'ArrowRight') {
-          e.preventDefault();
-          buttons[(index + 1) % buttons.length].focus();
-        }
-        if (e.key === 'ArrowLeft') {
-          e.preventDefault();
-          buttons[(index - 1 + buttons.length) % buttons.length].focus();
-        }
-      });
-
-      items.forEach((item, itemIndex) => {
-        item.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape') {
-            e.preventDefault();
-            closeAll();
-            btn.focus();
-          }
-          if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            items[(itemIndex + 1) % items.length]?.focus();
-          }
-          if (e.key === 'ArrowUp') {
-            e.preventDefault();
-            items[(itemIndex - 1 + items.length) % items.length]?.focus();
-          }
-        });
-        item.addEventListener('click', () => closeAll());
-      });
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        const open = document.querySelector('.dd.open');
-        if (!open) return;
-        const trigger = open.querySelector('.dd-btn');
-        closeAll();
-        trigger.focus();
-      }
-    });
-
-    document.addEventListener('click', (e) => {
-      if (!e.target.closest('.dd')) closeAll();
-    });
   </script>
+  <script src="main.js" defer></script>
 </body>
 </html>
