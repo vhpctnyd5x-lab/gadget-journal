@@ -30,32 +30,33 @@
     a { text-decoration: none; transition: color 0.3s ease; }
 
     /* ── Navigation ── */
-    nav {
+nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       height: 44px; display: flex; align-items: center;
       background: rgba(255,255,255,0.92); backdrop-filter: saturate(180%) blur(20px);
       border-bottom: 1px solid rgba(0,0,0,0.1);
-      overflow: hidden;
+      /* overflow:hidden 削除 → ドロップダウンが切れなくなる */
     }
     .nav-logo {
-      flex-shrink: 0; padding: 0 16px 0 22px;
+      flex-shrink: 0; padding: 0 20px 0 22px;
       font-weight: 600; letter-spacing: -0.05em; font-size: 16px; color: #1d1d1f;
-      position: relative; z-index: 2; background: rgba(255,255,255,0.92);
       height: 44px; display: flex; align-items: center;
       text-decoration: none; white-space: nowrap;
+      /* ::after グラデーション削除 → Macに被らない */
     }
-    .nav-logo::after {
-      content: ''; position: absolute; right: -20px; top: 0; width: 20px; height: 100%;
-      background: linear-gradient(to right, rgba(255,255,255,0.92), transparent); pointer-events: none;
+    .nav-fade-right {
+      position: absolute; right: 0; top: 0; width: 36px; height: 44px;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.92));
+      pointer-events: none; z-index: 3;
     }
     .nav-links-wrap {
-      flex: 1; overflow-x: auto; overflow-y: hidden;
+      flex: 1; overflow-x: auto; overflow-y: visible;
       -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none;
-      padding: 0 22px 0 8px; height: 44px; display: flex; align-items: center; min-width: 0;
+      padding: 0 36px 0 16px; height: 44px; display: flex; align-items: center; min-width: 0;
     }
     .nav-links-wrap::-webkit-scrollbar { display: none; }
     .nav-links {
-      display: flex; gap: 28px; list-style: none;
+      display: flex; gap: 24px; list-style: none;
       white-space: nowrap; font-size: 12px; font-weight: 400; letter-spacing: -0.01em;
     }
     .nav-links > li > a { color: #86868b; transition: color 0.3s; text-decoration: none; }
@@ -66,26 +67,29 @@
       color: #86868b; cursor: pointer;
       display: flex; align-items: center; gap: 3px;
       font-size: 12px; font-weight: 400; letter-spacing: -0.01em;
-      transition: color 0.3s; user-select: none;
+      transition: color 0.3s; user-select: none; padding: 4px 0;
     }
-    .nav-group-btn::after { content: '▾'; font-size: 9px; margin-top: 1px; }
+    .nav-group-btn::after { content: '▾'; font-size: 9px; margin-top: 1px; transition: transform 0.2s; }
     .has-dropdown:hover .nav-group-btn,
     .has-dropdown.open .nav-group-btn,
     .nav-group-btn.nav-active { color: #1d1d1f; font-weight: 600; }
+    .has-dropdown.open .nav-group-btn::after { transform: rotate(180deg); }
     .nav-dropdown {
-      display: none; position: fixed; transform: translateX(-50%);
-      background: rgba(255,255,255,0.98); backdrop-filter: saturate(180%) blur(20px);
-      border-radius: 12px; padding: 6px 0; min-width: 140px;
+      display: none; position: fixed;
+      background: rgba(255,255,255,0.99); backdrop-filter: saturate(180%) blur(24px);
+      border-radius: 12px; padding: 6px 0; min-width: 150px;
       list-style: none; border: 1px solid rgba(0,0,0,0.1);
-      box-shadow: 0 8px 30px rgba(0,0,0,0.12); z-index: 2000;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15); z-index: 9999;
+      opacity: 0; transform: translateY(-4px);
+      transition: opacity 0.18s ease, transform 0.18s ease;
     }
+    .nav-dropdown.visible { opacity: 1; transform: translateY(0); }
     .nav-dropdown li a {
       display: block; padding: 9px 18px; color: #86868b;
-      font-size: 13px; transition: color 0.2s, background 0.2s;
+      font-size: 13px; transition: color 0.2s, background 0.2s; text-decoration: none;
     }
     .nav-dropdown li a:hover { color: #1d1d1f; background: rgba(0,0,0,0.04); }
     .nav-dropdown li a.nav-active { color: #1d1d1f; font-weight: 600; }
-
     /* ── Main Content ── */
     main { padding-top: 100px; padding-bottom: 100px; }
     article { max-width: 820px; margin: 0 auto; padding: 0 22px; }
@@ -123,11 +127,33 @@
       .meta-row { flex-wrap: wrap; gap: 0.5rem; }
       .article-footer { flex-direction: column; align-items: flex-start; gap: 1rem; }
     }
+    .announce-bar {
+      background: linear-gradient(90deg, #0071e3, #bf5af2);
+      color: #fff; font-size: 13px; font-weight: 600;
+      text-align: center; padding: 10px 48px;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      position: relative; z-index: 10; letter-spacing: -0.01em;
+    }
+    .announce-bar a { color: #fff; text-decoration: underline; text-underline-offset: 2px; opacity: 0.9; }
+    .announce-bar a:hover { opacity: 1; }
+    .announce-close {
+      position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; color: rgba(255,255,255,0.8); font-size: 20px;
+      cursor: pointer; padding: 0 4px; line-height: 1;
+    }
+    .announce-close:hover { color: #fff; }
   </style>
 </head>
 <body>
 
 
+
+  <!-- お知らせバー -->
+  <div class="announce-bar" id="announcebar">
+    <span>🎵 Japan Chart 2026 公開中 — 今まさに日本で最も聴かれている曲を</span>
+    <a href="music-trend.html">チェックする →</a>
+    <button class="announce-close" onclick="document.getElementById('announcebar').style.display='none'" aria-label="閉じる">×</button>
+  </div>
 
   <nav>
     <a href="index.html" class="nav-logo">Gadget Journal</a>
@@ -304,51 +330,88 @@
 
     document.querySelectorAll('.timeline-item, .fade-in').forEach(el => observer.observe(el));
 
-    // ナビ：アクティブリンクのハイライトとドロップダウン
+        // ナビ：アクティブリンクのハイライトとドロップダウン（修正済み）
     (function() {
-      var currentPage = location.pathname.split('/').pop() || 'index.html';
-      var activeLink = document.querySelector('.nav-links > li > a[href="' + currentPage + '"]');
-      if (activeLink) activeLink.classList.add('nav-active');
-      var activeDropLink = document.querySelector('.nav-dropdown a[href="' + currentPage + '"]');
-      if (activeDropLink) {
-        activeDropLink.classList.add('nav-active');
-        activeDropLink.closest('.has-dropdown').querySelector('.nav-group-btn').classList.add('nav-active');
+      var cur = location.pathname.split('/').pop() || 'index.html';
+      var al = document.querySelector('.nav-links > li > a[href="' + cur + '"]');
+      if(al) al.classList.add('nav-active');
+      var adl = document.querySelector('.nav-dropdown a[href="' + cur + '"]');
+      if(adl) {
+        adl.classList.add('nav-active');
+        adl.closest('.has-dropdown').querySelector('.nav-group-btn').classList.add('nav-active');
       }
-      function positionDropdown(item) {
-        var btn = item.querySelector('.nav-group-btn');
-        var dd = item.querySelector('.nav-dropdown');
-        var r = btn.getBoundingClientRect();
-        dd.style.top = (r.bottom + 8) + 'px';
-        dd.style.left = (r.left + r.width / 2) + 'px';
-      }
+
+      // ドロップダウンをbody直下に移動してz-index問題を回避
       document.querySelectorAll('.has-dropdown').forEach(function(item) {
         var dd = item.querySelector('.nav-dropdown');
+        if(!dd) return;
+        document.body.appendChild(dd);
+        dd._owner = item;
+        item._dd = dd;
+      });
+
+      function posDD(item) {
+        var btn = item.querySelector('.nav-group-btn');
+        var dd = item._dd;
+        if(!dd || !btn) return;
+        var r = btn.getBoundingClientRect();
+        dd.style.top = (r.bottom + 6) + 'px';
+        var ddW = dd.offsetWidth || 160;
+        var left = r.left + r.width / 2;
+        if(left + ddW/2 > window.innerWidth - 12) left = window.innerWidth - ddW/2 - 12;
+        if(left - ddW/2 < 8) left = ddW/2 + 8;
+        dd.style.left = left + 'px';
+        dd.style.transform = 'translateX(-50%)';
+      }
+
+      function closeAll() {
+        document.querySelectorAll('.nav-dropdown').forEach(function(d) {
+          d.classList.remove('visible');
+          setTimeout(function(){ if(!d.classList.contains('visible')) d.style.display=''; }, 200);
+        });
+        document.querySelectorAll('.has-dropdown').forEach(function(d){ d.classList.remove('open'); });
+      }
+
+      document.querySelectorAll('.has-dropdown').forEach(function(item) {
         var timer;
-        item.addEventListener('mouseenter', function() {
+        function open() {
           clearTimeout(timer);
-          positionDropdown(item);
+          closeAll();
+          var dd = item._dd;
+          if(!dd) return;
           dd.style.display = 'block';
-        });
-        item.addEventListener('mouseleave', function() {
-          timer = setTimeout(function() { dd.style.display = ''; }, 120);
-        });
-        dd.addEventListener('mouseenter', function() { clearTimeout(timer); });
-        dd.addEventListener('mouseleave', function() { dd.style.display = ''; });
-        item.querySelector('.nav-group-btn').addEventListener('click', function(e) {
+          posDD(item);
+          requestAnimationFrame(function(){ dd.classList.add('visible'); });
+          item.classList.add('open');
+        }
+        function close(delay) {
+          timer = setTimeout(function(){
+            var dd = item._dd;
+            if(dd){ dd.classList.remove('visible'); setTimeout(function(){ if(!dd.classList.contains('visible')) dd.style.display=''; }, 200); }
+            item.classList.remove('open');
+          }, delay||0);
+        }
+        item.addEventListener('mouseenter', function(){ open(); });
+        item.addEventListener('mouseleave', function(){ close(150); });
+        if(item._dd) {
+          item._dd.addEventListener('mouseenter', function(){ clearTimeout(timer); });
+          item._dd.addEventListener('mouseleave', function(){ close(100); });
+        }
+        item.querySelector('.nav-group-btn').addEventListener('click', function(e){
           e.stopPropagation();
-          var isOpen = dd.style.display === 'block';
-          document.querySelectorAll('.nav-dropdown').forEach(function(d) { d.style.display = ''; });
-          document.querySelectorAll('.has-dropdown').forEach(function(d) { d.classList.remove('open'); });
-          if (!isOpen) { positionDropdown(item); dd.style.display = 'block'; item.classList.add('open'); }
+          var dd = item._dd;
+          if(dd && dd.classList.contains('visible')){ close(0); } else { open(); }
+        });
+        var btn = item.querySelector('.nav-group-btn');
+        btn.addEventListener('keydown', function(e){
+          if(e.key==='Enter'||e.key===' '){ e.preventDefault(); btn.click(); }
         });
       });
-      document.addEventListener('click', function(e) {
-        if (!e.target.closest('.has-dropdown')) {
-          document.querySelectorAll('.nav-dropdown').forEach(function(d) { d.style.display = ''; });
-          document.querySelectorAll('.has-dropdown').forEach(function(d) { d.classList.remove('open'); });
-        }
+      document.addEventListener('click', function(e){
+        if(!e.target.closest('.has-dropdown') && !e.target.closest('.nav-dropdown')){ closeAll(); }
       });
     })();
+
   </script>
 </body>
 </html>
