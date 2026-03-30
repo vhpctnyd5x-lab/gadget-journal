@@ -58,7 +58,7 @@
     .nav-links-wrap {
       flex: 1; overflow-x: auto; overflow-y: visible; /* ★visible に変更 */
       -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none;
-      padding: 0 36px 0 0; height: 44px; display: flex; align-items: center;
+      padding: 0 36px 0 16px; height: 44px; display: flex; align-items: center;
     }
     .nav-links-wrap::-webkit-scrollbar { display: none; }
 
@@ -96,7 +96,7 @@
       background: rgba(28,28,30,0.98); backdrop-filter: saturate(180%) blur(24px);
       border-radius: 12px; padding: 6px 0; min-width: 150px;
       list-style: none; border: 1px solid rgba(255,255,255,0.12);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.6); z-index: 2000;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.6); z-index: 9999;
       /* ★アニメーション追加 */
       opacity: 0; transform: translateY(-4px) scale(0.98);
       transition: opacity 0.18s ease, transform 0.18s ease;
@@ -129,24 +129,6 @@
       opacity: 0; transform: scale(0.95); animation: scaleIn 1.5s cubic-bezier(0.2, 0, 0.2, 1) 0.5s forwards;
     }
     .iphone-img-wrap img { width: 100%; height: auto; display: block; filter: drop-shadow(0 0 50px rgba(255,255,255,0.1)); }
-
-    /* ── Scroll Announce Banner ── ★新機能 */
-    .announce-bar {
-      background: linear-gradient(90deg, #0071e3, #bf5af2);
-      color: #fff; font-size: 13px; font-weight: 600;
-      text-align: center; padding: 10px 16px;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      position: relative; z-index: 10; letter-spacing: -0.01em;
-    }
-    .announce-bar a { color: #fff; text-decoration: underline; text-underline-offset: 2px; opacity: 0.9; }
-    .announce-bar a:hover { opacity: 1; }
-    .announce-close {
-      position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
-      background: none; border: none; color: rgba(255,255,255,0.7); font-size: 18px;
-      cursor: pointer; padding: 0 4px; line-height: 1;
-    }
-    .announce-close:hover { color: #fff; }
-
     /* ── Scroll Section ── */
     .scroll-section {
       padding: 100px 22px;
@@ -249,12 +231,6 @@
 </head>
 <body>
 
-  <!-- ★新機能: お知らせバー -->
-  <div class="announce-bar" id="announcebar">
-    <span>🎵 Japan Chart 2026 公開中 — 今まさに日本で最も聴かれている曲を</span>
-    <a href="music-trend.html">チェックする →</a>
-    <button class="announce-close" onclick="document.getElementById('announcebar').style.display='none'" aria-label="閉じる">×</button>
-  </div>
 
   <!-- NAV -->
   <nav>
@@ -462,81 +438,96 @@
       adl.closest('.has-dropdown').querySelector('.nav-group-btn').classList.add('nav-active');
     }
 
-    // ドロップダウン位置計算
+    // ★ ドロップダウンをbody直下に移動してz-index問題を完全回避
+    document.querySelectorAll('.has-dropdown').forEach(function(item) {
+      var dd = item.querySelector('.nav-dropdown');
+      // body直下に移動
+      document.body.appendChild(dd);
+      dd._owner = item;
+    });
+
     function posDD(item) {
       var btn = item.querySelector('.nav-group-btn');
-      var dd  = item.querySelector('.nav-dropdown');
-      var r   = btn.getBoundingClientRect();
-      dd.style.top  = (r.bottom + 6) + 'px';
-      // 右端はみ出し防止
+      var dd  = document.querySelector('.nav-dropdown[data-owner]') || item._dd;
+      // ownerからddを取得
+      var allDDs = document.querySelectorAll('.nav-dropdown');
+      var myDD;
+      allDDs.forEach(function(d){ if(d._owner === item) myDD = d; });
+      if(!myDD) return;
+      var r = btn.getBoundingClientRect();
+      myDD.style.top  = (r.bottom + 6) + 'px';
+      var ddW = myDD.offsetWidth || 160;
       var left = r.left + r.width / 2;
-      var ddW  = 160;
       if(left + ddW/2 > window.innerWidth - 12) left = window.innerWidth - ddW/2 - 12;
-      dd.style.left = left + 'px';
-      dd.style.transform = 'translateX(-50%)';
+      if(left - ddW/2 < 8) left = ddW/2 + 8;
+      myDD.style.left = left + 'px';
+      myDD.style.transform = 'translateX(-50%)';
+    }
+
+    function getDD(item) {
+      var found;
+      document.querySelectorAll('.nav-dropdown').forEach(function(d){ if(d._owner===item) found=d; });
+      return found;
     }
 
     document.querySelectorAll('.has-dropdown').forEach(function(item) {
-      var dd = item.querySelector('.nav-dropdown');
       var timer;
 
       function open() {
         clearTimeout(timer);
-        posDD(item);
-        // display:block してから visible クラスで opacity アニメーション
+        // 他を閉じる
+        document.querySelectorAll('.nav-dropdown').forEach(function(d){ d.classList.remove('visible'); });
+        document.querySelectorAll('.has-dropdown').forEach(function(d){ d.classList.remove('open'); });
+        var dd = getDD(item);
+        if(!dd) return;
         dd.style.display = 'block';
-        // 次フレームで visible を付けてトランジションを走らせる
-        requestAnimationFrame(function() { dd.classList.add('visible'); });
+        posDD(item);
+        requestAnimationFrame(function(){ dd.classList.add('visible'); });
         item.classList.add('open');
       }
       function close(delay) {
-        timer = setTimeout(function() {
-          dd.classList.remove('visible');
-          // transition終了後に display:none
-          setTimeout(function() { if(!dd.classList.contains('visible')) dd.style.display = ''; }, 200);
+        timer = setTimeout(function(){
+          var dd = getDD(item);
+          if(dd){ dd.classList.remove('visible'); setTimeout(function(){ if(!dd.classList.contains('visible')) dd.style.display=''; },200); }
           item.classList.remove('open');
-        }, delay || 0);
+        }, delay||0);
       }
 
-      item.addEventListener('mouseenter', function() { open(); });
-      item.addEventListener('mouseleave', function() { close(120); });
-      dd.addEventListener('mouseenter',   function() { clearTimeout(timer); });
-      dd.addEventListener('mouseleave',   function() { close(80); });
+      item.addEventListener('mouseenter', function(){ open(); });
+      item.addEventListener('mouseleave', function(){ close(150); });
 
-      // タッチ・クリック対応
-      item.querySelector('.nav-group-btn').addEventListener('click', function(e) {
+      var dd = getDD(item);
+      if(dd){
+        dd.addEventListener('mouseenter', function(){ clearTimeout(timer); });
+        dd.addEventListener('mouseleave', function(){ close(100); });
+      }
+
+      item.querySelector('.nav-group-btn').addEventListener('click', function(e){
         e.stopPropagation();
-        if(dd.classList.contains('visible')) { close(0); }
-        else {
-          document.querySelectorAll('.nav-dropdown').forEach(function(d) {
-            d.classList.remove('visible');
-            setTimeout(function() { if(!d.classList.contains('visible')) d.style.display=''; }, 200);
-          });
-          document.querySelectorAll('.has-dropdown').forEach(function(d) { d.classList.remove('open'); });
-          open();
-        }
+        var dd = getDD(item);
+        if(dd && dd.classList.contains('visible')){ close(0); }
+        else { open(); }
       });
     });
 
-    document.addEventListener('click', function(e) {
-      if(!e.target.closest('.has-dropdown')) {
-        document.querySelectorAll('.nav-dropdown').forEach(function(d) {
+    document.addEventListener('click', function(e){
+      if(!e.target.closest('.has-dropdown') && !e.target.closest('.nav-dropdown')){
+        document.querySelectorAll('.nav-dropdown').forEach(function(d){
           d.classList.remove('visible');
-          setTimeout(function() { if(!d.classList.contains('visible')) d.style.display=''; }, 200);
+          setTimeout(function(){ if(!d.classList.contains('visible')) d.style.display=''; },200);
         });
-        document.querySelectorAll('.has-dropdown').forEach(function(d) { d.classList.remove('open'); });
+        document.querySelectorAll('.has-dropdown').forEach(function(d){ d.classList.remove('open'); });
       }
     });
 
-    // キーボード対応
-    document.querySelectorAll('.nav-group-btn').forEach(function(btn) {
-      btn.addEventListener('keydown', function(e) {
-        if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
+    document.querySelectorAll('.nav-group-btn').forEach(function(btn){
+      btn.addEventListener('keydown', function(e){
+        if(e.key==='Enter'||e.key===' '){ e.preventDefault(); btn.click(); }
       });
     });
   })();
 
-  // ════════════════════════════════
+    // ════════════════════════════════
   // Scroll to top button
   // ════════════════════════════════
   var stBtn = document.getElementById('scrolltop');
@@ -600,3 +591,4 @@
   </script>
 </body>
 </html>
+
