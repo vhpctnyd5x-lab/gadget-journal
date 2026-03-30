@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>オフライン - Gadget Journal</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: #000; color: #f5f5f7; height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased; }
+    .container {
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; padding: 40px 22px; text-align: center;
+    }
+    .icon { font-size: 64px; margin-bottom: 24px; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+    h1 { font-size: clamp(1.5rem, 5vw, 2.5rem); font-weight: 700; letter-spacing: -0.03em; margin-bottom: 12px; }
+    p { color: #86868b; font-size: 1rem; line-height: 1.6; max-width: 320px; }
+    .btn { margin-top: 32px; padding: 12px 28px; border-radius: 99px;
+      background: #0071e3; color: #fff; font-size: 15px; font-weight: 600;
+      text-decoration: none; display: inline-block; }
+
+    /* ── Accessibility: focus-visible ── */
+    :focus { outline: none; }
+    :focus-visible { outline: 3px solid #0071e3; outline-offset: 3px; border-radius: 4px; }
+
+    /* ── Scroll-driven reveal animation (progressive enhancement) ── */
+    @supports (animation-timeline: scroll()) {
+      .article-body h2, .article-body h3 {
+        animation: revealHeading linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 40%;
+      }
+      @keyframes revealHeading {
+        from { opacity: 0.2; transform: translateX(-8px); }
+        to   { opacity: 1;   transform: translateX(0); }
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="icon">📡</div>
+    <h1>オフラインです</h1>
+    <p>インターネット接続が見つかりません。接続を確認してからもう一度お試しください。</p>
+    <a href="/" class="btn" onclick="location.reload()">再試行する</a>
+  </div>
+</body>
+</html>

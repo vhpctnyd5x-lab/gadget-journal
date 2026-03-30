@@ -20,6 +20,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#000000" />
   <meta name="view-transition" content="same-origin" />
+  <link rel="preload" href="assets/DfMi0pbXqqGF.jpg" as="image" />
   <style>
     :root {
       --text: #1d1d1f;
@@ -203,6 +204,52 @@ nav {
       transition: background 0.2s, transform 0.2s;
     }
     .share-btn:hover { background: #0077ed; transform: translateY(-1px); }
+
+    /* ── Accessibility: focus-visible ── */
+    :focus { outline: none; }
+    :focus-visible { outline: 3px solid #0071e3; outline-offset: 3px; border-radius: 4px; }
+
+    /* ── Scroll-driven reveal animation (progressive enhancement) ── */
+    @supports (animation-timeline: scroll()) {
+      .article-body h2, .article-body h3 {
+        animation: revealHeading linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 40%;
+      }
+      @keyframes revealHeading {
+        from { opacity: 0.2; transform: translateX(-8px); }
+        to   { opacity: 1;   transform: translateX(0); }
+      }
+    }
+
+    /* ── Lightbox ── */
+    .lb-overlay {
+      display: none; position: fixed; inset: 0; z-index: 10000;
+      background: rgba(0,0,0,0.92); backdrop-filter: blur(12px);
+      align-items: center; justify-content: center; cursor: zoom-out;
+    }
+    .lb-overlay.open { display: flex; }
+    .lb-overlay img {
+      max-width: 92vw; max-height: 88vh; border-radius: 12px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.8);
+      animation: lbIn 0.25s cubic-bezier(0.2,0,0.2,1);
+    }
+    @keyframes lbIn { from { opacity:0; transform:scale(0.92); } to { opacity:1; transform:scale(1); } }
+    .lb-close {
+      position: fixed; top: 20px; right: 20px; background: rgba(255,255,255,0.15);
+      border: none; color: #fff; font-size: 24px; width: 44px; height: 44px;
+      border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ── Speech button ── */
+    .speech-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 18px; border-radius: 99px; border: 1.5px solid #d2d2d7;
+      background: none; color: #86868b; font-size: 13px; font-weight: 500;
+      cursor: pointer; font-family: inherit; transition: all 0.2s;
+    }
+    .speech-btn:hover { border-color: #0071e3; color: #0071e3; }
+    .speech-btn.speaking { border-color: #ff375f; color: #ff375f; background: rgba(255,55,95,0.05); }
   </style>
 </head>
 <body>
@@ -277,7 +324,7 @@ nav {
 
       <div class="figure-wrap fade-in">
         <div class="figure-card">
-          <img loading="lazy" src="assets/mwqLtfoHvDwk.jpg" alt="AirPods Pro 3 Hero Image">
+          <img fetchpriority="high" loading="eager" src="assets/mwqLtfoHvDwk.jpg" alt="AirPods Pro 3 Hero Image">
         </div>
         <span class="cite-tag">出典: Apple Newsroom</span>
       </div>
@@ -527,6 +574,21 @@ nav {
       });
     });
   })();
+
+  // Service Worker registration
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(function(){});
+  }
+
+  // Keyboard shortcut: Cmd/Ctrl+K → focus search or go to index
+  document.addEventListener('keydown', function(e){
+    if((e.metaKey || e.ctrlKey) && e.key === 'k'){
+      e.preventDefault();
+      var s = document.getElementById('searchinput');
+      if(s){ s.focus(); s.select(); }
+      else { var t = document.getElementById('back-to-top'); if(t) t.click(); }
+    }
+  });
 </script>
 
   <button id="back-to-top" aria-label="トップに戻る">↑</button>

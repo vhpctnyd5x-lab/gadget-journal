@@ -811,6 +811,21 @@ document.addEventListener('DOMContentLoaded',()=>{
       });
     })();
 });
+
+  // Service Worker registration
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(function(){});
+  }
+
+  // Keyboard shortcut: Cmd/Ctrl+K → focus search or go to index
+  document.addEventListener('keydown', function(e){
+    if((e.metaKey || e.ctrlKey) && e.key === 'k'){
+      e.preventDefault();
+      var s = document.getElementById('searchinput');
+      if(s){ s.focus(); s.select(); }
+      else { var t = document.getElementById('back-to-top'); if(t) t.click(); }
+    }
+  });
 </script>
 </body>
 </html>
