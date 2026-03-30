@@ -57,7 +57,15 @@
       transition: background 0.2s, color 0.2s; font-family: inherit; white-space: nowrap;
     }
     .dd-btn:hover, .dd-btn:focus-visible { background: rgba(255,255,255,0.12); color: #fff; outline: none; }
-    .dd-arrow { font-size: 11px; transition: transform 0.2s ease; }
+    .dd-arrow {
+      width: 7px; height: 7px;
+      border-right: 1.5px solid currentColor;
+      border-bottom: 1.5px solid currentColor;
+      transform: rotate(45deg) translateY(-1px);
+      transition: transform 0.2s ease;
+      display: inline-block;
+      opacity: 0.9;
+    }
     .dd-btn[aria-expanded="true"] .dd-arrow { transform: rotate(180deg); }
     .dd-menu {
       position: absolute; top: calc(100% + 8px); left: 0; min-width: 200px;
@@ -88,7 +96,7 @@
       margin-top: 50px; width: 100%; max-width: 800px; position: relative;
       opacity: 0; transform: scale(0.95); animation: scaleIn 1.5s cubic-bezier(0.2, 0, 0.2, 1) 0.5s forwards;
     }
-    .iphone-img-wrap img { width: 100%; height: auto; display: block; filter: drop-shadow(0 0 50px rgba(255,255,255,0.1)); }
+    .iphone-img-wrap img { width: 100%; height: auto; display: block; }
 
     /* ── Scroll Transition Section ── */
     .scroll-section {
@@ -147,7 +155,7 @@
     <a href="index.html" class="nav-logo">Gadget Journal</a>
     <div class="nav-menu" aria-label="Primary Navigation">
       <div class="dd">
-        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menu-mac">Mac <span class="dd-arrow">▾</span></button>
+        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menu-mac">Mac <span class="dd-arrow" aria-hidden="true"></span></button>
         <ul class="dd-menu" role="menu" id="menu-mac">
           <li><a role="menuitem" href="review.html">MacBook Air</a></li>
           <li><a role="menuitem" href="macbook-pro.html">MacBook Pro</a></li>
@@ -156,40 +164,41 @@
         </ul>
       </div>
       <div class="dd">
-        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menu-ipad">iPad <span class="dd-arrow">▾</span></button>
+        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menu-ipad">iPad <span class="dd-arrow" aria-hidden="true"></span></button>
         <ul class="dd-menu" role="menu" id="menu-ipad">
           <li><a role="menuitem" href="ipad.html">iPad Pro</a></li>
           <li><a role="menuitem" href="ipad-air.html">iPad Air</a></li>
         </ul>
       </div>
       <div class="dd">
-        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menu-iphone">iPhone <span class="dd-arrow">▾</span></button>
+        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menu-iphone">iPhone <span class="dd-arrow" aria-hidden="true"></span></button>
         <ul class="dd-menu" role="menu" id="menu-iphone">
           <li><a role="menuitem" href="iphone.html">iPhone</a></li>
         </ul>
       </div>
       <div class="dd">
-        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menu-watch">Apple Watch <span class="dd-arrow">▾</span></button>
+        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menu-watch">Apple Watch <span class="dd-arrow" aria-hidden="true"></span></button>
         <ul class="dd-menu" role="menu" id="menu-watch">
           <li><a role="menuitem" href="apple-watch.html">Apple Watch</a></li>
         </ul>
       </div>
       <div class="dd">
-        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menu-audio">Audio <span class="dd-arrow">▾</span></button>
+        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menu-audio">Audio <span class="dd-arrow" aria-hidden="true"></span></button>
         <ul class="dd-menu" role="menu" id="menu-audio">
           <li><a role="menuitem" href="airpods.html">AirPods</a></li>
+          <li><a role="menuitem" href="homepod.html">HomePod 3</a></li>
           <li><a role="menuitem" href="music.html">Music Diary</a></li>
           <li><a role="menuitem" href="music-trend.html">Japan Chart</a></li>
         </ul>
       </div>
       <div class="dd">
-        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menu-vision">Vision Pro <span class="dd-arrow">▾</span></button>
+        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menu-vision">Vision Pro <span class="dd-arrow" aria-hidden="true"></span></button>
         <ul class="dd-menu" role="menu" id="menu-vision">
           <li><a role="menuitem" href="vision-pro.html">Vision Pro</a></li>
         </ul>
       </div>
       <div class="dd">
-        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menu-site">Site <span class="dd-arrow">▾</span></button>
+        <button type="button" class="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menu-site">Site <span class="dd-arrow" aria-hidden="true"></span></button>
         <ul class="dd-menu" role="menu" id="menu-site">
           <li><a role="menuitem" href="history.html">History</a></li>
           <li><a role="menuitem" href="security.html">Security</a></li>
@@ -293,6 +302,18 @@
             </div>
             <div class="card-img">
               <img src="assets/CFkSueBqlWJp.jpg" alt="Apple Experience" loading="lazy" decoding="async">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">New Product</div>
+              <h3>HomePod 3</h3>
+              <p>適応型ルームチューニングとSiri強化。HomePod 3でスマートホームの音体験がさらに進化。</p>
+              <a href="homepod.html" class="card-link">新機能をチェック</a>
+            </div>
+            <div class="card-img">
+              <img src="assets/LQr4zsUeOs7E.jpg" alt="HomePod 3" loading="lazy" decoding="async">
             </div>
           </div>
 
