@@ -25,7 +25,7 @@
       height: 44px; display: flex; align-items: center;
       background: rgba(0, 0, 0, 0.85); backdrop-filter: saturate(180%) blur(20px);
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      overflow: hidden;
+      overflow: visible;
     }
 
     /* ロゴ：左固定・黒背景でリンクに被らない */
@@ -63,7 +63,8 @@
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none; /* Firefox */
       -ms-overflow-style: none; /* IE */
-      padding: 0 22px 0 8px;
+      min-width: 0;
+      padding: 0 40px 0 8px;
       height: 44px;
       display: flex;
       align-items: center;
@@ -78,6 +79,7 @@
       font-size: 12px;
       font-weight: 400;
       letter-spacing: -0.01em;
+      flex-wrap: nowrap;
     }
     .nav-links a { color: rgba(255, 255, 255, 0.8); transition: color 0.3s; }
     .nav-links a:hover { color: #fff; }
