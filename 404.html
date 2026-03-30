@@ -59,6 +59,23 @@
     .btn-ghost:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
 
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+    /* ── Accessibility: focus-visible ── */
+    :focus { outline: none; }
+    :focus-visible { outline: 3px solid #0071e3; outline-offset: 3px; border-radius: 4px; }
+
+    /* ── Scroll-driven reveal animation (progressive enhancement) ── */
+    @supports (animation-timeline: scroll()) {
+      .article-body h2, .article-body h3 {
+        animation: revealHeading linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 40%;
+      }
+      @keyframes revealHeading {
+        from { opacity: 0.2; transform: translateX(-8px); }
+        to   { opacity: 1;   transform: translateX(0); }
+      }
+    }
   </style>
 </head>
 <body>

@@ -20,6 +20,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#000000" />
   <meta name="view-transition" content="same-origin" />
+  <link rel="preload" href="assets/DAkrndqNhREz.jpg" as="image" />
   <style>
     :root {
       --text: #1d1d1f;
@@ -147,6 +148,23 @@ nav {
       cursor: pointer; padding: 0 4px; line-height: 1;
     }
     .announce-close:hover { color: #fff; }
+
+    /* ── Accessibility: focus-visible ── */
+    :focus { outline: none; }
+    :focus-visible { outline: 3px solid #0071e3; outline-offset: 3px; border-radius: 4px; }
+
+    /* ── Scroll-driven reveal animation (progressive enhancement) ── */
+    @supports (animation-timeline: scroll()) {
+      .article-body h2, .article-body h3 {
+        animation: revealHeading linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 40%;
+      }
+      @keyframes revealHeading {
+        from { opacity: 0.2; transform: translateX(-8px); }
+        to   { opacity: 1;   transform: translateX(0); }
+      }
+    }
   </style>
 </head>
 <body>
@@ -234,7 +252,7 @@ nav {
           </div>
           <div class="figure-wrap">
             <div class="figure-card">
-              <img loading="lazy" src="assets/DAkrndqNhREz.jpg" alt="Apple Early Years">
+              <img fetchpriority="high" loading="eager" src="assets/DAkrndqNhREz.jpg" alt="Apple Early Years">
             </div>
           </div>
         </div>
@@ -417,6 +435,21 @@ nav {
       });
     })();
 
-  </script>
+  
+  // Service Worker registration
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(function(){});
+  }
+
+  // Keyboard shortcut: Cmd/Ctrl+K → focus search or go to index
+  document.addEventListener('keydown', function(e){
+    if((e.metaKey || e.ctrlKey) && e.key === 'k'){
+      e.preventDefault();
+      var s = document.getElementById('searchinput');
+      if(s){ s.focus(); s.select(); }
+      else { var t = document.getElementById('back-to-top'); if(t) t.click(); }
+    }
+  });
+</script>
 </body>
 </html>
