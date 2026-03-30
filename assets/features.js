@@ -162,3 +162,58 @@ window.changeColor = function(imageSrc) {
     }, 200);
   }
 };
+
+// ========== 検索機能の強化 ==========
+document.addEventListener('DOMContentLoaded', function() {
+  const searchInput = document.getElementById('searchinput');
+  const searchResults = document.getElementById('searchresults');
+  
+  if (!searchInput || !searchResults) return;
+  
+  // 記事データベース
+  const articles = [
+    { title: 'M5 MacBook Air 徹底レビュー', url: 'm5-macbook-air-review.html', tags: ['Mac', 'Review', 'M5'] },
+    { title: 'iPhone 17 Pro vs 17e 比較', url: 'iphone-17-pro-vs-17e-guide.html', tags: ['iPhone', 'Comparison'] },
+    { title: 'iPad Pro + Apple Pencil Pro', url: 'ipad-pro-pencil-workspace.html', tags: ['iPad', 'Lifestyle'] },
+    { title: 'AirPods Pro 3 ノイキャン限界テスト', url: 'airpods-pro-3-noise-cancel-test.html', tags: ['Audio', 'Test'] },
+    { title: 'Apple Watch Ultra 3 1ヶ月レビュー', url: 'apple-watch-ultra-3-daily-use.html', tags: ['Wearable', 'Review'] },
+    { title: 'Mac mini M4 Pro デスクツアー', url: 'mac-mini-m4-desk-tour.html', tags: ['Mac', 'Lifestyle'] },
+    { title: 'iOS 19 × Apple Intelligence 活用法', url: 'ios-19-apple-intelligence-tips.html', tags: ['iOS', 'Tips'] },
+    { title: 'iCloud+ ストレージ解決ガイド', url: 'icloud-plus-storage-family-guide.html', tags: ['Guide'] },
+    { title: '古いデバイス下取りガイド', url: 'old-device-trade-in-guide.html', tags: ['Guide'] },
+    { title: 'Appleを選ぶ理由', url: 'why-i-love-apple-ecosystem.html', tags: ['Column'] }
+  ];
+  
+  searchInput.addEventListener('input', function(e) {
+    const query = e.target.value.toLowerCase().trim();
+    
+    if (query.length === 0) {
+      searchResults.innerHTML = '';
+      return;
+    }
+    
+    const matches = articles.filter(article => 
+      article.title.toLowerCase().includes(query) || 
+      article.tags.some(tag => tag.toLowerCase().includes(query))
+    );
+    
+    if (matches.length === 0) {
+      searchResults.innerHTML = '<div style="padding: 12px; color: #86868b; font-size: 12px;">検索結果がありません</div>';
+      return;
+    }
+    
+    searchResults.innerHTML = matches.map(article => `
+      <a href="${article.url}" style="display: block; padding: 12px; border-bottom: 1px solid #e8e8ed; color: #0071e3; font-size: 13px; transition: background 0.2s;">
+        <div style="font-weight: 600;">${article.title}</div>
+        <div style="font-size: 11px; color: #86868b; margin-top: 4px;">${article.tags.join(' • ')}</div>
+      </a>
+    `).join('');
+  });
+  
+  // 検索結果外をクリックで閉じる
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.search-wrap')) {
+      searchResults.innerHTML = '';
+    }
+  });
+});
