@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>HomePod: 部屋が、音楽になる。 - Gadget Journal</title>
   <meta name="description" content="HomePod（第2世代）&HomePod miniの徹底レビュー。空間オーディオ、スマートホームハブとしての進化、そしてSiriとの新しい関係を解説。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="HomePod レビュー | Gadget Journal" />
+  <meta property="og:description" content="HomePod第2世代とHomePod miniの比較レビュー。" />
+  <meta property="og:image" content="https://gadget-journal.vercel.app/assets/UgjkrdorFTbp.jpg" />
+  <meta property="og:url" content="https://gadget-journal.vercel.app/homepod.html" />
+  <meta property="og:site_name" content="Gadget Journal" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="HomePod レビュー | Gadget Journal" />
+  <meta name="twitter:description" content="HomePod第2世代とHomePod miniの比較レビュー。" />
+  <meta name="twitter:image" content="https://gadget-journal.vercel.app/assets/UgjkrdorFTbp.jpg" />
   <style>
     :root {
       --text: #1d1d1f;
@@ -127,6 +137,20 @@
       .meta-row { flex-wrap: wrap; gap: 0.5rem; }
       .article-footer { flex-direction: column; align-items: flex-start; gap: 1rem; }
     }
+
+    /* ── Back to Top ── */
+    #back-to-top {
+      position: fixed; bottom: 28px; right: 28px; z-index: 900;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(0,0,0,0.7); backdrop-filter: blur(10px);
+      color: #fff; font-size: 20px; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    }
+    #back-to-top.visible { opacity: 1; pointer-events: auto; }
+    #back-to-top:hover { transform: translateY(-3px); }
   </style>
 </head>
 <body>
@@ -190,7 +214,7 @@
 
       <div class="figure-wrap fade-in">
         <div class="figure-card">
-          <img src="assets/UgjkrdorFTbp.jpg" alt="HomePod">
+          <img loading="lazy" src="assets/UgjkrdorFTbp.jpg" alt="HomePod">
         </div>
         <span class="cite-tag">出典: Apple Newsroom</span>
       </div>
@@ -375,6 +399,31 @@
         }
       });
     })();
-  </script>
+  
+  // Back to top button
+  (function(){
+    var btn = document.getElementById('back-to-top');
+    if (!btn) return;
+    window.addEventListener('scroll', function(){
+      btn.classList.toggle('visible', window.scrollY > 400);
+    }, {passive: true});
+    btn.addEventListener('click', function(){
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+  })();
+
+  // Reading time estimate
+  (function(){
+    var body = document.querySelector('.article-body');
+    if (!body) return;
+    var words = body.innerText.trim().replace(/\s+/g,' ').split(' ').length;
+    var chars = body.innerText.trim().length;
+    var minutes = Math.max(1, Math.round(chars / 400));
+    var el = document.querySelector('.reading-time');
+    if (el) el.textContent = '約' + minutes + '分で読めます';
+  })();
+</script>
+
+  <button id="back-to-top" aria-label="トップに戻る">↑</button>
 </body>
 </html>

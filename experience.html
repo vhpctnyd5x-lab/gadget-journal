@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Appleの魅力 - 究極のユーザー体験 | My Gadget Journal</title>
   <meta name="description" content="Apple製品がなぜ愛されるのか。エコシステム、プライバシー、デザイン、アクセシビリティ、そして環境への取り組み。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Apple製品の使用体験 | Gadget Journal" />
+  <meta property="og:description" content="実際にApple製品を使って感じたこと。日常生活での使用感を率直にレポート。" />
+  <meta property="og:image" content="https://gadget-journal.vercel.app/assets/DfMi0pbXqqGF.jpg" />
+  <meta property="og:url" content="https://gadget-journal.vercel.app/experience.html" />
+  <meta property="og:site_name" content="Gadget Journal" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Apple製品の使用体験 | Gadget Journal" />
+  <meta name="twitter:description" content="実際にApple製品を使って感じたこと。日常生活での使用感を率直にレポート。" />
+  <meta name="twitter:image" content="https://gadget-journal.vercel.app/assets/DfMi0pbXqqGF.jpg" />
   <style>
     :root {
       --text: #1d1d1f;
@@ -106,6 +116,20 @@
 
     .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.2, 0, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0, 0.2, 1); }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Back to Top ── */
+    #back-to-top {
+      position: fixed; bottom: 28px; right: 28px; z-index: 900;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(0,0,0,0.7); backdrop-filter: blur(10px);
+      color: #fff; font-size: 20px; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    }
+    #back-to-top.visible { opacity: 1; pointer-events: auto; }
+    #back-to-top:hover { transform: translateY(-3px); }
   </style>
 </head>
 <body>
@@ -176,7 +200,7 @@
               <p>Macで書き始めたメールをiPhoneで仕上げる。iPadをMacのセカンドディスプレイにする。デバイスの境界線は、もう存在しません。</p>
             </div>
             <div class="figure-card">
-              <img src="assets/mwqLtfoHvDwk.jpg" alt="Apple Ecosystem">
+              <img loading="lazy" src="assets/mwqLtfoHvDwk.jpg" alt="Apple Ecosystem">
             </div>
             <span class="cite-tag">出典: Apple Newsroom</span>
           </div>
@@ -187,7 +211,7 @@
               <p>あなたのデータは、あなただけのもの。Appleは設計の段階からプライバシーを組み込み、個人情報を守り抜きます。</p>
             </div>
             <div class="figure-card">
-              <img src="assets/PK04D3WaeSNi.jpg" alt="Apple Privacy">
+              <img loading="lazy" src="assets/PK04D3WaeSNi.jpg" alt="Apple Privacy">
             </div>
             <span class="cite-tag">出典: Apple Newsroom</span>
           </div>
@@ -198,7 +222,7 @@
               <p>アルミニウムの質感、Retinaディスプレイの輝き、そして滑らかなタイポグラフィ。指先に触れる感触から、目に映るピクセルまで、美しさは細部に宿ります。</p>
             </div>
             <div class="figure-card" style="max-width: 600px; margin: 30px auto 0;">
-              <img src="assets/LQr4zsUeOs7E.jpg" alt="Apple Design">
+              <img loading="lazy" src="assets/LQr4zsUeOs7E.jpg" alt="Apple Design">
             </div>
             <span class="cite-tag">出典: Apple Newsroom</span>
           </div>
@@ -209,7 +233,7 @@
               <p>最新のEye TrackingやMusic Hapticsなど、Appleはテクノロジーを通じてすべての人を力づけます。どんな個性も置き去りにしない、先進のアクセシビリティ。</p>
             </div>
             <div class="figure-card">
-              <img src="assets/mwqLtfoHvDwk.jpg" alt="Apple Accessibility">
+              <img loading="lazy" src="assets/mwqLtfoHvDwk.jpg" alt="Apple Accessibility">
             </div>
             <span class="cite-tag">出典: Apple Newsroom</span>
           </div>
@@ -220,7 +244,7 @@
               <p>2030年までに、すべての製品をカーボンニュートラルに。再生素材の使用を加速させ、未来のためのイノベーションを続けています。</p>
             </div>
             <div class="figure-card">
-              <img src="assets/DAkrndqNhREz.jpg" alt="Apple Environment">
+              <img loading="lazy" src="assets/DAkrndqNhREz.jpg" alt="Apple Environment">
             </div>
             <span class="cite-tag">出典: Apple Newsroom</span>
           </div>
@@ -293,6 +317,31 @@
         }
       });
     })();
-  </script>
+  
+  // Back to top button
+  (function(){
+    var btn = document.getElementById('back-to-top');
+    if (!btn) return;
+    window.addEventListener('scroll', function(){
+      btn.classList.toggle('visible', window.scrollY > 400);
+    }, {passive: true});
+    btn.addEventListener('click', function(){
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+  })();
+
+  // Reading time estimate
+  (function(){
+    var body = document.querySelector('.article-body');
+    if (!body) return;
+    var words = body.innerText.trim().replace(/\s+/g,' ').split(' ').length;
+    var chars = body.innerText.trim().length;
+    var minutes = Math.max(1, Math.round(chars / 400));
+    var el = document.querySelector('.reading-time');
+    if (el) el.textContent = '約' + minutes + '分で読めます';
+  })();
+</script>
+
+  <button id="back-to-top" aria-label="トップに戻る">↑</button>
 </body>
 </html>
