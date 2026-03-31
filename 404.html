@@ -88,5 +88,9 @@
       <a href="review.html" class="btn-ghost">最新レビューを見る</a>
     </div>
   </div>
+
+  <script>
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(function(){});
+  </script>
 </body>
 </html>

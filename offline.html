@@ -46,5 +46,9 @@
     <p>インターネット接続が見つかりません。接続を確認してからもう一度お試しください。</p>
     <a href="/" class="btn" onclick="location.reload()">再試行する</a>
   </div>
+
+  <script>
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(function(){});
+  </script>
 </body>
 </html>
