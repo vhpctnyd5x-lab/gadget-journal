@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>お問い合わせ - Gadget Journal</title>
+  <meta name="description" content="Gadget Journalへのお問い合わせ・記事リクエスト・ご意見はこちらからどうぞ。" />
+  <link rel="apple-touch-icon" href="assets/DfMi0pbXqqGF.jpg" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="view-transition" content="same-origin" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: #fff; color: #1d1d1f; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Arial, sans-serif; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: #0071e3; text-decoration: none; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 44px; display: flex; align-items: center; background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,0,0,0.1); }
+    .nav-logo { padding: 0 16px 0 22px; font-weight: 600; font-size: 16px; color: #1d1d1f; height: 44px; display: flex; align-items: center; text-decoration: none; letter-spacing: -0.05em; }
+    main { max-width: 600px; margin: 0 auto; padding: 100px 22px 80px; }
+    .badge { display: inline-flex; padding: 5px 12px; border-radius: 99px; background: #f5f5f7; color: #3a3a3c; font-size: 12px; font-weight: 600; margin-bottom: 1.5rem; }
+    h1 { font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 700; letter-spacing: -0.03em; margin-bottom: 0.8rem; }
+    p.lead { font-size: 1.05rem; color: #6e6e73; margin-bottom: 2.5rem; }
+    .form-group { margin-bottom: 20px; }
+    label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; color: #1d1d1f; }
+    input, textarea, select {
+      width: 100%; padding: 12px 16px; border-radius: 12px;
+      border: 1.5px solid #e8e8ed; font-size: 15px; font-family: inherit;
+      background: #f5f5f7; color: #1d1d1f;
+      transition: border-color 0.2s; outline: none;
+    }
+    input:focus, textarea:focus, select:focus { border-color: #0071e3; background: #fff; }
+    textarea { resize: vertical; min-height: 140px; }
+    .submit-btn {
+      width: 100%; padding: 14px; border-radius: 99px;
+      background: #0071e3; color: #fff; font-size: 16px; font-weight: 600;
+      border: none; cursor: pointer; font-family: inherit;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .submit-btn:hover { background: #0077ed; transform: translateY(-1px); }
+    .success-msg { display: none; background: #e8f5e9; border-radius: 12px; padding: 20px; text-align: center; color: #1b5e20; font-weight: 600; margin-top: 16px; }
+    footer { padding: 40px 22px; background: #f5f5f7; text-align: center; font-size: 12px; color: #86868b; border-top: 1px solid #e8e8ed; margin-top: 60px; }
+    :focus { outline: none; } :focus-visible { outline: 3px solid #0071e3; outline-offset: 3px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <nav><a href="index.html" class="nav-logo">Gadget Journal</a></nav>
+  <main>
+    <div class="badge">Contact</div>
+    <h1>お問い合わせ</h1>
+    <p class="lead">ご意見・記事リクエスト・誤情報のご指摘など、お気軽にどうぞ。通常3営業日以内にご返信します。</p>
+
+    <form id="contactForm" onsubmit="handleSubmit(event)">
+      <div class="form-group">
+        <label for="name">お名前</label>
+        <input type="text" id="name" name="name" placeholder="山田 太郎" required />
+      </div>
+      <div class="form-group">
+        <label for="email">メールアドレス</label>
+        <input type="email" id="email" name="email" placeholder="example@mail.com" required />
+      </div>
+      <div class="form-group">
+        <label for="type">お問い合わせ種別</label>
+        <select id="type" name="type">
+          <option value="general">一般的なご質問</option>
+          <option value="request">記事リクエスト</option>
+          <option value="error">情報の誤りについて</option>
+          <option value="other">その他</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="message">メッセージ</label>
+        <textarea id="message" name="message" placeholder="メッセージをご記入ください..." required></textarea>
+      </div>
+      <button type="submit" class="submit-btn">送信する</button>
+      <div class="success-msg" id="successMsg">✓ メッセージを受け付けました。ありがとうございます！</div>
+    </form>
+  </main>
+  <footer>
+    <p>&copy; 2026 Gadget Journal. <a href="privacy.html">プライバシーポリシー</a> ／ <a href="terms.html">利用規約</a></p>
+  </footer>
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      document.getElementById('contactForm').style.opacity = '0.5';
+      setTimeout(function() {
+        document.getElementById('contactForm').style.display = 'none';
+        document.getElementById('successMsg').style.display = 'block';
+      }, 600);
+    }
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(function(){});
+  </script>
+</body>
+</html>
