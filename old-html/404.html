@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ページが見つかりません - Gadget Journal</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background: #000; color: #f5f5f7;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      height: 100%; -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    .container {
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 40px 22px; text-align: center;
+    }
+
+    .code {
+      font-size: clamp(6rem, 20vw, 12rem); font-weight: 700;
+      letter-spacing: -0.05em; line-height: 1;
+      background: linear-gradient(135deg, #0071e3, #bf5af2);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeInUp 0.8s cubic-bezier(0.2,0,0.2,1) forwards;
+      opacity: 0; transform: translateY(20px);
+    }
+    .title {
+      font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 600;
+      margin-top: 16px; letter-spacing: -0.03em;
+      animation: fadeInUp 0.8s 0.15s cubic-bezier(0.2,0,0.2,1) forwards;
+      opacity: 0; transform: translateY(20px);
+    }
+    .desc {
+      color: #86868b; font-size: 1rem; margin-top: 12px; max-width: 360px; line-height: 1.6;
+      animation: fadeInUp 0.8s 0.25s cubic-bezier(0.2,0,0.2,1) forwards;
+      opacity: 0; transform: translateY(20px);
+    }
+    .links {
+      display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+      margin-top: 36px;
+      animation: fadeInUp 0.8s 0.35s cubic-bezier(0.2,0,0.2,1) forwards;
+      opacity: 0; transform: translateY(20px);
+    }
+    .btn-primary {
+      padding: 12px 28px; border-radius: 99px;
+      background: #0071e3; color: #fff;
+      font-size: 15px; font-weight: 600; transition: background 0.2s;
+    }
+    .btn-primary:hover { background: #0077ed; }
+    .btn-ghost {
+      padding: 12px 28px; border-radius: 99px;
+      border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.7);
+      font-size: 15px; font-weight: 500; transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+    /* ── Accessibility: focus-visible ── */
+    :focus { outline: none; }
+    :focus-visible { outline: 3px solid #0071e3; outline-offset: 3px; border-radius: 4px; }
+
+    /* ── Scroll-driven reveal animation (progressive enhancement) ── */
+    @supports (animation-timeline: scroll()) {
+      .article-body h2, .article-body h3 {
+        animation: revealHeading linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 40%;
+      }
+      @keyframes revealHeading {
+        from { opacity: 0.2; transform: translateX(-8px); }
+        to   { opacity: 1;   transform: translateX(0); }
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="code">404</div>
+    <div class="title">ページが見つかりません</div>
+    <p class="desc">お探しのページは移動、削除、またはURLが間違っている可能性があります。</p>
+    <div class="links">
+      <a href="index.html" class="btn-primary">ホームに戻る</a>
+      <a href="review.html" class="btn-ghost">最新レビューを見る</a>
+    </div>
+  </div>
+
+  <script>
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(function(){});
+  </script>
+</body>
+</html>

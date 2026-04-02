@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gadget Journal - Apple Intelligenceの時代へ</title>
+  <meta name="description" content="M5 MacBook Air、iPad Pro、iPhone 17e。Apple製品の革新を深掘りする総合情報サイト。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Gadget Journal - Apple製品の深掘りレビュー" />
+  <meta property="og:description" content="M5 MacBook Air、iPad Pro、iPhone 17e。Apple製品の革新を深掘りする総合情報サイト。" />
+  <meta property="og:image" content="https://gadget-journal.vercel.app/assets/DfMi0pbXqqGF.jpg" />
+  <meta property="og:url" content="https://gadget-journal.vercel.app/index.html" />
+  <meta property="og:site_name" content="Gadget Journal" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Gadget Journal - Apple製品の深掘りレビュー" />
+  <meta name="twitter:description" content="M5 MacBook Air、iPad Pro、iPhone 17e。Apple製品の革新を深掘りする総合情報サイト。" />
+  <meta name="twitter:image" content="https://gadget-journal.vercel.app/assets/DfMi0pbXqqGF.jpg" />
+  <link rel="apple-touch-icon" href="assets/DfMi0pbXqqGF.jpg" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="view-transition" content="same-origin" />
+  <link rel="preload" href="assets/DfMi0pbXqqGF.jpg" as="image" />
+  <style>
+    :root {
+      --text: #f5f5f7;
+      --text-dark: #1d1d1f;
+      --muted: #86868b;
+      --bg: #000000;
+      --brand: #0071e3;
+      --white: #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ────────────────────────────
+       NAV  ★修正ポイント★
+       overflow:hidden を削除 → ドロップダウンが切れなくなる
+       ロゴのグラデーションマスク幅を縮小
+    ──────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      height: 44px; display: flex; align-items: center;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      /* overflow: hidden; ← 削除！ドロップダウンが見えなくなる原因 */
+    }
+
+    .nav-logo {
+      flex-shrink: 0;
+      padding: 0 20px 0 22px;
+      font-weight: 600; letter-spacing: -0.05em; font-size: 16px; color: #fff;
+      height: 44px; display: flex; align-items: center;
+      position: relative; z-index: 2;
+      /* ★修正: 背景をnavと同じにしてグラデーションが外にはみ出さないよう */
+      background: rgba(0, 0, 0, 0.88);
+    }
+    /* ★修正: ::after グラデーションを削除（Macに被る原因） */
+    /* .nav-logo::after を削除 */
+
+    .nav-links-wrap {
+      flex: 1; overflow-x: auto; overflow-y: visible; /* ★visible に変更 */
+      -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none;
+      padding: 0 36px 0 16px; height: 44px; display: flex; align-items: center;
+    }
+    .nav-links-wrap::-webkit-scrollbar { display: none; }
+
+    /* ★右端フェード：疑似要素ではなく独立divで */
+    .nav-fade-right {
+      position: absolute; right: 0; top: 0; width: 36px; height: 44px;
+      background: linear-gradient(to right, transparent, rgba(0,0,0,0.88));
+      pointer-events: none; z-index: 3;
+    }
+
+    .nav-links {
+      display: flex; gap: 24px; list-style: none;
+      white-space: nowrap; font-size: 12px; font-weight: 400; letter-spacing: -0.01em;
+    }
+    .nav-links > li > a { color: rgba(255,255,255,0.8); transition: color 0.3s; }
+    .nav-links > li > a:hover { color: #fff; }
+    .nav-links > li > a.nav-active { color: #fff; font-weight: 600; }
+
+    /* ── Dropdown ── */
+    .has-dropdown { position: relative; }
+    .nav-group-btn {
+      color: rgba(255,255,255,0.8); cursor: pointer;
+      display: flex; align-items: center; gap: 3px;
+      font-size: 12px; font-weight: 400; letter-spacing: -0.01em;
+      transition: color 0.3s; user-select: none; padding: 4px 0;
+    }
+    .nav-group-btn::after { content: '▾'; font-size: 9px; margin-top: 1px; transition: transform 0.2s; }
+    .has-dropdown:hover .nav-group-btn,
+    .has-dropdown.open .nav-group-btn,
+    .nav-group-btn.nav-active { color: #fff; font-weight: 600; }
+    .has-dropdown.open .nav-group-btn::after { transform: rotate(180deg); }
+
+    .nav-dropdown {
+      display: none; position: fixed;
+      background: rgba(28,28,30,0.98); backdrop-filter: saturate(180%) blur(24px);
+      border-radius: 12px; padding: 6px 0; min-width: 150px;
+      list-style: none; border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.6); z-index: 9999;
+      /* ★アニメーション追加 */
+      opacity: 0; transform: translateY(-4px) scale(0.98);
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+    .nav-dropdown.visible {
+      display: block; opacity: 1; transform: translateY(0) scale(1);
+    }
+    .nav-dropdown li a {
+      display: flex; align-items: center; gap: 8px;
+      padding: 9px 18px; color: rgba(255,255,255,0.75);
+      font-size: 13px; transition: color 0.2s, background 0.2s;
+    }
+    .nav-dropdown li a:hover { color: #fff; background: rgba(255,255,255,0.07); }
+    .nav-dropdown li a.nav-active { color: #fff; font-weight: 600; }
+    /* ドロップダウン内の小アイコン */
+    .nav-dropdown li a .dd-icon { font-size: 15px; width: 20px; text-align: center; }
+
+    /* ── Hero ── */
+    .hero {
+      height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+      padding-top: 15vh; position: relative; overflow: hidden;
+      background: linear-gradient(to bottom, #000 0%, #000 70%, #1d1d1f 100%);
+    }
+    .hero-content { text-align: center; z-index: 10; opacity: 0; transform: translateY(30px); animation: fadeInUp 1.2s cubic-bezier(0.2, 0, 0.2, 1) forwards; }
+    .hero h1 { font-size: clamp(3rem, 10vw, 6rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 10px; }
+    .hero p { font-size: clamp(1.2rem, 3vw, 1.8rem); font-weight: 500; color: var(--muted); }
+
+    .iphone-img-wrap {
+      margin-top: 50px; width: 100%; max-width: 800px; position: relative;
+      opacity: 0; transform: scale(0.95); animation: scaleIn 1.5s cubic-bezier(0.2, 0, 0.2, 1) 0.5s forwards;
+    }
+    .iphone-img-wrap img { width: 100%; height: auto; display: block; filter: drop-shadow(0 0 50px rgba(255,255,255,0.1)); }
+    /* ── Scroll Section ── */
+    .scroll-section {
+      padding: 100px 22px;
+      background: linear-gradient(to bottom, #1d1d1f 0%, #f5f5f7 20%, #f5f5f7 100%);
+      color: var(--text-dark); min-height: 100vh;
+    }
+
+    .section-title { text-align: center; margin-bottom: 80px; }
+    .section-title h2 {
+      font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 700; letter-spacing: -0.02em;
+      background: linear-gradient(90deg, #bf5af2 0%, #ff375f 35%, #ff9f0a 65%, #30d158 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .section-title p { font-size: 1.2rem; color: #86868b; margin-top: 10px; }
+
+    /* ── Grid ── */
+    .grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 24px; }
+    @media (min-width: 768px) { .grid { grid-template-columns: 1fr 1fr; } }
+
+    .card {
+      background: #fff; border-radius: 28px; padding: 40px; min-height: 480px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      transition: transform 0.4s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.2, 0, 0.2, 1);
+      border: 1px solid rgba(0,0,0,0.05); overflow: hidden; position: relative;
+    }
+    .card:hover { transform: translateY(-10px); box-shadow: 0 30px 60px rgba(0,0,0,0.12); }
+    .card-badge { font-size: 12px; font-weight: 700; color: var(--brand); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+    .card h3 { font-size: 2.2rem; font-weight: 600; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 15px; }
+    .card p { font-size: 1.1rem; color: #86868b; line-height: 1.5; margin-bottom: 30px; }
+    .card-link { font-size: 17px; font-weight: 600; color: var(--brand); display: inline-flex; align-items: center; gap: 5px; }
+    .card-link::after { content: "→"; transition: transform 0.3s; }
+    .card:hover .card-link::after { transform: translateX(5px); }
+    .card-img { width: 100%; margin-top: auto; border-radius: 12px; overflow: hidden; }
+    .card-img img { width: 100%; height: auto; transition: transform 0.6s; }
+    .card:hover .card-img img { transform: scale(1.05); }
+
+    /* ── Search Bar ★新機能 ── */
+    .search-wrap {
+      max-width: 560px; margin: 0 auto 60px; position: relative;
+    }
+    .search-input {
+      width: 100%; padding: 14px 48px 14px 20px;
+      border-radius: 99px; border: 1.5px solid #d2d2d7;
+      font-size: 16px; font-family: inherit; outline: none;
+      background: #fff; color: var(--text-dark);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+    }
+    .search-input:focus { border-color: var(--brand); box-shadow: 0 0 0 3px rgba(0,113,227,0.15); }
+    .search-icon { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); font-size: 18px; pointer-events: none; }
+    .search-results {
+      display: none; position: absolute; top: calc(100% + 8px); left: 0; right: 0;
+      background: #fff; border-radius: 16px; border: 1px solid #d2d2d7;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.12); overflow: hidden; z-index: 100;
+    }
+    .search-results.show { display: block; }
+    .search-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 18px; font-size: 14px; color: var(--text-dark);
+      transition: background 0.15s; cursor: pointer; text-decoration: none;
+    }
+    .search-item:hover { background: #f5f5f7; }
+    .search-item .si-icon { font-size: 20px; width: 28px; text-align: center; }
+    .search-item .si-title { font-weight: 600; }
+    .search-item .si-sub { font-size: 12px; color: #86868b; }
+    .search-empty { padding: 20px; text-align: center; color: #86868b; font-size: 14px; }
+
+    /* ── Footer ── */
+    footer { padding: 80px 22px; background: #f5f5f7; color: #86868b; font-size: 12px; text-align: center; border-top: 1px solid #d2d2d7; }
+    .footer-content { max-width: 1024px; margin: 0 auto; line-height: 1.8; }
+    .footer-links { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-bottom: 16px; }
+    .footer-links a { color: #86868b; font-size: 12px; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text-dark); }
+
+    /* ── Animations ── */
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+    @keyframes scaleIn { to { opacity: 1; transform: scale(1); } }
+    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.2, 0, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0, 0.2, 1); }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Scroll to top ★新機能 ── */
+    #scrolltop {
+      position: fixed; bottom: 28px; right: 24px; z-index: 500;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(28,28,30,0.88); backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.14); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; cursor: pointer;
+      opacity: 0; transform: translateY(12px); pointer-events: none;
+      transition: opacity 0.28s, transform 0.28s;
+    }
+    #scrolltop.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    #scrolltop:hover { background: rgba(50,50,55,0.95); }
+
+    @media (max-width: 600px) {
+      .card { padding: 28px; min-height: auto; }
+      .card h3 { font-size: 1.8rem; }
+    }
+
+    /* ── Featured Carousel (Scroll Snap) ── */
+    .featured-section {
+      padding: 60px 0 20px;
+      background: #f5f5f7;
+    }
+    .featured-title {
+      text-align: center; margin-bottom: 28px; padding: 0 22px;
+    }
+    .featured-title h2 {
+      font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 700;
+      letter-spacing: -0.03em; color: #1d1d1f;
+    }
+    .featured-title p { font-size: 14px; color: #86868b; margin-top: 6px; }
+
+    .snap-wrap {
+      display: flex; overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; -ms-overflow-style: none;
+      gap: 16px; padding: 8px 22px 24px;
+    }
+    .snap-wrap::-webkit-scrollbar { display: none; }
+
+    .snap-card {
+      flex: 0 0 82%; max-width: 360px;
+      scroll-snap-align: center;
+      border-radius: 20px; overflow: hidden;
+      background: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      text-decoration: none; color: inherit;
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex; flex-direction: column;
+    }
+    @media (min-width: 600px) { .snap-card { flex: 0 0 46%; } }
+    @media (min-width: 1000px) { .snap-card { flex: 0 0 30%; } }
+    .snap-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,0.14); }
+    .snap-card-img {
+      width: 100%; aspect-ratio: 4/3; object-fit: cover;
+    }
+    .snap-card-body { padding: 20px; flex: 1; }
+    .snap-card-badge {
+      font-size: 11px; font-weight: 700; color: #0071e3;
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;
+    }
+    .snap-card-title { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
+    .snap-card-desc { font-size: 13px; color: #86868b; line-height: 1.5; }
+
+    .snap-dots {
+      display: flex; justify-content: center; gap: 6px; padding-bottom: 8px;
+    }
+    .snap-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #d2d2d7; transition: background 0.3s, transform 0.3s;
+      cursor: pointer;
+    }
+    .snap-dot.active { background: #0071e3; transform: scale(1.3); }
+
+    /* ── Accessibility: focus-visible ── */
+    :focus { outline: none; }
+    :focus-visible { outline: 3px solid #0071e3; outline-offset: 3px; border-radius: 4px; }
+
+    /* ── Scroll-driven reveal animation (progressive enhancement) ── */
+    @supports (animation-timeline: scroll()) {
+      .article-body h2, .article-body h3 {
+        animation: revealHeading linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 40%;
+      }
+      @keyframes revealHeading {
+        from { opacity: 0.2; transform: translateX(-8px); }
+        to   { opacity: 1;   transform: translateX(0); }
+      }
+    }
+  </style>
+</head>
+<body>
+
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">Gadget Journal</a>
+    <div class="nav-links-wrap">
+      <ul class="nav-links">
+
+        <!-- Mac ドロップダウン -->
+        <li class="has-dropdown">
+          <span class="nav-group-btn" tabindex="0">Mac</span>
+          <ul class="nav-dropdown">
+            <li><a href="review.html"><span class="dd-icon">💻</span>MacBook Air</a></li>
+            <li><a href="macbook-pro.html"><span class="dd-icon">🖥</span>MacBook Pro</a></li>
+            <li><a href="macbook-neo.html"><span class="dd-icon">✨</span>MacBook Neo</a></li>
+            <li><a href="mac-studio.html"><span class="dd-icon">🎛</span>Mac Studio</a></li>
+          </ul>
+        </li>
+
+        <!-- iPad ドロップダウン -->
+        <li class="has-dropdown">
+          <span class="nav-group-btn" tabindex="0">iPad</span>
+          <ul class="nav-dropdown">
+            <li><a href="ipad.html"><span class="dd-icon">📱</span>iPad Pro</a></li>
+            <li><a href="ipad-air.html"><span class="dd-icon">🌬</span>iPad Air</a></li>
+          </ul>
+        </li>
+
+        <li><a href="iphone.html">iPhone</a></li>
+        <li><a href="apple-watch.html">Apple Watch</a></li>
+
+        <!-- Audio ドロップダウン -->
+        <li class="has-dropdown">
+          <span class="nav-group-btn" tabindex="0">Audio</span>
+          <ul class="nav-dropdown">
+            <li><a href="airpods.html"><span class="dd-icon">🎧</span>AirPods</a></li>
+          </ul>
+        </li>
+
+        <li><a href="vision-pro.html">Vision Pro</a></li>
+
+        <!-- Music ドロップダウン -->
+        <li class="has-dropdown">
+          <span class="nav-group-btn" tabindex="0">Music</span>
+          <ul class="nav-dropdown">
+            <li><a href="music.html"><span class="dd-icon">🎵</span>Music Diary</a></li>
+            <li><a href="music-trend.html"><span class="dd-icon">📊</span>Japan Chart</a></li>
+          </ul>
+        </li>
+
+        <li><a href="history.html">History</a></li>
+        <li><a href="security.html">Security</a></li>
+        <li><a href="experience.html">Experience</a></li>
+        <li><a href="apple-intelligence.html">Apple Intelligence</a></li>
+      </ul>
+    </div>
+    <div class="nav-fade-right"></div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <h1>iPhone 17e</h1>
+        <p>Hello, Apple Intelligence.</p>
+      </div>
+      <div class="iphone-img-wrap">
+        <img fetchpriority="high" loading="eager" src="assets/0MzY9mPnH5Jf.jpg" alt="iPhone 17e Black Background">
+      </div>
+    </section>
+
+    <section class="scroll-section">
+      <div class="section-content">
+        <div class="section-title fade-in">
+          <h2>最新のレビューと深掘り記事</h2>
+          <p>テクノロジーのその先にある体験を、あなたに。</p>
+        </div>
+
+        <!-- ★新機能: 検索バー -->
+        <div class="search-wrap fade-in">
+          <input class="search-input" id="searchinput" type="text" placeholder="記事を検索… (例: MacBook、iPhone、AirPods)" autocomplete="off">
+          <span class="search-icon">🔍</span>
+          <div class="search-results" id="searchresults"></div>
+        </div>
+
+
+        <!-- ★ Scroll Snap Carousel ★ -->
+        <div class="featured-section">
+          <div class="featured-title fade-in">
+            <h2>注目の記事</h2>
+            <p>← スワイプして探索 →</p>
+          </div>
+          <div class="snap-wrap" id="snapWrap">
+            <a href="review.html" class="snap-card">
+              <img loading="lazy" class="snap-card-img" src="assets/1H6jeDAqUO4S.jpg" alt="M5 MacBook Air">
+              <div class="snap-card-body">
+                <div class="snap-card-badge">New Release</div>
+                <div class="snap-card-title">M5 MacBook Air</div>
+                <div class="snap-card-desc">驚異的なパフォーマンスと薄さを両立した新世代Air。</div>
+              </div>
+            </a>
+            <a href="iphone.html" class="snap-card">
+              <img loading="lazy" class="snap-card-img" src="assets/2TjY14wukmBr.jpg" alt="iPhone 17e">
+              <div class="snap-card-body">
+                <div class="snap-card-badge">Essential</div>
+                <div class="snap-card-title">iPhone 17e</div>
+                <div class="snap-card-desc">Apple Intelligenceを手軽に体験できる新スタンダード。</div>
+              </div>
+            </a>
+            <a href="apple-intelligence.html" class="snap-card">
+              <img loading="lazy" class="snap-card-img" src="assets/6BzbPQAE4lCW.jpg" alt="Apple Intelligence">
+              <div class="snap-card-body">
+                <div class="snap-card-badge">AI Feature</div>
+                <div class="snap-card-title">Apple Intelligence</div>
+                <div class="snap-card-desc">Writing Tools、Image Playground。AI新時代の幕開け。</div>
+              </div>
+            </a>
+            <a href="ipad.html" class="snap-card">
+              <img loading="lazy" class="snap-card-img" src="assets/Bo7BV2xApq7V.jpg" alt="iPad Pro">
+              <div class="snap-card-body">
+                <div class="snap-card-badge">Pro Performance</div>
+                <div class="snap-card-title">iPad Pro M5</div>
+                <div class="snap-card-desc">Tandem OLEDとM5チップ。究極のタブレット体験。</div>
+              </div>
+            </a>
+            <a href="mac-mini.html" class="snap-card">
+              <img loading="lazy" class="snap-card-img" src="assets/CFkSueBqlWJp.jpg" alt="Mac mini">
+              <div class="snap-card-body">
+                <div class="snap-card-badge">Desktop Power</div>
+                <div class="snap-card-title">Mac mini M4 Pro</div>
+                <div class="snap-card-desc">手のひらサイズで圧倒的なパフォーマンス。</div>
+              </div>
+            </a>
+            <a href="vision-pro.html" class="snap-card">
+              <img loading="lazy" class="snap-card-img" src="assets/Cy7NJcxIYCxc.jpg" alt="Vision Pro">
+              <div class="snap-card-body">
+                <div class="snap-card-badge">Spatial</div>
+                <div class="snap-card-title">Apple Vision Pro</div>
+                <div class="snap-card-desc">空間コンピューティングが切り開く、次の10年。</div>
+              </div>
+            </a>
+            <a href="m5-macbook-air-review.html" class="snap-card">
+              <img loading="lazy" class="snap-card-img" src="assets/DAkrndqNhREz.jpg" alt="M5 MacBook Air Review">
+              <div class="snap-card-body">
+                <div class="snap-card-badge">Review</div>
+                <div class="snap-card-title">M5 MacBook Air 徹底レビュー</div>
+                <div class="snap-card-desc">本当に「究極の普段使いMac」なのか？</div>
+              </div>
+            </a>
+            <a href="iphone-17-pro-vs-17e-guide.html" class="snap-card">
+              <img loading="lazy" class="snap-card-img" src="assets/DfMi0pbXqqGF.jpg" alt="iPhone 17 Pro vs 17e">
+              <div class="snap-card-body">
+                <div class="snap-card-badge">Comparison</div>
+                <div class="snap-card-title">iPhone 17 Pro vs 17e</div>
+                <div class="snap-card-desc">あなたに最適なのはどっち？完全比較ガイド</div>
+              </div>
+            </a>
+            <a href="ipad-pro-pencil-workspace.html" class="snap-card">
+              <img loading="lazy" class="snap-card-img" src="assets/JgkFy5R64E18.jpg" alt="iPad Pro + Pencil">
+              <div class="snap-card-body">
+                <div class="snap-card-badge">Lifestyle</div>
+                <div class="snap-card-title">iPad Pro + Apple Pencil Pro</div>
+                <div class="snap-card-desc">最強のペーパーレスデスク環境</div>
+              </div>
+            </a>
+            <a href="airpods-pro-3-noise-cancel-test.html" class="snap-card">
+              <img loading="lazy" class="snap-card-img" src="assets/KI8LZxWp8G9n.jpg" alt="AirPods Pro 3">
+              <div class="snap-card-body">
+                <div class="snap-card-badge">Test</div>
+                <div class="snap-card-title">AirPods Pro 3 ノイキャン限界テスト</div>
+                <div class="snap-card-desc">新幹線とカフェで実検証</div>
+              </div>
+            </a>
+            <a href="apple-watch-ultra-3-daily-use.html" class="snap-card">
+              <img loading="lazy" class="snap-card-img" src="assets/L5lJt8qLF93n.jpg" alt="Apple Watch Ultra 3">
+              <div class="snap-card-body">
+                <div class="snap-card-badge">Impression</div>
+                <div class="snap-card-title">Apple Watch Ultra 3 1ヶ月レビュー</div>
+                <div class="snap-card-desc">着けっぱなしで分かった3つの本音</div>
+              </div>
+            </a>
+            <a href="mac-mini-m4-desk-tour.html" class="snap-card">
+              <img loading="lazy" class="snap-card-img" src="assets/LQr4zsUeOs7E.jpg" alt="Mac mini Desk Tour">
+              <div class="snap-card-body">
+                <div class="snap-card-badge">Lifestyle</div>
+                <div class="snap-card-title">デスクツアー 2026</div>
+                <div class="snap-card-desc">Mac mini M4 Pro を中心としたミニマル環境</div>
+              </div>
+            </a>
+            <a href="ios-19-apple-intelligence-tips.html" class="snap-card">
+              <img loading="lazy" class="snap-card-img" src="assets/OoengnWcJ17i.jpg" alt="iOS 19 Tips">
+              <div class="snap-card-body">
+                <div class="snap-card-badge">Tips</div>
+                <div class="snap-card-title">iOS 19 × Apple Intelligence</div>
+                <div class="snap-card-desc">「神」活用法5選</div>
+              </div>
+            </a>
+            <a href="icloud-plus-storage-family-guide.html" class="snap-card">
+              <img loading="lazy" class="snap-card-img" src="assets/PK04D3WaeSNi.jpg" alt="iCloud+ Guide">
+              <div class="snap-card-body">
+                <div class="snap-card-badge">Guide</div>
+                <div class="snap-card-title">iCloud+ ストレージ解決ガイド</div>
+                <div class="snap-card-desc">ファミリー共有の賢い設定</div>
+              </div>
+            </a>
+            <a href="old-device-trade-in-guide.html" class="snap-card">
+              <img loading="lazy" class="snap-card-img" src="assets/UgjkrdorFTbp.jpg" alt="Trade-in Guide">
+              <div class="snap-card-body">
+                <div class="snap-card-badge">Guide</div>
+                <div class="snap-card-title">古いデバイス下取りガイド</div>
+                <div class="snap-card-desc">最高値で売るための完全初期化手順</div>
+              </div>
+            </a>
+            <a href="why-i-love-apple-ecosystem.html" class="snap-card">
+              <img loading="lazy" class="snap-card-img" src="assets/cflqYh11YboU.jpg" alt="Apple Ecosystem">
+              <div class="snap-card-body">
+                <div class="snap-card-badge">Column</div>
+                <div class="snap-card-title">Appleを選ぶ理由</div>
+                <div class="snap-card-desc">エコシステムの魔法を語るコラム</div>
+              </div>
+            </a>
+          </div>
+          <div class="snap-dots" id="snapDots">
+            <div class="snap-dot active"></div>
+            <div class="snap-dot"></div>
+            <div class="snap-dot"></div>
+            <div class="snap-dot"></div>
+            <div class="snap-dot"></div>
+            <div class="snap-dot"></div>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">New Release</div>
+              <h3>M5 MacBook Air</h3>
+              <p>M5チップがもたらす驚異的なパフォーマンス。薄さの完成度を、また一段押し上げてきました。</p>
+              <a href="review.html" class="card-link">レビューを読む</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/gSNm86lvh9DE.jpg" alt="M5 MacBook Air">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">Pro Performance</div>
+              <h3>iPad Pro M5</h3>
+              <p>Tandem OLEDディスプレイとM5チップ。タブレットの概念を再定義する、プロのための究極のツール。</p>
+              <a href="ipad.html" class="card-link">詳細を見る</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/mwqLtfoHvDwk.jpg" alt="iPad Pro M5">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">Essential</div>
+              <h3>iPhone 17e</h3>
+              <p>誰もが手にできる最新のiPhone。A19チップとApple Intelligenceが、新しいスタンダードを作ります。</p>
+              <a href="iphone.html" class="card-link">詳しく見る</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/t2ktF9SdVoHV.jpg" alt="iPhone 17e">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">Deep Dive</div>
+              <h3>Appleの歴史</h3>
+              <p>1976年の創業から2026年までの50年。ガレージから始まった革新のタイムラインを辿ります。</p>
+              <a href="history.html" class="card-link">歴史を紐解く</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/zx2qYV5F4Tpc.jpg" alt="Apple History">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">Privacy</div>
+              <h3>セキュリティの真実</h3>
+              <p>Secure Enclave、Face ID、エンドツーエンド暗号化。Appleが守り続ける、あなたのプライバシー。</p>
+              <a href="security.html" class="card-link">信頼の設計を知る</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/0MzY9mPnH5Jf.jpg" alt="Apple Security">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">Philosophy</div>
+              <h3>Appleの魅力</h3>
+              <p>エコシステム、デザイン、環境への取り組み。製品の裏側にある、変わらない信念と哲学。</p>
+              <a href="experience.html" class="card-link">体験の価値を知る</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/1H6jeDAqUO4S.jpg" alt="Apple Experience">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">Performance</div>
+              <h3>M5 MacBook Air</h3>
+              <p>M5チップ搭載MacBook Air 徹底レビュー。新しい薄型設計とパフォーマンスの融合。</p>
+              <a href="m5-macbook-air.html" class="card-link">レビューを読む</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/2TjY14wukmBr.jpg" alt="M5 MacBook Air">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">Professional</div>
+              <h3>Mac Studio M4 Ultra</h3>
+              <p>Mac Studio M4 Ultra 性能検証。8コアGPU、最大192GBメモリ。</p>
+              <a href="mac-studio-m4-ultra.html" class="card-link">詳細を見る</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/6BzbPQAE4lCW.jpg" alt="Mac Studio M4 Ultra">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">Software</div>
+              <h3>macOS 16 Sequoia</h3>
+              <p>macOS 16の先取りプレビュー。Apple Intelligenceとの統合。</p>
+              <a href="macos-16-preview.html" class="card-link">プレビューを見る</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/Bo7BV2xApq7V.jpg" alt="macOS 16">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">Compact</div>
+              <h3>新型Mac mini</h3>
+              <p>Mac miniの完全リデザイン。M4チップで小型化を実現。</p>
+              <a href="mac-mini-redesign.html" class="card-link">詳しく見る</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/CFkSueBqlWJp.jpg" alt="Mac mini">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">Display</div>
+              <h3>MacBook Pro M4 Pro</h3>
+              <p>MacBook Pro M4 Pro レビュー。新型ディスプレイの進化。</p>
+              <a href="macbook-pro-m4-pro.html" class="card-link">レビューを読む</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/Cy7NJcxIYCxc.jpg" alt="MacBook Pro M4 Pro">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">Camera</div>
+              <h3>iPhone 17 Pro Max</h3>
+              <p>iPhone 17 Pro Max カメラ性能検証。48MP望遠レンズ。</p>
+              <a href="iphone-17-pro-max-camera.html" class="card-link">詳細を見る</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/DAkrndqNhREz.jpg" alt="iPhone 17 Pro Max">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">Comparison</div>
+              <h3>iPhone 17e vs SE</h3>
+              <p>iPhone 17eとiPhone SEの徹底比較。</p>
+              <a href="iphone-17e-vs-se.html" class="card-link">比較を見る</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/DfMi0pbXqqGF.jpg" alt="iPhone 17e vs SE">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">Rumors</div>
+              <h3>iOS 19 噂のまとめ</h3>
+              <p>iOS 19の噂情報をまとめました。</p>
+              <a href="ios-19-rumors.html" class="card-link">噂を読む</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/JgkFy5R64E18.jpg" alt="iOS 19">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">Accessories</div>
+              <h3>MagSafeアクセサリー</h3>
+              <p>2026年版 おすすめMagSafeアクセサリー10選。</p>
+              <a href="iphone-magsafe-accessories.html" class="card-link">アクセサリーを見る</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/KI8LZxWp8G9n.jpg" alt="MagSafe Accessories">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">Tips</div>
+              <h3>iPhoneバッテリーガイド</h3>
+              <p>iPhoneのバッテリー寿命を最大限に延ばすための設定ガイド。</p>
+              <a href="iphone-battery-care.html" class="card-link">ガイドを読む</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/L5lJt8qLF93n.jpg" alt="Battery Care">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">Display</div>
+              <h3>iPad Pro M5 OLED</h3>
+              <p>iPad Pro M5 OLEDモデルの徹底レビュー。</p>
+              <a href="ipad-pro-m5-oled.html" class="card-link">レビューを読む</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/LQr4zsUeOs7E.jpg" alt="iPad Pro M5 OLED">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">New</div>
+              <h3>iPad Air M4 13インチ</h3>
+              <p>iPad Air M4 13インチモデルのレビュー。</p>
+              <a href="ipad-air-m4.html" class="card-link">詳細を見る</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/OoengnWcJ17i.jpg" alt="iPad Air M4">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">Tips</div>
+              <h3>Apple Pencil Pro活用術</h3>
+              <p>Apple Pencil Proの活用方法を解説。</p>
+              <a href="apple-pencil-pro-tips.html" class="card-link">活用術を見る</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/PK04D3WaeSNi.jpg" alt="Apple Pencil Pro">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">Software</div>
+              <h3>iPadOS 19</h3>
+              <p>iPadOS 19のマルチタスク機能について。</p>
+              <a href="ipados-19-multitasking.html" class="card-link">詳細を見る</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/UgjkrdorFTbp.jpg" alt="iPadOS 19">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">Guide</div>
+              <h3>クリエイターのiPad選び</h3>
+              <p>クリエイター向けのiPad選択ガイド。</p>
+              <a href="ipad-for-creators.html" class="card-link">ガイドを読む</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/cflqYh11YboU.jpg" alt="iPad for Creators">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">Audio</div>
+              <h3>AirPods Pro 3</h3>
+              <p>AirPods Pro 3の新機能を紹介。</p>
+              <a href="airpods-pro-3.html" class="card-link">詳細を見る</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/gSNm86lvh9DE.jpg" alt="AirPods Pro 3">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">Wearable</div>
+              <h3>Apple Watch Ultra 3</h3>
+              <p>Apple Watch Ultra 3のレビュー。</p>
+              <a href="apple-watch-ultra-3.html" class="card-link">レビューを読む</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/mwqLtfoHvDwk.jpg" alt="Apple Watch Ultra 3">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">Design</div>
+              <h3>Apple Watch Series 11</h3>
+              <p>Apple Watch Series 11のデザイン刷新。</p>
+              <a href="apple-watch-series-11.html" class="card-link">詳細を見る</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/t2ktF9SdVoHV.jpg" alt="Apple Watch Series 11">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">Smart Home</div>
+              <h3>画面付きHomePod</h3>
+              <p>画面付きHomePodの登場。</p>
+              <a href="homepod-with-display.html" class="card-link">詳細を見る</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/zx2qYV5F4Tpc.jpg" alt="HomePod with Display">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">Rumors</div>
+              <h3>Apple Vision Pro 2</h3>
+              <p>Apple Vision Pro 2の噂情報。</p>
+              <a href="vision-pro-2-rumors.html" class="card-link">噂を読む</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/0MzY9mPnH5Jf.jpg" alt="Vision Pro 2">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">AI</div>
+              <h3>Apple Intelligence活用</h3>
+              <p>Apple Intelligenceを日々のワークフローに組み込む方法。</p>
+              <a href="apple-intelligence-workflow.html" class="card-link">活用方法を見る</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/1H6jeDAqUO4S.jpg" alt="Apple Intelligence">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">Service</div>
+              <h3>iCloud+ を使い倒す</h3>
+              <p>iCloud+の全機能を解説。</p>
+              <a href="icloud-plus-features.html" class="card-link">機能を見る</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/2TjY14wukmBr.jpg" alt="iCloud+">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">Value</div>
+              <h3>Apple One 価値分析</h3>
+              <p>Apple Oneは本当にお得か？ 料金プラン徹底比較。</p>
+              <a href="apple-one-value.html" class="card-link">比較を見る</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/6BzbPQAE4lCW.jpg" alt="Apple One">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">Smart Home</div>
+              <h3>Matter対応HomeKit</h3>
+              <p>Matter対応によるHomeKitの進化。</p>
+              <a href="smart-home-matter-apple.html" class="card-link">詳細を見る</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/Bo7BV2xApq7V.jpg" alt="HomeKit Matter">
+            </div>
+          </div>
+
+          <div class="card fade-in">
+            <div>
+              <div class="card-badge">Analysis</div>
+              <h3>Appleエコシステム分析</h3>
+              <p>2026年、Appleエコシステムのメリットとデメリット。</p>
+              <a href="apple-ecosystem-benefits.html" class="card-link">分析を読む</a>
+            </div>
+            <div class="card-img">
+              <img loading="lazy" src="assets/CFkSueBqlWJp.jpg" alt="Apple Ecosystem">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-links">
+      <a href="about.html">About</a>
+        <a href="contact.html">お問い合わせ</a>
+        <a href="privacy.html">プライバシーポリシー</a>
+        <a href="terms.html">利用規約</a>
+        <a href="review.html">MacBook Air</a>
+        <a href="ipad.html">iPad Pro</a>
+        <a href="iphone.html">iPhone</a>
+        <a href="apple-watch.html">Apple Watch</a>
+        <a href="airpods.html">AirPods</a>
+        <a href="vision-pro.html">Vision Pro</a>
+      </div>
+      <div class="footer-links" style="border-top: 1px solid #d2d2d7; padding-top: 16px; margin-top: 16px;">
+        <a href="about.html">About</a>
+        <a href="privacy.html">プライバシーポリシー</a>
+        <a href="terms.html">利用規約</a>
+        <a href="mailto:contact@gadget-journal.com">お問い合わせ</a>
+      </div>
+      <p>&copy; 2026 Gadget Journal. All rights reserved.</p>
+      <p style="margin-top:6px">製品画像・ロゴは Apple Inc. の商標です。本サイトは報道・批評・解説を目的とした引用を行っています。</p>
+    </div>
+  </footer>
+
+  <!-- ★新機能: トップへ戻るボタン -->
+  <button id="scrolltop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="トップへ戻る">↑</button>
+
+  <script>
+  // ════════════════════════════════
+  // Fade-in observer
+  // ════════════════════════════════
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // ════════════════════════════════
+  // NAV: active link + dropdown
+  // ════════════════════════════════
+  (function() {
+    var cur = location.pathname.split('/').pop() || 'index.html';
+
+    // アクティブリンク
+    var al = document.querySelector('.nav-links > li > a[href="' + cur + '"]');
+    if(al) al.classList.add('nav-active');
+    var adl = document.querySelector('.nav-dropdown a[href="' + cur + '"]');
+    if(adl) {
+      adl.classList.add('nav-active');
+      adl.closest('.has-dropdown').querySelector('.nav-group-btn').classList.add('nav-active');
+    }
+
+    // ★ ドロップダウンをbody直下に移動してz-index問題を完全回避
+    document.querySelectorAll('.has-dropdown').forEach(function(item) {
+      var dd = item.querySelector('.nav-dropdown');
+      // body直下に移動
+      document.body.appendChild(dd);
+      dd._owner = item;
+    });
+
+    function posDD(item) {
+      var btn = item.querySelector('.nav-group-btn');
+      var dd  = document.querySelector('.nav-dropdown[data-owner]') || item._dd;
+      // ownerからddを取得
+      var allDDs = document.querySelectorAll('.nav-dropdown');
+      var myDD;
+      allDDs.forEach(function(d){ if(d._owner === item) myDD = d; });
+      if(!myDD) return;
+      var r = btn.getBoundingClientRect();
+      myDD.style.top  = (r.bottom + 6) + 'px';
+      var ddW = myDD.offsetWidth || 160;
+      var left = r.left + r.width / 2;
+      if(left + ddW/2 > window.innerWidth - 12) left = window.innerWidth - ddW/2 - 12;
+      if(left - ddW/2 < 8) left = ddW/2 + 8;
+      myDD.style.left = left + 'px';
+      myDD.style.transform = 'translateX(-50%)';
+    }
+
+    function getDD(item) {
+      var found;
+      document.querySelectorAll('.nav-dropdown').forEach(function(d){ if(d._owner===item) found=d; });
+      return found;
+    }
+
+    document.querySelectorAll('.has-dropdown').forEach(function(item) {
+      var timer;
+
+      function open() {
+        clearTimeout(timer);
+        // 他を閉じる
+        document.querySelectorAll('.nav-dropdown').forEach(function(d){ d.classList.remove('visible'); });
+        document.querySelectorAll('.has-dropdown').forEach(function(d){ d.classList.remove('open'); });
+        var dd = getDD(item);
+        if(!dd) return;
+        dd.style.display = 'block';
+        posDD(item);
+        requestAnimationFrame(function(){ dd.classList.add('visible'); });
+        item.classList.add('open');
+      }
+      function close(delay) {
+        timer = setTimeout(function(){
+          var dd = getDD(item);
+          if(dd){ dd.classList.remove('visible'); setTimeout(function(){ if(!dd.classList.contains('visible')) dd.style.display=''; },200); }
+          item.classList.remove('open');
+        }, delay||0);
+      }
+
+      item.addEventListener('mouseenter', function(){ open(); });
+      item.addEventListener('mouseleave', function(){ close(150); });
+
+      var dd = getDD(item);
+      if(dd){
+        dd.addEventListener('mouseenter', function(){ clearTimeout(timer); });
+        dd.addEventListener('mouseleave', function(){ close(100); });
+      }
+
+      item.querySelector('.nav-group-btn').addEventListener('click', function(e){
+        e.stopPropagation();
+        var dd = getDD(item);
+        if(dd && dd.classList.contains('visible')){ close(0); }
+        else { open(); }
+      });
+    });
+
+    document.addEventListener('click', function(e){
+      if(!e.target.closest('.has-dropdown') && !e.target.closest('.nav-dropdown')){
+        document.querySelectorAll('.nav-dropdown').forEach(function(d){
+          d.classList.remove('visible');
+          setTimeout(function(){ if(!d.classList.contains('visible')) d.style.display=''; },200);
+        });
+        document.querySelectorAll('.has-dropdown').forEach(function(d){ d.classList.remove('open'); });
+      }
+    });
+
+    document.querySelectorAll('.nav-group-btn').forEach(function(btn){
+      btn.addEventListener('keydown', function(e){
+        if(e.key==='Enter'||e.key===' '){ e.preventDefault(); btn.click(); }
+      });
+    });
+  })();
+
+    // ════════════════════════════════
+  // Scroll to top button
+  // ════════════════════════════════
+  var stBtn = document.getElementById('scrolltop');
+  window.addEventListener('scroll', function() {
+    if(window.scrollY > 400) stBtn.classList.add('show');
+    else stBtn.classList.remove('show');
+  }, { passive: true });
+
+  // ════════════════════════════════
+  // Search
+  // ════════════════════════════════
+  var PAGES = [
+    {title:'M5 MacBook Air',    sub:'レビュー · New Release',        url:'review.html',          icon:'💻', tags:'マックブック エアー レビュー 薄い 軽い'},
+    {title:'MacBook Pro',       sub:'レビュー · Pro Performance',     url:'macbook-pro.html',     icon:'🖥', tags:'マックブック プロ 高性能 仕事'},
+    {title:'MacBook Neo',       sub:'コンセプト · Future',            url:'macbook-neo.html',     icon:'✨', tags:'マックブック ネオ 次世代 コンセプト'},
+    {title:'Mac Studio',        sub:'レビュー · Power',               url:'mac-studio.html',      icon:'🎛', tags:'マック スタジオ デスクトップ クリエイター'},
+    {title:'iPad Pro M5',       sub:'レビュー · Pro Performance',     url:'ipad.html',            icon:'📱', tags:'アイパッド プロ タブレット クリエイター'},
+    {title:'iPad Air',          sub:'レビュー · Lightweight',         url:'ipad-air.html',        icon:'🌬', tags:'アイパッド エアー バランス'},
+    {title:'iPhone 17e',        sub:'レビュー · Essential',           url:'iphone.html',          icon:'📲', tags:'アイフォン17e スマートフォン スタンダード'},
+    {title:'Apple Watch',       sub:'レビュー · Health & Fitness',    url:'apple-watch.html',     icon:'⌚', tags:'アップル ウォッチ 健康 フィットネス'},
+    {title:'AirPods',           sub:'レビュー · Audio',               url:'airpods.html',         icon:'🎧', tags:'エアポッズ イヤフォン ワイヤレス 音声'},
+    {title:'Vision Pro',        sub:'レビュー · Spatial Computing',   url:'vision-pro.html',      icon:'🥽', tags:'ビジョン プロ 空間 AR VR'},
+    {title:'Music Diary',       sub:'音楽 · 好きだった曲',            url:'music.html',           icon:'🎵', tags:'音楽 ダイアリー 好きな曲'},
+    {title:'Japan Chart 2026',  sub:'音楽 · トレンドランキング',      url:'music-trend.html',     icon:'📊', tags:'ランキング トレンド チャート 流行 邦楽'},
+    {title:'Appleの歴史',       sub:'Deep Dive · 1976-2026',          url:'history.html',         icon:'📖', tags:'歴史 スティーブ ジョブズ 過去'},
+    {title:'セキュリティ',      sub:'Privacy · Secure Enclave',       url:'security.html',        icon:'🔒', tags:'セキュリティ プライバシー 安全 暗号化'},
+    {title:'Appleの魅力',       sub:'Philosophy · Experience',        url:'experience.html',      icon:'🍎', tags:'体験 エコシステム 哲学 魅力'},
+    {title:'Apple Intelligence',sub:'AI · 機械学習',                  url:'apple-intelligence.html',icon:'🧠', tags:'AI 人工知能 機械学習 アップルインテリジェンス'},
+  ];
+
+  // ひらがな・カタカナ相互変換関数
+  function hiraganaToKatakana(str) {
+    return str.replace(/[\u3041-\u3096]/g, function(ch) {
+      return String.fromCharCode(ch.charCodeAt(0) + 0x60);
+    });
+  }
+  function katakanaToHiragana(str) {
+    return str.replace(/[\u30a1-\u30f6]/g, function(ch) {
+      return String.fromCharCode(ch.charCodeAt(0) - 0x60);
+    });
+  }
+
+  // 日本語対応マッチ関数
+  function matchesQuery(text, query) {
+    var qLower = query.toLowerCase();
+    var tLower = text.toLowerCase();
+
+    // 完全一致または部分一致
+    if(tLower.includes(qLower)) return true;
+
+    // ひらがな↔カタカナ相互変換対応
+    var qKata = hiraganaToKatakana(qLower);
+    var qHira = katakanaToHiragana(qLower);
+
+    if(tLower.includes(qKata) || tLower.includes(qHira)) return true;
+
+    return false;
+  }
+
+  var inp = document.getElementById('searchinput');
+  var res = document.getElementById('searchresults');
+
+  inp.addEventListener('input', function() {
+    var q = inp.value.trim();
+    if(!q) { res.classList.remove('show'); return; }
+
+    var hits = PAGES.filter(p =>
+      matchesQuery(p.title, q) ||
+      matchesQuery(p.sub, q) ||
+      matchesQuery(p.tags, q)
+    );
+
+    if(hits.length === 0) {
+      res.innerHTML = '<div class="search-empty">見つかりませんでした 🔍</div>';
+    } else {
+      res.innerHTML = hits.slice(0,6).map(p =>
+        '<a class="search-item" href="' + p.url + '">' +
+        '<span class="si-icon">' + p.icon + '</span>' +
+        '<span><div class="si-title">' + p.title + '</div>' +
+        '<div class="si-sub">' + p.sub + '</div></span></a>'
+      ).join('');
+    }
+    res.classList.add('show');
+  });
+
+  document.addEventListener('click', function(e) {
+    if(!e.target.closest('.search-wrap')) res.classList.remove('show');
+  });
+
+  inp.addEventListener('keydown', function(e) {
+    if(e.key === 'Escape') { res.classList.remove('show'); inp.blur(); }
+  });
+  
+  // Scroll Snap dots indicator
+  (function(){
+    var wrap = document.getElementById('snapWrap');
+    var dots = document.querySelectorAll('#snapDots .snap-dot');
+    if(!wrap || !dots.length) return;
+    wrap.addEventListener('scroll', function(){
+      var idx = Math.round(wrap.scrollLeft / (wrap.scrollWidth / dots.length));
+      idx = Math.max(0, Math.min(idx, dots.length - 1));
+      dots.forEach(function(d, i){ d.classList.toggle('active', i === idx); });
+    }, {passive: true});
+    dots.forEach(function(dot, i){
+      dot.addEventListener('click', function(){
+        var itemW = wrap.scrollWidth / dots.length;
+        wrap.scrollTo({left: itemW * i, behavior: 'smooth'});
+      });
+    });
+  })();
+
+  // Service Worker registration
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(function(){});
+  }
+
+  // Keyboard shortcut: Cmd/Ctrl+K → focus search or go to index
+  document.addEventListener('keydown', function(e){
+    if((e.metaKey || e.ctrlKey) && e.key === 'k'){
+      e.preventDefault();
+      var s = document.getElementById('searchinput');
+      if(s){ s.focus(); s.select(); }
+      else { var t = document.getElementById('back-to-top'); if(t) t.click(); }
+    }
+  });
+</script>
+</body>
+</html>
+

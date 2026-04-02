@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Music Diary — 好きだった曲 | Gadget Journal</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Music Diary | Gadget Journal" />
+  <meta property="og:description" content="Apple Musicで出会った音楽の記録。最近のお気に入りプレイリストと音楽日記。" />
+  <meta property="og:image" content="https://gadget-journal.vercel.app/assets/DfMi0pbXqqGF.jpg" />
+  <meta property="og:url" content="https://gadget-journal.vercel.app/music.html" />
+  <meta property="og:site_name" content="Gadget Journal" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Music Diary | Gadget Journal" />
+  <meta name="twitter:description" content="Apple Musicで出会った音楽の記録。最近のお気に入りプレイリストと音楽日記。" />
+  <meta name="twitter:image" content="https://gadget-journal.vercel.app/assets/DfMi0pbXqqGF.jpg" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#000;
+  --s1:rgba(28,28,30,1);
+  --s2:rgba(44,44,46,1);
+  --border:rgba(255,255,255,0.1);
+  --text:#f5f5f7;
+  --muted:#6e6e73;
+  --red:#fc3c44;
+  --red2:#ff6b9d;
+  --green:#30d158;
+  --blue:#0a84ff;
+  --orange:#ff9f0a;
+  --yellow:#ffd60a;
+  --purple:#bf5af2;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Noto Sans JP',-apple-system,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  padding-top:44px;
+}
+
+/* ────── NAV (GadgetJournal共通) ────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  height:44px;display:flex;align-items:center;
+  background:rgba(0,0,0,0.88);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+.nav-logo{
+  flex-shrink:0;padding:0 20px 0 22px;font-size:16px;font-weight:600;
+  letter-spacing:-0.04em;color:#fff;text-decoration:none;white-space:nowrap;
+  height:44px;display:flex;align-items:center;background:rgba(0,0,0,0.88);
+  position:relative;z-index:2;
+}
+.nav-logo::after{content:'';position:absolute;right:-16px;top:0;width:16px;height:100%;background:linear-gradient(to right,rgba(0,0,0,0.88),transparent)}
+.nav-links-wrap{
+  flex:1;overflow-x:auto;overflow-y:visible;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;
+  height:44px;display:flex;align-items:center;padding:0 22px 0 6px;
+}
+.nav-links-wrap::-webkit-scrollbar{display:none}
+.nav-links{display:flex;gap:24px;list-style:none;white-space:nowrap;font-size:12px}
+.nav-links>li>a{color:rgba(255,255,255,0.75);text-decoration:none;transition:color 0.2s}
+.nav-links>li>a:hover{color:#fff}
+.nav-links>li>a.nav-active{color:#fff;font-weight:700}
+.has-dropdown{position:relative}
+.nav-group-btn{color:rgba(255,255,255,0.75);cursor:pointer;display:flex;align-items:center;gap:3px;font-size:12px;font-weight:400;transition:color 0.2s;user-select:none;}
+.nav-group-btn::after{content:'▾';font-size:9px;margin-top:1px}
+.has-dropdown:hover .nav-group-btn,.has-dropdown.open .nav-group-btn,.nav-group-btn.nav-active{color:#fff;font-weight:700}
+.nav-dropdown{
+  display:none;position:fixed;
+  background:rgba(28,28,30,0.99);backdrop-filter:blur(24px);
+  border-radius:12px;padding:6px 0;min-width:150px;
+  list-style:none;border:1px solid rgba(255,255,255,0.12);
+  box-shadow:0 12px 40px rgba(0,0,0,0.6);z-index:9999;
+  opacity:0;transform:translateY(-4px);
+  transition:opacity 0.18s ease,transform 0.18s ease;
+}
+.nav-dropdown.visible{opacity:1;transform:translateY(0)}
+.nav-dropdown li a{display:block;padding:9px 18px;color:rgba(255,255,255,0.75);font-size:13px;transition:color 0.2s,background 0.2s;}
+.nav-dropdown li a:hover{color:#fff;background:rgba(255,255,255,0.07)}
+.nav-dropdown li a.nav-active{color:#fff;font-weight:700}
+/* ────── BG CANVAS ────── */
+#bgc{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  transition:background 1.4s cubic-bezier(0.4,0,0.2,1);
+  background:radial-gradient(ellipse 80% 50% at 50% -5%,rgba(252,60,68,0.15) 0%,transparent 65%);
+}
+
+/* ────── NOW PLAYING ────── */
+#np{
+  position:fixed;bottom:24px;left:50%;
+  transform:translateX(-50%) translateY(100px);
+  z-index:500;
+  display:flex;align-items:center;gap:12px;
+  background:rgba(28,28,30,0.96);
+  backdrop-filter:blur(28px);
+  border:1px solid rgba(255,255,255,0.14);
+  border-radius:99px;
+  padding:9px 20px 9px 10px;
+  box-shadow:0 16px 48px rgba(0,0,0,0.7);
+  min-width:260px;max-width:88vw;
+  transition:transform 0.45s cubic-bezier(0.2,0,0.2,1);
+}
+#np.show{transform:translateX(-50%) translateY(0)}
+#np-art{width:36px;height:36px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px}
+#np-info{flex:1;min-width:0}
+#np-title{font-size:13px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#np-sub{font-size:11px;color:var(--muted);margin-top:1px}
+.npeq{display:flex;align-items:flex-end;gap:2px;height:16px;flex-shrink:0}
+.npeq b{width:3px;border-radius:2px;background:var(--red);display:block;animation:eqa 0.9s ease-in-out infinite alternate}
+.npeq b:nth-child(1){height:8px;animation-delay:0s}
+.npeq b:nth-child(2){height:14px;animation-delay:0.22s}
+.npeq b:nth-child(3){height:10px;animation-delay:0.44s}
+@keyframes eqa{to{height:3px}}
+
+/* ────── TOAST ────── */
+#toast{
+  position:fixed;bottom:88px;left:50%;
+  transform:translateX(-50%) translateY(16px);
+  background:rgba(48,209,88,0.93);color:#fff;
+  font-size:13px;font-weight:700;
+  padding:10px 22px;border-radius:99px;
+  z-index:600;opacity:0;pointer-events:none;
+  transition:all 0.28s;white-space:nowrap;
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ────── LAYOUT ────── */
+.wrap{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:0 18px 100px}
+
+/* ────── HERO ────── */
+.hero{
+  text-align:center;padding:60px 16px 48px;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(252,60,68,0.1);border:1px solid rgba(252,60,68,0.28);
+  color:var(--red2);font-size:11px;font-weight:700;
+  padding:5px 14px;border-radius:99px;margin-bottom:22px;
+  letter-spacing:0.07em;text-transform:uppercase;
+}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:var(--red);animation:pdot 1.5s ease-in-out infinite}
+@keyframes pdot{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:0.45}}
+.hero h1{
+  font-size:clamp(2.2rem,6.5vw,4.2rem);
+  font-weight:900;letter-spacing:-0.04em;line-height:1.06;margin-bottom:18px;
+}
+.hero h1 .g{
+  background:linear-gradient(130deg,#fc3c44 0%,#ff6b9d 45%,#bf5af2 85%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-sub{
+  font-size:16px;color:var(--muted);line-height:1.75;
+  max-width:460px;margin:0 auto 32px;
+}
+.hbtns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn-r{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--red);color:#fff;font-weight:700;font-size:15px;
+  padding:13px 26px;border-radius:99px;text-decoration:none;
+  box-shadow:0 0 36px rgba(252,60,68,0.35);
+  transition:transform 0.2s,box-shadow 0.2s;
+}
+.btn-r:hover{transform:scale(1.04);box-shadow:0 0 52px rgba(252,60,68,0.5)}
+.btn-g{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);
+  color:#fff;font-weight:600;font-size:15px;
+  padding:13px 26px;border-radius:99px;text-decoration:none;
+  transition:background 0.2s;
+}
+.btn-g:hover{background:rgba(255,255,255,0.14)}
+
+/* ────── SECTION ────── */
+.sec{margin-bottom:72px}
+.sec-label{
+  font-size:11px;font-weight:700;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--red2);margin-bottom:8px;
+}
+.sec-h{font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:6px}
+.sec-sub{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:24px;max-width:520px}
+
+/* ────── CARD ────── */
+.card{
+  background:var(--s1);border:1px solid var(--border);
+  border-radius:20px;padding:22px;
+  transition:border-color 0.3s,box-shadow 0.3s;
+}
+.card:hover{border-color:rgba(252,60,68,0.2);box-shadow:0 12px 40px rgba(0,0,0,0.35)}
+
+/* ────── RANKING ────── */
+.rtabs{
+  display:flex;background:var(--s2);border-radius:11px;padding:3px;
+  margin-bottom:16px;overflow-x:auto;scrollbar-width:none;gap:2px;
+}
+.rtabs::-webkit-scrollbar{display:none}
+.rt{
+  flex:1;min-width:72px;text-align:center;padding:7px 12px;
+  border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;
+  color:var(--muted);border:none;background:none;font-family:inherit;
+  transition:all 0.18s;white-space:nowrap;
+}
+.rt.on{background:var(--s1);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,0.4)}
+.rlist{display:flex;flex-direction:column}
+.ri{
+  display:flex;align-items:center;gap:12px;
+  padding:11px 8px;border-radius:12px;cursor:pointer;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  transition:background 0.18s;
+}
+.rlist .ri:last-child{border-bottom:none}
+.ri:hover,.ri.sel{background:rgba(255,255,255,0.05)}
+.ri.sel .ri-t{color:var(--red2)}
+.rn{width:22px;text-align:center;font-size:14px;font-weight:900;flex-shrink:0}
+.gold{color:var(--yellow)}.silver{color:#aeaeb2}.bronze{color:#c96f2c}.grey{color:var(--muted)}
+.ra{
+  width:46px;height:46px;border-radius:10px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:22px;
+}
+.ri-info{flex:1;min-width:0}
+.ri-t{font-size:14px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ri-a{font-size:12px;color:var(--muted);margin-top:2px}
+.ri-r{display:flex;align-items:center;gap:7px;flex-shrink:0}
+.tbadge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;white-space:nowrap}
+.thot{background:rgba(255,159,10,0.14);color:var(--orange);border:1px solid rgba(255,159,10,0.22)}
+.tnew{background:rgba(10,132,255,0.14);color:var(--blue);border:1px solid rgba(10,132,255,0.22)}
+.tup{background:rgba(48,209,88,0.14);color:var(--green);border:1px solid rgba(48,209,88,0.22)}
+.hbtn{
+  display:flex;align-items:center;gap:4px;
+  border:none;background:none;cursor:pointer;
+  color:var(--muted);font-size:12px;font-weight:600;
+  padding:5px 9px;border-radius:99px;font-family:inherit;
+  transition:all 0.18s;
+}
+.hbtn:hover{color:#ff375f;background:rgba(255,55,95,0.1)}
+.hbtn.on{color:#ff375f}
+.hbtn.on .hi{animation:hpop 0.28s cubic-bezier(0.2,0,0.2,1)}
+@keyframes hpop{0%{transform:scale(1)}50%{transform:scale(1.45)}100%{transform:scale(1)}}
+.hi{font-size:16px}
+.rank-hint{text-align:center;font-size:11px;color:var(--muted);margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.05)}
+
+/* ────── PLAYER ────── */
+.player-wrap{
+  background:var(--s1);border:1px solid var(--border);
+  border-radius:20px;padding:16px;overflow:hidden;
+}
+.player-wrap iframe{border-radius:14px;display:block;width:100%;height:450px}
+
+/* ────── EMOJI ────── */
+.emobar{display:flex;gap:8px;flex-wrap:wrap}
+.emobtn{
+  display:flex;align-items:center;gap:6px;
+  background:var(--s2);border:1px solid var(--border);
+  border-radius:99px;padding:7px 13px;cursor:pointer;
+  font-size:14px;font-weight:600;color:var(--text);font-family:inherit;
+  transition:all 0.15s;
+}
+.emobtn:hover{background:rgba(255,255,255,0.1);transform:scale(1.05)}
+.emobtn.on{background:rgba(252,60,68,0.12);border-color:rgba(252,60,68,0.3)}
+.emo-c{font-size:12px;color:var(--muted)}
+.emo-l{font-size:11px;color:var(--muted)}
+
+/* ────── LIKE CHIPS ────── */
+.like-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px;padding-top:18px;border-top:1px solid var(--border)}
+.lchip{
+  display:flex;align-items:center;gap:6px;
+  background:var(--s2);border:1px solid var(--border);
+  border-radius:99px;padding:8px 16px;cursor:pointer;
+  font-size:14px;font-weight:600;font-family:inherit;color:var(--text);
+  transition:all 0.18s;
+}
+.lchip:hover{border-color:rgba(255,55,95,0.3);background:rgba(255,55,95,0.07)}
+.lchip.on{background:rgba(255,55,95,0.12);border-color:rgba(255,55,95,0.35);color:#ff375f}
+.lchip.on .lci{animation:hpop 0.28s cubic-bezier(0.2,0,0.2,1)}
+.lci{font-size:18px}
+.lct{font-size:12px;opacity:0.6}
+
+/* ────── MESSAGES ────── */
+.msgscroll{
+  max-height:320px;overflow-y:auto;
+  display:flex;flex-direction:column;gap:10px;
+  padding-right:4px;margin-bottom:16px;
+}
+.msgscroll::-webkit-scrollbar{width:4px}
+.msgscroll::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.mitem{
+  background:var(--s2);border:1px solid var(--border);
+  border-radius:14px;padding:13px 15px;
+  animation:fup 0.38s cubic-bezier(0.2,0,0.2,1) both;
+}
+@keyframes fup{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.mtop{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.mav{
+  width:28px;height:28px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--red),var(--purple));
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:800;color:#fff;
+}
+.mname{font-size:13px;font-weight:700}
+.mtime{font-size:11px;color:var(--muted);margin-left:auto}
+.mbody{font-size:13px;color:rgba(255,255,255,0.82);line-height:1.65}
+.msong{
+  display:inline-flex;align-items:center;gap:4px;margin-top:7px;
+  background:rgba(252,60,68,0.1);border:1px solid rgba(252,60,68,0.2);
+  color:var(--red2);font-size:11px;font-weight:700;
+  padding:2px 9px;border-radius:99px;
+}
+.mform{display:grid;gap:8px;margin-top:4px}
+.mrow{display:flex;gap:8px;flex-wrap:wrap}
+.minput{
+  background:var(--s2);border:1px solid var(--border);
+  border-radius:11px;padding:9px 13px;
+  color:var(--text);font-size:13px;font-family:inherit;
+  outline:none;transition:border-color 0.2s;
+}
+.minput:focus{border-color:rgba(252,60,68,0.4)}
+.minput::placeholder{color:var(--muted)}
+select.minput{cursor:pointer;-webkit-appearance:none;appearance:none}
+textarea.minput{resize:none;flex:1;min-width:0}
+.msend{
+  background:var(--red);color:#fff;border:none;
+  border-radius:11px;padding:9px 16px;
+  font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;
+  white-space:nowrap;transition:opacity 0.2s,transform 0.2s;
+}
+.msend:hover{opacity:0.86;transform:scale(1.03)}
+
+/* ────── SHARE ────── */
+.srow{display:flex;gap:8px;flex-wrap:wrap}
+.sbtn{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--s2);border:1px solid var(--border);
+  border-radius:11px;color:var(--text);font-size:13px;font-weight:600;
+  padding:9px 16px;cursor:pointer;font-family:inherit;text-decoration:none;
+  transition:all 0.18s;
+}
+.sbtn:hover{background:rgba(255,255,255,0.09)}
+.sbtn.copied{background:rgba(48,209,88,0.12);border-color:rgba(48,209,88,0.3);color:var(--green)}
+
+/* ────── FEATURES ────── */
+.fgrid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:2px;border-radius:20px;overflow:hidden;border:1px solid var(--border);
+}
+.fcard{background:var(--s1);padding:28px 24px;transition:background 0.2s}
+.fcard:hover{background:var(--s2)}
+.ficon{font-size:28px;margin-bottom:12px}
+.fname{font-size:16px;font-weight:700;margin-bottom:6px}
+.fdesc{font-size:13px;color:var(--muted);line-height:1.65}
+
+/* ────── AM PROMO ────── */
+.ambox{
+  background:linear-gradient(135deg,#1a0008 0%,#280a1a 50%,#140822 100%);
+  border:1px solid rgba(252,60,68,0.15);border-radius:24px;
+  padding:40px 36px;display:flex;gap:32px;align-items:center;flex-wrap:wrap;
+  position:relative;overflow:hidden;
+}
+.ambox::before{
+  content:'';position:absolute;right:-80px;top:-80px;
+  width:400px;height:400px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(252,60,68,0.12) 0%,transparent 70%);
+}
+.amico{
+  width:100px;height:100px;border-radius:22px;flex-shrink:0;
+  background:linear-gradient(135deg,#fc3c44,#ff6b9d,#bf5af2);
+  display:flex;align-items:center;justify-content:center;font-size:46px;
+  box-shadow:0 16px 48px rgba(252,60,68,0.35);
+}
+.ambody{flex:1;min-width:200px;position:relative;z-index:1}
+.ambody h3{font-size:clamp(1.4rem,3.5vw,2rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:10px}
+.ambody p{font-size:14px;color:rgba(255,255,255,0.68);line-height:1.72;margin-bottom:18px}
+.amchips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:20px}
+.amchip{
+  font-size:11px;font-weight:600;color:rgba(255,255,255,0.6);
+  background:rgba(255,255,255,0.07);border-radius:99px;padding:4px 11px;
+}
+.amprice{
+  display:inline-flex;align-items:baseline;gap:8px;
+  background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);
+  border-radius:13px;padding:10px 14px;margin-bottom:18px;
+}
+.amfree{font-size:18px;font-weight:900;color:var(--red2)}
+.amdetail{font-size:12px;color:var(--muted)}
+
+/* ────── FADE IN ────── */
+.fi{opacity:0;transform:translateY(18px);transition:opacity 0.65s cubic-bezier(0.2,0,0.2,1),transform 0.65s cubic-bezier(0.2,0,0.2,1)}
+.fi.vis{opacity:1;transform:translateY(0)}
+
+@media(max-width:600px){
+  .ambox{padding:24px 18px;gap:16px}
+  .amico{width:72px;height:72px;font-size:32px;border-radius:16px}
+}
+</style>
+</head>
+<body>
+
+<div id="bgc"></div>
+<div id="toast"></div>
+
+<!-- NOW PLAYING -->
+<div id="np">
+  <div id="np-art">🎵</div>
+  <div id="np-info">
+    <div id="np-title">曲を選んでください</div>
+    <div id="np-sub">— Music Diary</div>
+  </div>
+  <div class="npeq"><b></b><b></b><b></b></div>
+</div>
+
+<!-- NAV -->
+
+
+  <!-- お知らせバー -->
+  <div class="announce-bar" id="announcebar">
+    <span>🎵 Japan Chart 2026 公開中 — 今まさに日本で最も聴かれている曲を</span>
+    <a href="music-trend.html">チェックする →</a>
+    <button class="announce-close" onclick="document.getElementById('announcebar').style.display='none'" aria-label="閉じる">×</button>
+  </div>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Gadget Journal</a>
+    <div class="nav-links-wrap">
+      <ul class="nav-links">
+        <li class="has-dropdown">
+          <span class="nav-group-btn">Mac</span>
+          <ul class="nav-dropdown">
+            <li><a href="review.html">MacBook Air</a></li>
+            <li><a href="macbook-pro.html">MacBook Pro</a></li>
+            <li><a href="macbook-neo.html">MacBook Neo</a></li>
+            <li><a href="mac-studio.html">Mac Studio</a></li>
+            <li><a href="mac-mini.html">Mac mini</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <span class="nav-group-btn">iPad</span>
+          <ul class="nav-dropdown">
+            <li><a href="ipad.html">iPad Pro</a></li>
+            <li><a href="ipad-air.html">iPad Air</a></li>
+          </ul>
+        </li>
+        <li><a href="iphone.html">iPhone</a></li>
+        <li><a href="apple-watch.html">Apple Watch</a></li>
+        <li class="has-dropdown">
+          <span class="nav-group-btn">Audio</span>
+          <ul class="nav-dropdown">
+            <li><a href="airpods.html">AirPods</a></li>
+            <li><a href="homepod.html">HomePod</a></li>
+          </ul>
+        </li>
+        <li><a href="vision-pro.html">Vision Pro</a></li>
+        <li class="has-dropdown">
+          <span class="nav-group-btn">Music</span>
+          <ul class="nav-dropdown">
+            <li><a href="music.html">Music Diary</a></li>
+            <li><a href="music-trend.html">Japan Chart</a></li>
+          </ul>
+        </li>
+        <li><a href="history.html">History</a></li>
+        <li><a href="security.html">Security</a></li>
+        <li><a href="experience.html">Experience</a></li>
+        <li><a href="apple-intelligence.html">Apple Intelligence</a></li>
+           <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+    <div class="nav-fade-right"></div>
+  </nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero fi">
+    <div class="hero-badge"><span class="hero-dot"></span>2026 Spring Playlist</div>
+    <h1>記憶に寄り添う、<br><span class="g">「好きだった曲」</span>たち</h1>
+    <p class="hero-sub">ふとした瞬間に頭に流れるメロディ。特定の季節になると思い出すフレーズ。心に深く残っている大切な曲を、Apple Musicで共有します。</p>
+    <div class="hbtns">
+      <a href="https://music.apple.com/jp/playlist/%E5%A5%BD%E3%81%8D%E3%81%A0%E3%81%A3%E3%81%9F%E6%9B%B2/pl.u-Ymb098PUP8Pemx5"
+         target="_blank" rel="noopener" class="btn-r">🎵 Apple Musicで開く</a>
+      <a href="#ranking" class="btn-g">📊 ランキングを見る</a>
+    </div>
+  </div>
+
+  <!-- RANKING -->
+  <section class="sec fi" id="ranking">
+    <div class="sec-label">🏆 Top Charts</div>
+    <div class="sec-h">今週のランキング</div>
+    <p class="sec-sub">ハート数をもとにリアルタイム更新。曲をタップすると背景色がその曲のカラーに変わります。</p>
+    <div class="card">
+      <div class="rtabs">
+        <button class="rt on" onclick="switchTab('all',this)">すべて</button>
+        <button class="rt" onclick="switchTab('hot',this)">🔥 急上昇</button>
+        <button class="rt" onclick="switchTab('new',this)">✨ 新着</button>
+        <button class="rt" onclick="switchTab('up',this)">↑ 人気上昇</button>
+      </div>
+      <div class="rlist" id="rlist"></div>
+      <div class="rank-hint">👆 曲をタップ → 背景がその曲のカラーに変わります</div>
+    </div>
+  </section>
+
+  <!-- PLAYER -->
+  <section class="sec fi" id="player">
+    <div class="sec-label">🎧 Apple Music Embed</div>
+    <div class="sec-h">プレイリスト</div>
+    <p class="sec-sub">Apple Musicのプレイヤーで直接再生できます。</p>
+    <div class="player-wrap">
+      <iframe
+        allow="autoplay *; encrypted-media *;"
+        frameborder="0"
+        sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+        src="https://embed.music.apple.com/jp/playlist/%E5%A5%BD%E3%81%8D%E3%81%A0%E3%81%A3%E3%81%9F%E6%9B%B2/pl.u-Ymb098PUP8Pemx5"
+      ></iframe>
+    </div>
+  </section>
+
+  <!-- REACTIONS -->
+  <section class="sec fi" id="reactions">
+    <div class="sec-label">💬 Community</div>
+    <div class="sec-h">みんなのリアクション</div>
+    <p class="sec-sub">このプレイリストへの気持ちを絵文字やハートで。</p>
+    <div class="card">
+      <div class="emobar" id="emobar"></div>
+      <div class="like-row" id="likerow"></div>
+    </div>
+  </section>
+
+  <!-- MESSAGES -->
+  <section class="sec fi" id="messages">
+    <div class="sec-label">✉️ Message Board</div>
+    <div class="sec-h">メッセージボード</div>
+    <p class="sec-sub">曲への想いや思い出を投稿しよう。Enterで送信。</p>
+    <div class="card">
+      <div class="msgscroll" id="msgscroll"></div>
+      <div class="mform">
+        <div class="mrow">
+          <input class="minput" id="m-name" placeholder="名前（任意）" maxlength="20" style="max-width:150px">
+          <select class="minput" id="m-song" style="flex:1;max-width:240px"></select>
+        </div>
+        <div style="display:flex;gap:8px">
+          <textarea class="minput" id="m-text" rows="2" placeholder="この曲への想いを書いてください… (Shift+Enterで改行)" maxlength="200"></textarea>
+          <button class="msend" onclick="sendMsg()">送信 →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHARE -->
+  <section class="sec fi">
+    <div class="sec-label">📤 Share</div>
+    <div class="sec-h">シェア</div>
+    <div class="card">
+      <p style="font-size:14px;color:var(--muted);margin-bottom:16px">このプレイリストを友達に広めよう</p>
+      <div class="srow">
+        <button class="sbtn" onclick="doX()">𝕏 (Twitter)</button>
+        <button class="sbtn" onclick="doLine()">💬 LINE</button>
+        <button class="sbtn" id="copybtn" onclick="doCopy(this)">🔗 リンクをコピー</button>
+        <a href="https://music.apple.com/jp/playlist/%E5%A5%BD%E3%81%8D%E3%81%A0%E3%81%A3%E3%81%9F%E6%9B%B2/pl.u-Ymb098PUP8Pemx5"
+           target="_blank" rel="noopener" class="sbtn">🎵 Apple Musicで開く</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="sec fi" id="about">
+    <div class="sec-label">📖 About</div>
+    <div class="sec-h">このページについて</div>
+    <p class="sec-sub">通学中、夜眠れない時、少し落ち込んだ時に寄り添ってくれた曲たちの記録。</p>
+    <div class="fgrid">
+      <div class="fcard"><div class="ficon">🏆</div><div class="fname">ランキング</div><div class="fdesc">ハート数をリアルタイム集計。タブで急上昇・新着・人気上昇に絞れます。</div></div>
+      <div class="fcard"><div class="ficon">🎨</div><div class="fname">カラー連動背景</div><div class="fdesc">曲を選ぶと、そのイメージカラーに合わせて背景がグラデーションでじわっと変化。</div></div>
+      <div class="fcard"><div class="ficon">❤️</div><div class="fname">ハート・いいね</div><div class="fdesc">曲ごとにハートを押せます。絵文字4種類でもリアクション可能。状態はブラウザに保存。</div></div>
+      <div class="fcard"><div class="ficon">😊</div><div class="fname">絵文字リアクション</div><div class="fdesc">プレイリスト全体への気持ちを8種類の絵文字で表現できます。</div></div>
+      <div class="fcard"><div class="ficon">✉️</div><div class="fname">メッセージ</div><div class="fdesc">曲への想いや思い出をコメントとして投稿。曲タグ付きで送れます。</div></div>
+      <div class="fcard"><div class="ficon">📤</div><div class="fname">シェア</div><div class="fdesc">Twitter・LINE・リンクコピーで広めよう。</div></div>
+    </div>
+  </section>
+
+  <!-- AM PROMO -->
+  <section class="sec fi" id="am">
+    <div class="ambox">
+      <div class="amico">🎵</div>
+      <div class="ambody">
+        <div class="sec-label" style="margin-bottom:8px">🍎 Apple Music</div>
+        <h3>音楽を愛する。</h3>
+        <p>1億曲以上が広告なしで聴き放題。空間オーディオ（Dolby Atmos）とロスレスオーディオで、アーティストが意図した通りの音を。AIがあなたの好みに合わせたプレイリストを自動生成します。</p>
+        <div class="amchips">
+          <span class="amchip">🎼 1億曲以上</span>
+          <span class="amchip">🔊 空間オーディオ</span>
+          <span class="amchip">📴 オフライン再生</span>
+          <span class="amchip">✨ AI推薦</span>
+          <span class="amchip">🎤 歌詞・Sing</span>
+          <span class="amchip">📻 ライブラジオ</span>
+        </div>
+        <div class="amprice">
+          <span class="amfree">3か月間無料</span>
+          <span class="amdetail">その後 月額1,080円〜 · いつでもキャンセル可</span>
+        </div><br>
+        <a href="https://music.apple.com/jp/playlist/%E5%A5%BD%E3%81%8D%E3%81%A0%E3%81%A3%E3%81%9F%E6%9B%B2/pl.u-Ymb098PUP8Pemx5"
+           target="_blank" rel="noopener" class="btn-r" style="display:inline-flex">🎵 プレイリストをApple Musicで開く</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer style="position:relative;z-index:1;border-top:1px solid var(--border);padding:28px 18px;background:var(--bg)">
+  <div style="max-width:960px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+    <a href="index.html" style="color:#fff;font-size:14px;font-weight:700;text-decoration:none;letter-spacing:-0.03em">Gadget Journal</a>
+    <a href="https://music.apple.com/jp/playlist/%E5%A5%BD%E3%81%8D%E3%81%A0%E3%81%A3%E3%81%9F%E6%9B%B2/pl.u-Ymb098PUP8Pemx5"
+       target="_blank" rel="noopener" style="color:var(--red2);font-size:13px;font-weight:600;text-decoration:none">🎵 Apple Music</a>
+    <span style="font-size:12px;color:var(--muted)">&copy; 2026 Gadget Journal</span>
+  </div>
+</footer>
+
+<script>
+// ═══════════════════════════════════
+// DATA
+// ═══════════════════════════════════
+const TRACKS = [
+  {id:1,  title:"夜に駆ける",              artist:"YOASOBI",            e:"🌙", bg:["#000510","#041228","#020e20"], trend:"hot", hearts:312, badge:"🔥急上昇"},
+  {id:2,  title:"Subtitle",               artist:"Official髭男dism",    e:"💙", bg:["#000408","#040e20","#020c1a"], trend:"up",  hearts:287, badge:"↑人気"},
+  {id:3,  title:"怪物",                   artist:"YOASOBI",            e:"🟣", bg:["#0a0018","#180830","#0c0420"], trend:"hot", hearts:256, badge:"🔥急上昇"},
+  {id:4,  title:"Lemon",                  artist:"米津玄師",            e:"🍋", bg:["#0a0800","#181400","#0e0c00"], trend:"up",  hearts:231, badge:"↑人気"},
+  {id:5,  title:"カエルノウタ",            artist:"藤井風",              e:"🌿", bg:["#000a04","#001808","#000e04"], trend:"new", hearts:198, badge:"✨新着"},
+  {id:6,  title:"Dynamite",              artist:"BTS",                 e:"💛", bg:["#080600","#140e00","#0c0a00"], trend:"up",  hearts:175, badge:"↑人気"},
+  {id:7,  title:"愛にできることはまだあるかい", artist:"RADWIMPS",       e:"🌸", bg:["#0e0006","#1e000e","#140008"], trend:"new", hearts:154, badge:"✨新着"},
+  {id:8,  title:"ミックスナッツ",          artist:"Official髭男dism",   e:"🟤", bg:["#080400","#140a00","#0e0600"], trend:"hot", hearts:143, badge:"🔥急上昇"},
+  {id:9,  title:"群青",                   artist:"YOASOBI",            e:"💙", bg:["#000814","#010e22","#000c1c"], trend:"up",  hearts:129, badge:"↑人気"},
+  {id:10, title:"地球儀",                 artist:"米津玄師",            e:"🌍", bg:["#000804","#000e08","#000c04"], trend:"new", hearts: 98, badge:"✨新着"},
+];
+
+const EMOJIS = [
+  {e:"😭",l:"泣ける",n:142},{e:"🥺",l:"エモい",n:98},
+  {e:"🔥",l:"熱い",n:76}, {e:"💜",l:"大好き",n:201},
+  {e:"😌",l:"落ち着く",n:115},{e:"🎶",l:"神曲",n:87},
+  {e:"😍",l:"最高",n:163},{e:"🤝",l:"わかる",n:54},
+];
+const LIKES = [
+  {k:"like",e:"👍",l:"いいね",n:247},
+  {k:"heart",e:"❤️",l:"ハート",n:183},
+  {k:"star",e:"⭐",l:"お気に入り",n:95},
+  {k:"fire",e:"🔥",l:"熱い",n:312},
+];
+const INIT_MSGS = [
+  {name:"みお",  song:"夜に駆ける",  text:"この曲聴くと高校の帰り道を思い出す…夕焼けと一緒に記憶に刻まれてる",time:"3分前"},
+  {name:"たくや",song:"Subtitle",    text:"雨の日に聴きたくなる曲No.1。歌詞が刺さりすぎて泣いた",time:"12分前"},
+  {name:"さくら",song:"Lemon",       text:"大切な人を思い出す曲。ずっと大好き",time:"1時間前"},
+  {name:"ゆうき",song:"怪物",        text:"アニメで知って最初から最後まで鳥肌。YOASOBI天才すぎる",time:"2時間前"},
+  {name:"ひな",  song:"ミックスナッツ",text:"スパイファミリー好きすぎてこの曲だけで100回は聴いてる笑",time:"3時間前"},
+];
+const AM_URL = "https://music.apple.com/jp/playlist/%E5%A5%BD%E3%81%8D%E3%81%A0%E3%81%A3%E3%81%9F%E6%9B%B2/pl.u-Ymb098PUP8Pemx5";
+
+// ═══════════════════════════════════
+// STATE
+// ═══════════════════════════════════
+let selId = null;
+const liked = {};
+const emoState = {};
+let msgs = [...INIT_MSGS];
+
+// ═══════════════════════════════════
+// RANKING
+// ═══════════════════════════════════
+function renderRanking(tab) {
+  let list = [...TRACKS];
+  if (tab === 'hot') list = list.filter(t => t.trend === 'hot');
+  else if (tab === 'new') list = list.filter(t => t.trend === 'new');
+  else if (tab === 'up')  list = list.filter(t => t.trend === 'up');
+  list.sort((a, b) => b.hearts - a.hearts);
+
+  const numCls = i => i===0?'gold':i===1?'silver':i===2?'bronze':'grey';
+  const badgeCls = t => t.trend==='hot'?'tbadge thot':t.trend==='new'?'tbadge tnew':'tbadge tup';
+
+  document.getElementById('rlist').innerHTML = list.map((t, i) => {
+    const on = liked['h_'+t.id];
+    const cnt = t.hearts + (on ? 1 : 0);
+    return `<div class="ri${selId===t.id?' sel':''}" onclick="selectTrack(${t.id})">
+      <div class="rn ${numCls(i)}">${i+1}</div>
+      <div class="ra">${t.e}</div>
+      <div class="ri-info">
+        <div class="ri-t">${t.title}</div>
+        <div class="ri-a">${t.artist}</div>
+      </div>
+      <div class="ri-r">
+        <span class="${badgeCls(t)}">${t.badge}</span>
+        <button class="hbtn${on?' on':''}" onclick="event.stopPropagation();likeTrack(${t.id})">
+          <span class="hi">${on?'❤️':'🤍'}</span>
+          <span id="hc-${t.id}">${cnt}</span>
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function switchTab(tab, el) {
+  document.querySelectorAll('.rt').forEach(t => t.classList.remove('on'));
+  el.classList.add('on');
+  renderRanking(tab);
+}
+
+function curTab() {
+  const el = document.querySelector('.rt.on');
+  if (!el) return 'all';
+  const t = el.textContent;
+  return t.includes('急') ? 'hot' : t.includes('新') ? 'new' : t.includes('↑') ? 'up' : 'all';
+}
+
+// ═══════════════════════════════════
+// SELECT TRACK → BG CHANGE
+// ═══════════════════════════════════
+function selectTrack(id) {
+  const t = TRACKS.find(x => x.id === id);
+  if (!t) return;
+  selId = t.id;
+
+  // 背景変更
+  const [c1, c2, c3] = t.bg;
+  document.body.style.backgroundColor = c1;
+  document.getElementById('bgc').style.background =
+    `radial-gradient(ellipse 130% 65% at 50% -5%, ${c2}f0 0%, ${c1}99 40%, transparent 70%),
+     radial-gradient(ellipse 70% 55% at 85% 65%, ${c3}88 0%, transparent 55%)`;
+
+  // Now Playing
+  document.getElementById('np-art').textContent = t.e;
+  document.getElementById('np-title').textContent = t.title;
+  document.getElementById('np-sub').textContent = t.artist;
+  document.getElementById('np').classList.add('show');
+
+  renderRanking(curTab());
+  save();
+}
+
+// ═══════════════════════════════════
+// LIKE TRACK
+// ═══════════════════════════════════
+function likeTrack(id) {
+  liked['h_'+id] = !liked['h_'+id];
+  renderRanking(curTab());
+  save();
+}
+
+// ═══════════════════════════════════
+// EMOJI
+// ═══════════════════════════════════
+function renderEmoji() {
+  document.getElementById('emobar').innerHTML = EMOJIS.map((em, i) => {
+    const on = emoState[i];
+    return `<button class="emobtn${on?' on':''}" onclick="togEmo(${i})">
+      <span>${em.e}</span>
+      <span class="emo-c">${em.n+(on?1:0)}</span>
+      <span class="emo-l">${em.l}</span>
+    </button>`;
+  }).join('');
+}
+function togEmo(i) { emoState[i] = !emoState[i]; renderEmoji(); save(); }
+
+// ═══════════════════════════════════
+// LIKE CHIPS
+// ═══════════════════════════════════
+function renderLikes() {
+  document.getElementById('likerow').innerHTML = LIKES.map(l => {
+    const on = liked[l.k];
+    return `<button class="lchip${on?' on':''}" onclick="togLike('${l.k}')">
+      <span class="lci">${l.e}</span>
+      <span>${l.l}</span>
+      <span class="lct">${l.n+(on?1:0)}</span>
+    </button>`;
+  }).join('');
+}
+function togLike(k) { liked[k] = !liked[k]; renderLikes(); save(); }
+
+// ═══════════════════════════════════
+// MESSAGES
+// ═══════════════════════════════════
+function renderMsgs() {
+  document.getElementById('msgscroll').innerHTML = msgs.slice().reverse().slice(0,20).map(m => `
+    <div class="mitem">
+      <div class="mtop">
+        <div class="mav">${m.name ? m.name[0] : '?'}</div>
+        <span class="mname">${m.name||'匿名'}</span>
+        <span class="mtime">${m.time}</span>
+      </div>
+      <div class="mbody">${m.text}</div>
+      ${m.song ? `<div class="msong">🎵 ${m.song}</div>` : ''}
+    </div>`).join('');
+  document.getElementById('msgscroll').scrollTop = 0;
+}
+function fillSelect() {
+  const sel = document.getElementById('m-song');
+  sel.innerHTML = '<option value="">曲を選択（任意）</option>';
+  TRACKS.forEach(t => {
+    const o = document.createElement('option');
+    o.value = t.title;
+    o.textContent = `${t.e} ${t.title} — ${t.artist}`;
+    sel.appendChild(o);
+  });
+}
+function sendMsg() {
+  const text = document.getElementById('m-text').value.trim();
+  if (!text) { document.getElementById('m-text').focus(); return; }
+  msgs.push({
+    name: document.getElementById('m-name').value.trim() || '匿名',
+    song: document.getElementById('m-song').value,
+    text, time: 'たった今'
+  });
+  document.getElementById('m-text').value = '';
+  renderMsgs();
+}
+
+// ═══════════════════════════════════
+// SHARE
+// ═══════════════════════════════════
+function doX() {
+  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent('🎵 好きだった曲 #MusicDiary #AppleMusic')}&url=${encodeURIComponent(AM_URL)}`, '_blank');
+}
+function doLine() {
+  window.open(`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(AM_URL)}`, '_blank');
+}
+function doCopy(btn) {
+  navigator.clipboard.writeText(AM_URL).then(() => {
+    btn.classList.add('copied'); btn.textContent = '✓ コピーしました！';
+    toast('✓ リンクをコピーしました！');
+    setTimeout(() => { btn.classList.remove('copied'); btn.textContent = '🔗 リンクをコピー'; }, 2500);
+  });
+}
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2200);
+}
+
+// ═══════════════════════════════════
+// FADE IN
+// ═══════════════════════════════════
+function initFI() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('.fi').forEach(el => obs.observe(el));
+}
+
+// ═══════════════════════════════════
+// NAV AUTO SCROLL
+// ═══════════════════════════════════
+function initNav() {
+  var currentPage = location.pathname.split('/').pop() || 'index.html';
+  var activeLink = document.querySelector('.nav-links > li > a[href="' + currentPage + '"]');
+  if (activeLink) activeLink.classList.add('nav-active');
+  var activeDropLink = document.querySelector('.nav-dropdown a[href="' + currentPage + '"]');
+  if (activeDropLink) {
+    activeDropLink.classList.add('nav-active');
+    activeDropLink.closest('.has-dropdown').querySelector('.nav-group-btn').classList.add('nav-active');
+  }
+  function positionDropdown(item) {
+    var btn = item.querySelector('.nav-group-btn');
+    var dd = item.querySelector('.nav-dropdown');
+    var r = btn.getBoundingClientRect();
+    dd.style.top = (r.bottom + 8) + 'px';
+    dd.style.left = (r.left + r.width / 2) + 'px';
+  }
+  document.querySelectorAll('.has-dropdown').forEach(function(item) {
+    var dd = item.querySelector('.nav-dropdown');
+    var timer;
+    item.addEventListener('mouseenter', function() {
+      clearTimeout(timer); positionDropdown(item); dd.style.display = 'block';
+    });
+    item.addEventListener('mouseleave', function() {
+      timer = setTimeout(function() { dd.style.display = ''; }, 120);
+    });
+    dd.addEventListener('mouseenter', function() { clearTimeout(timer); });
+    dd.addEventListener('mouseleave', function() { dd.style.display = ''; });
+    item.querySelector('.nav-group-btn').addEventListener('click', function(e) {
+      e.stopPropagation();
+      var isOpen = dd.style.display === 'block';
+      document.querySelectorAll('.nav-dropdown').forEach(function(d) { d.style.display = ''; });
+      document.querySelectorAll('.has-dropdown').forEach(function(d) { d.classList.remove('open'); });
+      if (!isOpen) { positionDropdown(item); dd.style.display = 'block'; item.classList.add('open'); }
+    });
+  });
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.has-dropdown')) {
+      document.querySelectorAll('.nav-dropdown').forEach(function(d) { d.style.display = ''; });
+      document.querySelectorAll('.has-dropdown').forEach(function(d) { d.classList.remove('open'); });
+    }
+  });
+}
+
+// ═══════════════════════════════════
+// PERSIST
+// ═══════════════════════════════════
+function save() {
+  try {
+    localStorage.setItem('gj_md_liked', JSON.stringify(liked));
+    localStorage.setItem('gj_md_emo',   JSON.stringify(emoState));
+    localStorage.setItem('gj_md_sel',   selId || '');
+  } catch(e) {}
+}
+function load() {
+  try {
+    Object.assign(liked,    JSON.parse(localStorage.getItem('gj_md_liked') || '{}'));
+    Object.assign(emoState, JSON.parse(localStorage.getItem('gj_md_emo')   || '{}'));
+    renderRanking('all'); renderEmoji(); renderLikes();
+    const sid = localStorage.getItem('gj_md_sel');
+    if (sid) selectTrack(parseInt(sid));
+  } catch(e) {}
+}
+
+// ═══════════════════════════════════
+// BOOT
+// ═══════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  fillSelect();
+  renderMsgs();
+  renderEmoji();
+  renderLikes();
+  renderRanking('all');
+  load();
+  initFI();
+  initNav();
+
+  document.getElementById('m-text').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMsg(); }
+  });
+
+    // nav dropdown fixed
+    (function(){
+      var cur=location.pathname.split('/').pop()||'index.html';
+      var al=document.querySelector('.nav-links a[href="'+cur+'"]');
+      if(al){al.style.fontWeight='700';al.style.color='#fff';}
+      // body直下にテレポート
+      document.querySelectorAll('.has-dropdown').forEach(function(item){
+        var dd=item.querySelector('.nav-dropdown');
+        if(!dd)return;
+        document.body.appendChild(dd);
+        item._dd=dd;
+      });
+      function posDD(item){
+        var btn=item.querySelector('.nav-group-btn');
+        var dd=item._dd;
+        if(!dd||!btn)return;
+        var r=btn.getBoundingClientRect();
+        dd.style.top=(r.bottom+6)+'px';
+        var ddW=dd.offsetWidth||160;
+        var left=r.left+r.width/2;
+        if(left+ddW/2>window.innerWidth-12)left=window.innerWidth-ddW/2-12;
+        if(left-ddW/2<8)left=ddW/2+8;
+        dd.style.left=left+'px';
+        dd.style.transform='translateX(-50%)';
+      }
+      function closeAll(){
+        document.querySelectorAll('.nav-dropdown').forEach(function(d){
+          d.classList.remove('visible');
+          setTimeout(function(){if(!d.classList.contains('visible'))d.style.display='';},200);
+        });
+        document.querySelectorAll('.has-dropdown').forEach(function(d){d.classList.remove('open');});
+      }
+      document.querySelectorAll('.has-dropdown').forEach(function(item){
+        var timer;
+        function open(){
+          clearTimeout(timer);closeAll();
+          var dd=item._dd;if(!dd)return;
+          dd.style.display='block';posDD(item);
+          requestAnimationFrame(function(){dd.classList.add('visible');});
+          item.classList.add('open');
+        }
+        function close(delay){
+          timer=setTimeout(function(){
+            var dd=item._dd;
+            if(dd){dd.classList.remove('visible');setTimeout(function(){if(!dd.classList.contains('visible'))dd.style.display='';},200);}
+            item.classList.remove('open');
+          },delay||0);
+        }
+        item.addEventListener('mouseenter',function(){open();});
+        item.addEventListener('mouseleave',function(){close(150);});
+        if(item._dd){
+          item._dd.addEventListener('mouseenter',function(){clearTimeout(timer);});
+          item._dd.addEventListener('mouseleave',function(){close(100);});
+        }
+        item.querySelector('.nav-group-btn').addEventListener('click',function(e){
+          e.stopPropagation();
+          var dd=item._dd;
+          if(dd&&dd.classList.contains('visible')){close(0);}else{open();}
+        });
+      });
+      document.addEventListener('click',function(e){
+        if(!e.target.closest('.has-dropdown')&&!e.target.closest('.nav-dropdown')){closeAll();}
+      });
+    })();
+});
+
+  // Service Worker registration
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(function(){});
+  }
+
+  // Keyboard shortcut: Cmd/Ctrl+K → focus search or go to index
+  document.addEventListener('keydown', function(e){
+    if((e.metaKey || e.ctrlKey) && e.key === 'k'){
+      e.preventDefault();
+      var s = document.getElementById('searchinput');
+      if(s){ s.focus(); s.select(); }
+      else { var t = document.getElementById('back-to-top'); if(t) t.click(); }
+    }
+  });
+</script>
+</body>
+</html>
