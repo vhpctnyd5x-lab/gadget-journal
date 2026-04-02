@@ -2,9 +2,9 @@ import Link from 'next/link';
 
 const links = [
   { href: '/', label: 'Home' },
-  { href: '/blog/iphone-17e', label: 'iPhone 17e' },
-  { href: '/blog/macbook-air-m5', label: 'MacBook Air M5' },
-  { href: '/blog/ipad-pro-m5', label: 'iPad Pro M5' }
+  { href: '/articles', label: '記事を探す' },
+  { href: '/categories', label: 'カテゴリ' },
+  { href: '/about', label: 'About' }
 ];
 
 export function Header() {

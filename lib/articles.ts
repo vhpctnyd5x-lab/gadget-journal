@@ -10,6 +10,7 @@ export type ArticleMeta = {
   excerpt: string;
   date: string;
   coverImage: string;
+  category: string;
 };
 
 export async function getAllArticles(): Promise<ArticleMeta[]> {
@@ -23,7 +24,8 @@ export async function getAllArticles(): Promise<ArticleMeta[]> {
         title: String(data.title ?? ''),
         excerpt: String(data.excerpt ?? ''),
         date: String(data.date ?? ''),
-        coverImage: String(data.coverImage ?? '/assets/DfMi0pbXqqGF.jpg')
+        coverImage: String(data.coverImage ?? '/assets/DfMi0pbXqqGF.jpg'),
+        category: String(data.category ?? 'Uncategorized')
       } satisfies ArticleMeta;
     })
   );
@@ -36,4 +38,12 @@ export async function getArticleBySlug(slug: string) {
   const source = await fs.readFile(fullPath, 'utf8');
   const { data, content } = matter(source);
   return { data, content };
+}
+
+export async function getCategoryCounts() {
+  const articles = await getAllArticles();
+  return articles.reduce<Record<string, number>>((acc, article) => {
+    acc[article.category] = (acc[article.category] ?? 0) + 1;
+    return acc;
+  }, {});
 }
