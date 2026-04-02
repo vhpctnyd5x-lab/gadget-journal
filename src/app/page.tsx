@@ -1,4 +1,4 @@
-import { Hero, ArticleCard } from '@/components';
+import { GlassHero, ArticleGlassCard } from '@/components';
 
 const featuredArticles = [
   {
@@ -54,10 +54,11 @@ const featuredArticles = [
 export default function Home() {
   return (
     <>
-      {/* Hero Section */}
-      <Hero
+      {/* Hero Section with Liquid Glass */}
+      <GlassHero
         title="Apple製品の革新を深掘りする"
         subtitle="iPhone 17e、M5 MacBook Air、iOS 19。最新Apple製品のレビューとガイド。"
+        gradient="blue"
         cta={{ text: '記事を探す', href: '/articles' }}
       />
 
@@ -72,7 +73,7 @@ export default function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {featuredArticles.map((article) => (
-            <ArticleCard
+            <ArticleGlassCard
               key={article.id}
               title={article.title}
               description={article.description}
@@ -80,6 +81,7 @@ export default function Home() {
               icon={article.icon}
               image={article.image}
               href={`/articles/${article.id}`}
+              date="2026.04"
             />
           ))}
         </div>
