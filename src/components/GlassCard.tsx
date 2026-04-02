@@ -109,22 +109,22 @@ export const GlassHero: React.FC<GlassHeroProps> = ({
   };
 
   return (
-    <div className={`relative w-full overflow-hidden bg-gradient-to-br ${gradients[gradient]} py-20 sm:py-32 lg:py-44`}>
+    <div className={`relative w-full overflow-hidden bg-gradient-to-br ${gradients[gradient]} dark:bg-black/20 py-20 sm:py-32 lg:py-44`}>
       {/* Liquid Glass Background */}
-      <div className="absolute inset-0 backdrop-blur-3xl backdrop-saturate-150" />
+      <div className="absolute inset-0 backdrop-blur-2xl backdrop-saturate-200 dark:backdrop-brightness-50" />
 
       {/* Animated gradient blobs */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-blue-500/30 to-purple-500/30 rounded-full filter blur-3xl animate-pulse opacity-50" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-br from-cyan-500/30 to-blue-500/30 rounded-full filter blur-3xl animate-pulse opacity-50 animation-delay-2000" />
+      <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-blue-500/30 to-purple-500/30 rounded-full filter blur-3xl animate-pulse opacity-40" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-br from-cyan-500/30 to-blue-500/30 rounded-full filter blur-3xl animate-pulse opacity-40 animation-delay-2000" />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight tracking-[-0.02em]">
           <span className="bg-gradient-to-r from-slate-900 via-blue-600 to-slate-900 dark:from-white dark:via-blue-300 dark:to-white bg-clip-text text-transparent">
             {title}
           </span>
         </h1>
         {subtitle && (
-          <p className="text-xl sm:text-2xl text-slate-700 dark:text-slate-300 mb-8 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl sm:text-2xl text-slate-700 dark:text-slate-200 mb-8 max-w-2xl mx-auto leading-relaxed font-light tracking-[-0.01em]">
             {subtitle}
           </p>
         )}
