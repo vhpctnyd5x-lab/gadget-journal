@@ -12,13 +12,12 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const article = await getArticleBySlug(params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const article = await getArticleBySlug(slug);
 
   if (!article) {
-    return {
-      title: 'Article Not Found',
-    };
+    return { title: 'Article Not Found' };
   }
 
   return {
@@ -27,20 +26,14 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     openGraph: {
       title: article.title,
       description: article.description,
-      images: [
-        {
-          url: article.image,
-          width: 1200,
-          height: 630,
-          alt: article.title,
-        },
-      ],
+      images: [{ url: article.image, width: 1200, height: 630, alt: article.title }],
     },
   };
 }
 
-export default async function ArticlePage({ params }: { params: { slug: string } }) {
-  const article = await getArticleBySlug(params.slug);
+export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const article = await getArticleBySlug(slug);
 
   if (!article) {
     notFound();
@@ -51,6 +44,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
   return (
     <>
       <ArticleStructuredData article={article} />
+
       {/* Article Hero */}
       <article className="bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-950">
         {/* Article Header */}
@@ -83,7 +77,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
 
         {/* Article Content */}
         <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 pb-16">
-          <div className="prose dark:prose-invert max-w-none prose-lg">
+          <div className="prose dark:prose-invert max-w-none prose-lg prose-headings:font-bold prose-a:text-blue-600 dark:prose-a:text-blue-400">
             <MDXRemote source={article.content} />
           </div>
         </div>
@@ -93,13 +87,12 @@ export default async function ArticlePage({ params }: { params: { slug: string }
           <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 pb-12">
             <div className="flex flex-wrap gap-2">
               {article.tags.map((tag) => (
-                <Link
+                <span
                   key={tag}
-                  href={`/articles?tag=${encodeURIComponent(tag)}`}
-                  className="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                  className="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full text-sm"
                 >
                   #{tag}
-                </Link>
+                </span>
               ))}
             </div>
           </div>
