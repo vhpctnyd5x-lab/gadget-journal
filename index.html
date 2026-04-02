@@ -25,7 +25,7 @@
       height: 44px; display: flex; align-items: center;
       background: rgba(0, 0, 0, 0.85); backdrop-filter: saturate(180%) blur(20px);
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      overflow: hidden;
+      overflow: visible;
     }
 
     /* ロゴ：左固定・黒背景でリンクに被らない */
@@ -63,7 +63,8 @@
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none; /* Firefox */
       -ms-overflow-style: none; /* IE */
-      padding: 0 22px 0 8px;
+      min-width: 0;
+      padding: 0 40px 0 8px;
       height: 44px;
       display: flex;
       align-items: center;
@@ -78,6 +79,7 @@
       font-size: 12px;
       font-weight: 400;
       letter-spacing: -0.01em;
+      flex-wrap: nowrap;
     }
     .nav-links a { color: rgba(255, 255, 255, 0.8); transition: color 0.3s; }
     .nav-links a:hover { color: #fff; }
@@ -194,7 +196,7 @@
         <p>Hello, Apple Intelligence.</p>
       </div>
       <div class="iphone-img-wrap">
-        <img src="assets/DfMi0pbXqqGF.jpg" alt="iPhone 17e Black Background">
+        <img src="assets/DfMi0pbXqqGF.jpg" alt="iPhone 17e Black Background" loading="lazy" decoding="async">
       </div>
     </section>
 
@@ -215,7 +217,7 @@
               <a href="review.html" class="card-link">レビューを読む</a>
             </div>
             <div class="card-img">
-              <img src="assets/mwqLtfoHvDwk.jpg" alt="M5 MacBook Air">
+              <img src="assets/1H6jeDAqUO4S.jpg" alt="M5 MacBook Air" loading="lazy" decoding="async">
             </div>
           </div>
 
@@ -228,7 +230,7 @@
               <a href="ipad.html" class="card-link">詳細を見る</a>
             </div>
             <div class="card-img">
-              <img src="assets/JgkFy5R64E18.jpg" alt="iPad Pro M5">
+              <img src="assets/2TjY14wukmBr.jpg" alt="iPad Pro M5" loading="lazy" decoding="async">
             </div>
           </div>
 
@@ -241,7 +243,7 @@
               <a href="iphone.html" class="card-link">詳しく見る</a>
             </div>
             <div class="card-img">
-              <img src="assets/zx2qYV5F4Tpc.jpg" alt="iPhone 17e">
+              <img src="assets/zx2qYV5F4Tpc.jpg" alt="iPhone 17e" loading="lazy" decoding="async">
             </div>
           </div>
 
@@ -254,7 +256,7 @@
               <a href="history.html" class="card-link">歴史を紐解く</a>
             </div>
             <div class="card-img">
-              <img src="assets/DAkrndqNhREz.jpg" alt="Apple History">
+              <img src="assets/gSNm86lvh9DE.jpg" alt="Apple History" loading="lazy" decoding="async">
             </div>
           </div>
 
@@ -267,7 +269,7 @@
               <a href="security.html" class="card-link">信頼の設計を知る</a>
             </div>
             <div class="card-img">
-              <img src="assets/PK04D3WaeSNi.jpg" alt="Apple Security">
+              <img src="assets/cflqYh11YboU.jpg" alt="Apple Security" loading="lazy" decoding="async">
             </div>
           </div>
 
@@ -280,7 +282,7 @@
               <a href="experience.html" class="card-link">体験の価値を知る</a>
             </div>
             <div class="card-img">
-              <img src="assets/CFkSueBqlWJp.jpg" alt="Apple Experience">
+              <img src="assets/CFkSueBqlWJp.jpg" alt="Apple Experience" loading="lazy" decoding="async">
             </div>
           </div>
 
