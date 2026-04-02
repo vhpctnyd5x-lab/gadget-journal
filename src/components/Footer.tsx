@@ -56,13 +56,7 @@ export const Footer: React.FC = () => {
             &copy; {currentYear} Gadget Journal. All rights reserved.
           </p>
           <div className="flex gap-6">
-            <a href="#" className="text-slate-400 hover:text-white transition-colors">
-              Twitter
-            </a>
-            <a href="#" className="text-slate-400 hover:text-white transition-colors">
-              GitHub
-            </a>
-            <a href="#" className="text-slate-400 hover:text-white transition-colors">
+            <a href="/feed.xml" className="text-slate-400 hover:text-white transition-colors">
               RSS
             </a>
           </div>
