@@ -1071,34 +1071,66 @@
   // Search
   // ════════════════════════════════
   var PAGES = [
-    {title:'M5 MacBook Air',    sub:'レビュー · New Release',        url:'review.html',          icon:'💻'},
-    {title:'MacBook Pro',       sub:'レビュー · Pro Performance',     url:'macbook-pro.html',     icon:'🖥'},
-    {title:'MacBook Neo',       sub:'コンセプト · Future',            url:'macbook-neo.html',     icon:'✨'},
-    {title:'Mac Studio',        sub:'レビュー · Power',               url:'mac-studio.html',      icon:'🎛'},
-    {title:'iPad Pro M5',       sub:'レビュー · Pro Performance',     url:'ipad.html',            icon:'📱'},
-    {title:'iPad Air',          sub:'レビュー · Lightweight',         url:'ipad-air.html',        icon:'🌬'},
-    {title:'iPhone 17e',        sub:'レビュー · Essential',           url:'iphone.html',          icon:'📲'},
-    {title:'Apple Watch',       sub:'レビュー · Health & Fitness',    url:'apple-watch.html',     icon:'⌚'},
-    {title:'AirPods',           sub:'レビュー · Audio',               url:'airpods.html',         icon:'🎧'},
-    {title:'Vision Pro',        sub:'レビュー · Spatial Computing',   url:'vision-pro.html',      icon:'🥽'},
-    {title:'Music Diary',       sub:'音楽 · 好きだった曲',            url:'music.html',           icon:'🎵'},
-    {title:'Japan Chart 2026',  sub:'音楽 · トレンドランキング',      url:'music-trend.html',     icon:'📊'},
-    {title:'Appleの歴史',       sub:'Deep Dive · 1976-2026',          url:'history.html',         icon:'📖'},
-    {title:'セキュリティ',      sub:'Privacy · Secure Enclave',       url:'security.html',        icon:'🔒'},
-    {title:'Appleの魅力',       sub:'Philosophy · Experience',        url:'experience.html',      icon:'🍎'},
-    {title:'Apple Intelligence',sub:'AI · 機械学習',                  url:'apple-intelligence.html',icon:'🧠'},
+    {title:'M5 MacBook Air',    sub:'レビュー · New Release',        url:'review.html',          icon:'💻', tags:'マックブック エアー レビュー 薄い 軽い'},
+    {title:'MacBook Pro',       sub:'レビュー · Pro Performance',     url:'macbook-pro.html',     icon:'🖥', tags:'マックブック プロ 高性能 仕事'},
+    {title:'MacBook Neo',       sub:'コンセプト · Future',            url:'macbook-neo.html',     icon:'✨', tags:'マックブック ネオ 次世代 コンセプト'},
+    {title:'Mac Studio',        sub:'レビュー · Power',               url:'mac-studio.html',      icon:'🎛', tags:'マック スタジオ デスクトップ クリエイター'},
+    {title:'iPad Pro M5',       sub:'レビュー · Pro Performance',     url:'ipad.html',            icon:'📱', tags:'アイパッド プロ タブレット クリエイター'},
+    {title:'iPad Air',          sub:'レビュー · Lightweight',         url:'ipad-air.html',        icon:'🌬', tags:'アイパッド エアー バランス'},
+    {title:'iPhone 17e',        sub:'レビュー · Essential',           url:'iphone.html',          icon:'📲', tags:'アイフォン スマートフォン スタンダード'},
+    {title:'Apple Watch',       sub:'レビュー · Health & Fitness',    url:'apple-watch.html',     icon:'⌚', tags:'アップル ウォッチ 健康 フィットネス'},
+    {title:'AirPods',           sub:'レビュー · Audio',               url:'airpods.html',         icon:'🎧', tags:'エアポッズ イヤフォン ワイヤレス 音声'},
+    {title:'Vision Pro',        sub:'レビュー · Spatial Computing',   url:'vision-pro.html',      icon:'🥽', tags:'ビジョン プロ 空間 AR VR'},
+    {title:'Music Diary',       sub:'音楽 · 好きだった曲',            url:'music.html',           icon:'🎵', tags:'音楽 ダイアリー 好きな曲'},
+    {title:'Japan Chart 2026',  sub:'音楽 · トレンドランキング',      url:'music-trend.html',     icon:'📊', tags:'ランキング トレンド チャート 流行 邦楽'},
+    {title:'Appleの歴史',       sub:'Deep Dive · 1976-2026',          url:'history.html',         icon:'📖', tags:'歴史 スティーブ ジョブズ 過去'},
+    {title:'セキュリティ',      sub:'Privacy · Secure Enclave',       url:'security.html',        icon:'🔒', tags:'セキュリティ プライバシー 安全 暗号化'},
+    {title:'Appleの魅力',       sub:'Philosophy · Experience',        url:'experience.html',      icon:'🍎', tags:'体験 エコシステム 哲学 魅力'},
+    {title:'Apple Intelligence',sub:'AI · 機械学習',                  url:'apple-intelligence.html',icon:'🧠', tags:'AI 人工知能 機械学習 アップルインテリジェンス'},
   ];
+
+  // ひらがな・カタカナ相互変換関数
+  function hiraganaToKatakana(str) {
+    return str.replace(/[\u3041-\u3096]/g, function(ch) {
+      return String.fromCharCode(ch.charCodeAt(0) + 0x60);
+    });
+  }
+  function katakanaToHiragana(str) {
+    return str.replace(/[\u30a1-\u30f6]/g, function(ch) {
+      return String.fromCharCode(ch.charCodeAt(0) - 0x60);
+    });
+  }
+
+  // 日本語対応マッチ関数
+  function matchesQuery(text, query) {
+    var qLower = query.toLowerCase();
+    var tLower = text.toLowerCase();
+
+    // 完全一致または部分一致
+    if(tLower.includes(qLower)) return true;
+
+    // ひらがな↔カタカナ相互変換対応
+    var qKata = hiraganaToKatakana(qLower);
+    var qHira = katakanaToHiragana(qLower);
+
+    if(tLower.includes(qKata) || tLower.includes(qHira)) return true;
+
+    return false;
+  }
 
   var inp = document.getElementById('searchinput');
   var res = document.getElementById('searchresults');
 
   inp.addEventListener('input', function() {
-    var q = inp.value.trim().toLowerCase();
+    var q = inp.value.trim();
     if(!q) { res.classList.remove('show'); return; }
+
     var hits = PAGES.filter(p =>
-      p.title.toLowerCase().includes(q) ||
-      p.sub.toLowerCase().includes(q)
+      matchesQuery(p.title, q) ||
+      matchesQuery(p.sub, q) ||
+      matchesQuery(p.tags, q)
     );
+
     if(hits.length === 0) {
       res.innerHTML = '<div class="search-empty">見つかりませんでした 🔍</div>';
     } else {
