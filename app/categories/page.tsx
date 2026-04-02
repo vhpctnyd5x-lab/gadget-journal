@@ -24,6 +24,9 @@ export default async function CategoriesPage() {
     <div className="mx-auto max-w-6xl px-6 py-12">
       <h1 className="mb-4 text-4xl font-bold">カテゴリ</h1>
       <p className="mb-10 text-zinc-600 dark:text-zinc-400">Apple製品をテーマごとに整理しています</p>
+      <p className="mb-8 rounded-2xl border border-zinc-200 bg-zinc-50 p-4 text-sm text-zinc-600 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300">
+        目的別に記事を探したい方向けに、カテゴリごとに要点が掴める構成にしています。各カードを押すと、該当カテゴリの記事だけを表示できます。
+      </p>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {categories.map((cat) => (
@@ -38,6 +41,7 @@ export default async function CategoriesPage() {
           </Link>
         ))}
       </div>
+      {categories.length === 0 ? <p className="text-zinc-500">カテゴリは準備中です。</p> : null}
     </div>
   );
 }

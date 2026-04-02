@@ -24,6 +24,7 @@ export default async function ArticlesPage({ searchParams }: { searchParams: Pro
         <p className="text-zinc-600 dark:text-zinc-300">
           {selectedCategory ? `${selectedCategory} の記事を表示中` : '最新の記事をカテゴリ横断で一覧表示します。'}
         </p>
+        <p className="text-sm text-zinc-500 dark:text-zinc-400">レビュー、使いこなし、将来予測まで、実利用ベースの内容を掲載しています。</p>
       </header>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {filtered.map((article) => (
@@ -37,6 +38,7 @@ export default async function ArticlesPage({ searchParams }: { searchParams: Pro
           />
         ))}
       </div>
+      {filtered.length === 0 ? <p className="text-zinc-500">該当する記事がありません。</p> : null}
     </section>
   );
 }
