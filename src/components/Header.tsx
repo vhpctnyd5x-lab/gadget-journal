@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { ThemeToggle } from './ThemeToggle';
 
 export const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,6 +28,9 @@ export const Header: React.FC = () => {
             About
           </Link>
         </nav>
+
+        {/* Theme Toggle */}
+        <ThemeToggle />
 
         {/* Mobile Menu Button */}
         <button
