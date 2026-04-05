@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { ArticleStructuredData } from './structured-data';
+import { auth } from '@clerk/nextjs/server';
+import { ArticlePaywall } from './paywall';
 
 export async function generateStaticParams() {
   const articles = await getArticles();
@@ -17,9 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const article = await getArticleBySlug(resolvedParams.slug);
 
   if (!article) {
-    return {
-      title: 'Article Not Found',
-    };
+    return { title: 'Article Not Found' };
   }
 
   return {
@@ -28,32 +28,48 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     openGraph: {
       title: article.title,
       description: article.description,
-      images: [
-        {
-          url: article.image,
-          width: 1200,
-          height: 630,
-          alt: article.title,
-        },
-      ],
+      images: [{ url: article.image, width: 1200, height: 630, alt: article.title }],
     },
   };
+}
+
+// MDXを段落単位で分割して冒頭だけ返す
+function getPreviewContent(content: string, paragraphCount = 3): string {
+  const lines = content.split('\n');
+  let count = 0;
+  const previewLines: string[] = [];
+
+  for (const line of lines) {
+    previewLines.push(line);
+    // 空行のあとにテキストがある段落を1つと数える
+    if (line.trim() === '' && previewLines.length > 1) {
+      const prevNonEmpty = previewLines.slice(0, -1).findLast((l) => l.trim() !== '');
+      if (prevNonEmpty && !prevNonEmpty.startsWith('#') && !prevNonEmpty.startsWith('|') && !prevNonEmpty.startsWith('-')) {
+        count++;
+        if (count >= paragraphCount) break;
+      }
+    }
+  }
+
+  return previewLines.join('\n');
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   const article = await getArticleBySlug(resolvedParams.slug);
 
-  if (!article) {
-    notFound();
-  }
+  if (!article) notFound();
 
   const relatedArticles = await getRelatedArticles(article.slug);
+  const { userId } = await auth();
+  const isSignedIn = !!userId;
+
+  // 未ログイン時は冒頭3段落のみ表示
+  const contentToShow = isSignedIn ? article.content : getPreviewContent(article.content, 3);
 
   return (
     <>
       <ArticleStructuredData article={article} />
-      {/* Article Hero */}
       <article className="bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-950">
         {/* Article Header */}
         <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 py-12 sm:py-16">
@@ -87,12 +103,15 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         {/* Article Content */}
         <div className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 pb-16">
           <div className="prose dark:prose-invert max-w-none">
-            <MDXRemote source={article.content} />
+            <MDXRemote source={contentToShow} />
           </div>
+
+          {/* ペイウォール（未ログイン時） */}
+          {!isSignedIn && <ArticlePaywall />}
         </div>
 
         {/* Tags */}
-        {article.tags && article.tags.length > 0 && (
+        {article.tags && article.tags.length > 0 && isSignedIn && (
           <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 pb-12">
             <div className="flex flex-wrap gap-2">
               {article.tags.map((tag) => (

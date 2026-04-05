@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@clerk/localizations": "^4.3.0",
+    "@clerk/nextjs": "^7.0.8",
     "@tailwindcss/typography": "^0.5.19",
     "gray-matter": "^4.0.3",
     "next": "16.2.2",
