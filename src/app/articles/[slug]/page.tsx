@@ -85,8 +85,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         )}
 
         {/* Article Content */}
-        <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 pb-16">
-          <div className="prose dark:prose-invert max-w-none prose-lg">
+        <div className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 pb-16">
+          <div className="prose dark:prose-invert max-w-none">
             <MDXRemote source={article.content} />
           </div>
         </div>
