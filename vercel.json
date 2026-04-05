@@ -1,19 +1,13 @@
 {
-  "buildCommand": "echo 'Static site - no build needed'",
-  "outputDirectory": ".",
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/404.html", "status": 404 }
-  ],
+  "framework": "nextjs",
+  "outputDirectory": ".next",
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; frame-src https://embed.music.apple.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; frame-src https://embed.music.apple.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
         },
         {
           "key": "Strict-Transport-Security",
