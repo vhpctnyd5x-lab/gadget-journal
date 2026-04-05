@@ -80,6 +80,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               alt={article.title}
               className="w-full rounded-2xl shadow-lg"
             />
+            <p className="text-xs text-slate-400 mt-2 text-center">画像出典: © Apple Inc.</p>
           </div>
         )}
 
