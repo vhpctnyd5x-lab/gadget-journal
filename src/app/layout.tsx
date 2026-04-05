@@ -30,14 +30,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider localization={jaJP}>
-      <html lang="ja" className="h-full antialiased" suppressHydrationWarning>
-        <body className="min-h-full flex flex-col bg-white dark:bg-slate-950 text-slate-900 dark:text-white">
+    <html lang="ja" className="h-full antialiased" suppressHydrationWarning>
+      <body className="min-h-full flex flex-col bg-white dark:bg-slate-950 text-slate-900 dark:text-white">
+        <ClerkProvider localization={jaJP}>
           <Header />
           <main className="flex-grow">{children}</main>
           <Footer />
-        </body>
-      </html>
-    </ClerkProvider>
+        </ClerkProvider>
+      </body>
+    </html>
   );
 }

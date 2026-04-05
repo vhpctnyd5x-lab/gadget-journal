@@ -3,11 +3,10 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { ThemeToggle } from './ThemeToggle';
-import { SignInButton, SignUpButton, UserButton, useAuth } from '@clerk/nextjs';
+import { SignInButton, SignUpButton, UserButton, Show } from '@clerk/nextjs';
 
 export const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isSignedIn } = useAuth();
 
   return (
     <header className="sticky top-0 z-50 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-sm">
@@ -18,7 +17,7 @@ export const Header: React.FC = () => {
           <span>Gadget Journal</span>
         </Link>
 
-        {/* Desktop Menu */}
+        {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8">
           <Link href="/articles" className="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
             記事
@@ -35,10 +34,9 @@ export const Header: React.FC = () => {
         <div className="flex items-center gap-3">
           <ThemeToggle />
 
-          {isSignedIn ? (
-            <UserButton appearance={{ elements: { avatarBox: 'w-8 h-8' } }} />
-          ) : (
-            <div className="hidden md:flex items-center gap-2">
+          {/* Desktop auth buttons */}
+          <div className="hidden md:flex items-center gap-2">
+            <Show when="signed-out">
               <SignInButton mode="modal">
                 <button className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors px-3 py-1.5">
                   ログイン
@@ -49,10 +47,13 @@ export const Header: React.FC = () => {
                   無料登録
                 </button>
               </SignUpButton>
-            </div>
-          )}
+            </Show>
+            <Show when="signed-in">
+              <UserButton appearance={{ elements: { avatarBox: 'w-8 h-8' } }} />
+            </Show>
+          </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile menu button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
@@ -82,24 +83,23 @@ export const Header: React.FC = () => {
               About
             </Link>
             <div className="border-t border-slate-200 dark:border-slate-700 pt-3 mt-1 flex flex-col gap-2">
-              {isSignedIn ? (
+              <Show when="signed-out">
+                <SignInButton mode="modal">
+                  <button className="px-4 py-2 text-left text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors">
+                    ログイン
+                  </button>
+                </SignInButton>
+                <SignUpButton mode="modal">
+                  <button className="px-4 py-2 text-left font-semibold text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors">
+                    無料登録
+                  </button>
+                </SignUpButton>
+              </Show>
+              <Show when="signed-in">
                 <div className="px-4 py-2">
                   <UserButton showName />
                 </div>
-              ) : (
-                <>
-                  <SignInButton mode="modal">
-                    <button className="px-4 py-2 text-left text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors">
-                      ログイン
-                    </button>
-                  </SignInButton>
-                  <SignUpButton mode="modal">
-                    <button className="px-4 py-2 text-left font-semibold text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors">
-                      無料登録
-                    </button>
-                  </SignUpButton>
-                </>
-              )}
+              </Show>
             </div>
           </nav>
         </div>
