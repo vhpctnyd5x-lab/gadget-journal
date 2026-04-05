@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f5f5f7"/>
+      <stop offset="100%" style="stop-color:#e8e8ed"/>
+    </linearGradient>
+    <linearGradient id="device" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#b8b8bc"/>
+      <stop offset="100%" style="stop-color:#dcdce0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="400" y="210" width="400" height="280" rx="28" fill="url(#device)"/>
+  <rect x="416" y="226" width="368" height="248" rx="22" fill="#c8c8cc"/>
+  <circle cx="600" cy="490" r="10" fill="#a0a0a5"/>
+  <text x="600" y="170" font-family="SF Pro Display, Helvetica Neue, sans-serif" font-size="48" font-weight="700" fill="#1d1d1f" text-anchor="middle">Mac mini M4</text>
+  <text x="600" y="215" font-family="SF Pro Display, Helvetica Neue, sans-serif" font-size="20" fill="#6e6e73" text-anchor="middle">小さく、力強く、究極の万能デスクトップ</text>
+</svg>

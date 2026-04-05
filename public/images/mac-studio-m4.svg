@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1c1c1e"/>
+      <stop offset="100%" style="stop-color:#2c2c2e"/>
+    </linearGradient>
+    <linearGradient id="device" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3a3a3c"/>
+      <stop offset="100%" style="stop-color:#636366"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff6b6b"/>
+      <stop offset="100%" style="stop-color:#ffa502"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="350" y="200" width="500" height="260" rx="24" fill="url(#device)"/>
+  <rect x="370" y="220" width="460" height="220" rx="18" fill="#2c2c2e"/>
+  <circle cx="430" cy="310" r="30" fill="url(#accent)" opacity="0.8"/>
+  <circle cx="510" cy="310" r="30" fill="#30d158" opacity="0.8"/>
+  <circle cx="590" cy="310" r="30" fill="#0071e3" opacity="0.8"/>
+  <text x="600" y="170" font-family="SF Pro Display, Helvetica Neue, sans-serif" font-size="48" font-weight="700" fill="white" text-anchor="middle">Mac Studio M4 Ultra</text>
+  <text x="600" y="520" font-family="SF Pro Display, Helvetica Neue, sans-serif" font-size="22" fill="url(#accent)" text-anchor="middle">プロフェッショナルの限界を超える</text>
+</svg>

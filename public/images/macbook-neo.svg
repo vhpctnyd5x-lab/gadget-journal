@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f0c29"/>
+      <stop offset="50%" style="stop-color:#302b63"/>
+      <stop offset="100%" style="stop-color:#24243e"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#200122"/>
+      <stop offset="100%" style="stop-color:#6f0000"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="280" y="140" width="640" height="400" rx="20" fill="#2a2a3a" opacity="0.9"/>
+  <rect x="296" y="156" width="608" height="360" rx="12" fill="#1a1a2e"/>
+  <rect x="308" y="168" width="584" height="336" rx="8" fill="url(#screen)" opacity="0.8"/>
+  <text x="600" y="375" font-family="SF Pro Display, Helvetica Neue, sans-serif" font-size="48" font-weight="700" fill="white" text-anchor="middle">MacBook Neo</text>
+  <text x="600" y="420" font-family="SF Pro Display, Helvetica Neue, sans-serif" font-size="22" fill="#c084fc" text-anchor="middle">次世代フォームファクター、2026</text>
+  <rect x="480" y="540" width="240" height="14" rx="7" fill="#3a3a4a"/>
+</svg>

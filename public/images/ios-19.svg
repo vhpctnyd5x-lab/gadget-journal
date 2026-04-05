@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#000428"/>
+      <stop offset="100%" style="stop-color:#004e92"/>
+    </linearGradient>
+    <linearGradient id="phone" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1c1c1e"/>
+      <stop offset="100%" style="stop-color:#2c2c2e"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="480" y="80" width="240" height="480" rx="40" fill="url(#phone)"/>
+  <rect x="492" y="92" width="216" height="456" rx="34" fill="#000"/>
+  <rect x="500" y="100" width="200" height="440" rx="28" fill="#004e92" opacity="0.6"/>
+  <text x="600" y="330" font-family="SF Pro Display, Helvetica Neue, sans-serif" font-size="72" font-weight="800" fill="white" text-anchor="middle">19</text>
+  <text x="600" y="290" font-family="SF Pro Display, Helvetica Neue, sans-serif" font-size="28" fill="#60a5fa" text-anchor="middle">iOS</text>
+</svg>
