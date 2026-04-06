@@ -12,7 +12,7 @@ export function ArticleStructuredData({ article }: { article: Article }) {
       '@type': 'Person',
       name: article.author,
     },
-    articleBody: article.content,
+    articleBody: article.sections.map((s) => s.text).join(' '),
   };
 
   return (

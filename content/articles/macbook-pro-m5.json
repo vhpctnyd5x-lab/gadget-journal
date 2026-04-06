@@ -1,0 +1,38 @@
+{
+  "title": "MacBook Pro M5 レビュー：ファンありで全力を出し続ける最強ノートPC",
+  "description": "MacBook Pro M5（14インチ/16インチ）完全レビュー。M5 Pro・M5 Maxの性能差、Liquid Retina XDRの進化、そしてMacBook Airとの違いを明確化。",
+  "category": "Mac",
+  "date": "2026-03-29",
+  "author": "Gadget Journal",
+  "image": "/images/macbook-pro-m5.svg",
+  "tags": ["mac", "macbook-pro", "m5", "review"],
+  "rating": 4.9,
+  "pros": [
+    "ファン搭載で長時間高負荷作業でも性能が落ちない",
+    "Liquid Retina XDR 120Hzの圧倒的な画質",
+    "M5 Maxで最大128GBメモリ構成が可能",
+    "SDカードスロット・HDMIなど豊富なポート類"
+  ],
+  "cons": [
+    "MacBook Airと比べて重い（14インチで1.62kg）",
+    "M5 Max構成では40〜50万円超の価格"
+  ],
+  "sections": [
+    {
+      "heading": "MacBook Pro M5の位置づけ",
+      "text": "MacBook Pro M5は、MacBook Airと明確に異なる「プロフェッショナル向けノートPC」です。最大の違いはファンの有無。MacBook Airがサーマルスロットリングで性能を落とすのに対し、MacBook Proはファンで熱を排出し、長時間にわたって最大性能を維持します。\n\n14インチと16インチの2サイズがあり、それぞれM5、M5 Pro、M5 Maxの3チップ構成から選択できます。"
+    },
+    {
+      "heading": "M5 vs M5 Pro vs M5 Maxの性能差",
+      "text": "M5（10コアCPU、10コアGPU）はMacBook Airと同じチップです。M5 Pro（12コアCPU、20コアGPU）は動画編集・3Dレンダリングのプロに最適。M5 Max（16コアCPU、40コアGPU、最大128GB）は映像制作・機械学習など最高負荷の作業向けです。\n\nM5 ProはM5比でGPU性能が2倍。Final Cut Proでの4K ProRes書き出しはM5比で1.8倍速く、長尺作業での生産性差は大きいです。"
+    },
+    {
+      "heading": "Liquid Retina XDR：見るたびに感動するディスプレイ",
+      "text": "MacBook ProのLiquid Retina XDRはミニLEDバックライトを採用した業界最高峰のノートPC向けディスプレイです。最大輝度1,600ニト（HDR）、XDRコントラスト比1,000,000:1、ProMotion 120Hz（1〜120Hzの可変）を実現。\n\nSDR（通常コンテンツ）でも最大1,000ニトで表示でき、屋外やよく照明された部屋でも明るく鮮明です。P3広色域・True Toneにも対応しています。"
+    },
+    {
+      "heading": "まとめ：MacBook AirかProか",
+      "text": "MacBook Airで十分な人は、日常の作業（Web、Office、軽い写真編集、コーディング）がメインの方です。MacBook Proが必要な人は、動画・音楽・3D制作のプロ、長時間レンダリングやコンパイルを行う開発者、最高品質のディスプレイを求める方です。\n\nMacBook Pro M5は価格に見合う価値のある製品です。プロフェッショナルなワークロードに対して、妥協なく応えます。"
+    }
+  ]
+}

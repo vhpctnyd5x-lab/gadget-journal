@@ -1,0 +1,40 @@
+{
+  "title": "Appleエコシステム完全ガイド：iPhone・Mac・iPad・Watchが連携する世界",
+  "description": "Apple製品間の連携機能を徹底解説。Handoff、AirDrop、Sidecar、Universal Clipboard。複数デバイスをシームレスに使いこなすための完全ガイド。",
+  "category": "Guides",
+  "date": "2026-03-14",
+  "image": "/1H6jeDAqUO4S.jpg",
+  "tags": [
+    "ecosystem",
+    "guide",
+    "continuity"
+  ],
+  "rating": 4.5,
+  "pros": [
+    "デバイス間の連携がシームレスで直感的",
+    "Handoff・Universal Clipboardで作業が途切れない",
+    "AirDropの速度と使いやすさは他の追随を許さない"
+  ],
+  "cons": [
+    "Apple製品のみで成立するクローズドな世界",
+    "Windows/Androidとの連携は限定的"
+  ],
+  "sections": [
+    {
+      "heading": "Appleエコシステムとは",
+      "text": "Appleエコシステムとは、iPhone・Mac・iPad・Apple Watch・AirPodsなどのApple製品が互いに連携し、シームレスな体験を生み出す仕組みのことです。単体でも優れた製品ですが、複数のApple製品を組み合わせることで、その価値は飛躍的に高まります。\n\n「デバイスを意識せずに作業できる」——これがAppleエコシステムの本質です。"
+    },
+    {
+      "heading": "Continuity：シームレスな連携機能群",
+      "text": "Continuityは、Apple製品間の連携を実現する機能群の総称です。Handoffでは、iPhoneで見ていたWebページをMacで続きから開けます。Universal Clipboardでは、iPhoneでコピーしたテキストをMacにそのままペーストできます。AirDropは近くのAppleデバイスに写真・動画・ファイルを瞬時に共有。Sidecarは、iPadをMacのサブディスプレイとして使えます。"
+    },
+    {
+      "heading": "iPhone × Mac：最強の組み合わせ",
+      "text": "iPhoneとMacの連携は特に強力です。iPhoneのカメラで撮影した写真がすぐMacのPhotosに同期。iPhoneにかかってきた電話をMacで受けられます。MacからiPhoneのモバイルデータを共有（インスタントホットスポット）でき、Macの背景を変更するとiPhoneのロック画面も同期されます。\n\n「iPhoneをポケットに入れたままMacで作業する」——この当たり前が、Appleエコシステムの魅力です。"
+    },
+    {
+      "heading": "まとめ：エコシステムの価値",
+      "text": "Appleエコシステムの最大の価値は「摩擦の排除」です。デバイスをまたいだとき、ファイルを探したとき、別のデバイスで続きをしたいとき——そのたびに感じるストレスを最小化しています。\n\n一度Appleエコシステムを体験すると、他のプラットフォームに移りにくくなると感じる方が多いのは、この「見えない快適さ」の積み重ねが理由です。"
+    }
+  ]
+}

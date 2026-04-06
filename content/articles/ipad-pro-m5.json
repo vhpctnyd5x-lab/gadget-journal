@@ -1,0 +1,43 @@
+{
+  "title": "iPad Pro M5 レビュー：Tandem OLEDとM5チップが切り拓く究極のタブレット",
+  "description": "iPad Pro M5（2026年）完全レビュー。Tandem OLED第2世代の進化、M5チップの性能、Magic Keyboard Ultraとの組み合わせを徹底検証。",
+  "category": "iPad",
+  "date": "2026-01-05",
+  "author": "Gadget Journal",
+  "image": "/JgkFy5R64E18.jpg",
+  "tags": ["ipad", "ipad-pro", "m5", "review", "tandem-oled"],
+  "rating": 4.6,
+  "pros": [
+    "Tandem OLED第2世代で144Hz・2,400ニトを実現",
+    "Apple Pencil Proの追従性が現行最高峰",
+    "MacBook Air M5と同等の処理性能",
+    "Magic Keyboard Ultraで本格タイピング可能"
+  ],
+  "cons": [
+    "iPadOSの制約でフル性能を活かしきれない場面あり",
+    "Magic Keyboard Ultra込みで重くなる",
+    "Xcodeなど開発ツールはまだMac必須"
+  ],
+  "sections": [
+    {
+      "heading": "iPad Pro M5：これはもうPCか？",
+      "text": "2026年1月に発売されたiPad Pro M5は、「タブレットとPCの境界線」をまたしても曖昧にした製品です。M5チップ、Tandem OLED第2世代ディスプレイ、そして新しいMagic Keyboard Ultra——これらが組み合わさると、多くの作業でMacBookの代替になりえます。\n\n11インチと13インチのラインナップは継続。今回は13インチモデルをメインに検証します。"
+    },
+    {
+      "heading": "Tandem OLED第2世代：ディスプレイの新基準",
+      "text": "iPad Pro M4で初登場したTandem OLEDが第2世代に進化しました。最大輝度（HDR）は1,600→1,800ニト、ピーク輝度は2,000→2,400ニトに向上。リフレッシュレートは120→144Hz、応答速度は1ms→0.5msに改善されています。\n\n144Hzへの向上は、Apple Pencil Proでのドローイング時に如実に感じます。ペン先と描画のラグがほぼゼロに近くなり、紙に書いているような自然さが増しました。屋外での視認性も大幅に改善。2,400ニトのピーク輝度は、真夏の直射日光下でも内容を確認できるレベルです。"
+    },
+    {
+      "heading": "M5チップとパフォーマンス",
+      "text": "M5チップ（CPU 10コア、GPU 10コア、Neural Engine 38TOPS）の搭載により、iPad Pro M5はFinal Cut Pro、DaVinci Resolve、Logic Proなどのプロアプリを快適に動かせる性能を持ちます。\n\nGeekbench 6ではシングル3,820、マルチ14,980、Metal GPU 65,200を記録。MacBook Air M5とほぼ同等の性能がタブレット形状に収まっています。「iPadがPCと同じ性能」というのは誇張でも何でもなく、ベンチマーク上の事実です。"
+    },
+    {
+      "heading": "Magic Keyboard Ultra：タイピング体験の革命",
+      "text": "iPad Pro M5に合わせて発売されたMagic Keyboard Ultraは、これまでのMagic Keyboardと大きく異なります。ファンクションキー行の追加、トラックパッドの面積が40%拡大、MagSafe経由でiPadに電力供給（iPadのバッテリーを消費しない）、アルミニウム製パームレストで剛性が大幅向上しました。\n\nキーストロークは1.0mmでMacBook Airと同等。長文タイピングも疲れにくく、「キーボードをつけたiPad」という感覚から「本物のキーボード付きデバイス」へと変わりました。"
+    },
+    {
+      "heading": "まとめ：誰が買うべきか",
+      "text": "iPad Pro M5が最適な人は、グラフィックデザイン・イラスト・音楽制作をメインで行うクリエイター、外出先でMacBookと同等の作業をしたい方（軽さが重要）、プレゼンテーションや資料作成の移動中の環境として使いたい方です。\n\nMacBookを選ぶべき人は、コーディング・開発作業がメインの方、macOS専用アプリに依存している方、長時間の複雑なマルチタスクが必要な方です。\n\niPad Pro M5は、タブレットとして「限界を超えた」製品です。「MacBookの代わりになるか？」への答えは「用途による——でも多くのクリエイターにとってはYes」です。"
+    }
+  ]
+}

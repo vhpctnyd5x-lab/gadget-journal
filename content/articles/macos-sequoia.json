@@ -1,0 +1,40 @@
+{
+  "title": "macOS Sequoia 完全ガイド：iPhone Mirroring・ゲームモード・Apple Intelligenceを使いこなす",
+  "description": "macOS Sequoiaの全新機能を解説。iPhone MirroringでiPhoneをMacから操作、ゲームモードで60fps安定化、Passwords.appで脱1Password。",
+  "category": "Software",
+  "date": "2026-03-16",
+  "image": "/images/macos-sequoia.svg",
+  "tags": [
+    "macos",
+    "software",
+    "sequoia"
+  ],
+  "rating": 4.3,
+  "pros": [
+    "iPhone MirroringがAirPlayより便利",
+    "ゲームモードでMacゲームの体験が向上",
+    "Passwords.appで有料パスワードマネージャーが不要に"
+  ],
+  "cons": [
+    "iPhone MirroringはmacOS Sequoia + iOS 18の組み合わせが必要",
+    "一部の古いMacは非対応"
+  ],
+  "sections": [
+    {
+      "heading": "macOS Sequoiaの概要",
+      "text": "macOS Sequoia（macOS 15）は2024年9月にリリースされたMacの最新OS（本記事執筆時点）です。セコイア杉（Sequoia）の名を冠し、「iPhone MirroringとゲームモードとApple Intelligence」という3本柱の新機能を中心に構成されています。"
+    },
+    {
+      "heading": "iPhone Mirroring：ゲームチェンジャーな新機能",
+      "text": "iPhone MirroringはMacのディスプレイ上でiPhoneの画面を表示・操作できる機能です。AirPlayとの違いは「双方向の通知連携」。iPhoneに通知が来るとMac画面にも表示され、Macから返信まで完結できます。\n\niPhoneのアプリをMacのマウスとキーボードで操作できるため、「Macにないアプリ」をMacから使うことも可能になりました。"
+    },
+    {
+      "heading": "Passwords.app：サードパーティが不要になる",
+      "text": "macOS SequoiaとiOS 18で追加された「パスワード」アプリは、1PasswordやBitwardenといったサードパーティパスワードマネージャーの主要機能をカバーします。パスキー管理、パスワード生成、漏洩検知、Wi-Fiパスワードの共有——これらが無料でOS標準搭載されました。\n\n有料パスワードマネージャーを解約しても問題ない水準に達しています。"
+    },
+    {
+      "heading": "まとめ",
+      "text": "macOS Sequoiaは「地味だが確実に便利になった」アップデートです。iPhone Mirroringの実用性、Passwords.appの完成度、Apple Intelligenceの基盤整備——これらはMacを毎日使うユーザーの生産性を着実に向上させます。対応Macを使っているなら迷わずアップデートすることをおすすめします。"
+    }
+  ]
+}

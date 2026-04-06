@@ -1,0 +1,38 @@
+{
+  "title": "Mac Studio M4 Ultra レビュー：プロの限界を超えるデスクトップパワー",
+  "description": "Mac Studio M4 Ultra完全レビュー。192GB統合メモリ、32コアCPU、80コアGPUの怪物スペックを映像・音楽・機械学習の実務で検証。",
+  "category": "Mac",
+  "date": "2026-03-27",
+  "image": "/images/mac-studio-m4.svg",
+  "tags": [
+    "mac",
+    "mac-studio",
+    "m4-ultra",
+    "review"
+  ],
+  "rating": 4.9,
+  "pros": [
+    "M4 Ultraで業界最高のコンパクトデスクトップ性能",
+    "192GBの統合メモリでAIモデルのローカル実行も可能",
+    "前面USB-C/SDカードスロットで接続性抜群",
+    "Mac Proより大幅に安価"
+  ],
+  "cons": [
+    "M4 Ultra構成は100万円超の価格",
+    "Mac towerのような内部拡張性はない"
+  ],
+  "sections": [
+    {
+      "heading": "Mac Studio M4 Ultraとは",
+      "text": "Mac Studio M4 Ultraは、2025年11月発売のApple最高性能コンパクトデスクトップです。M4 Ultraチップ（M4 Proを2つ接続したUltraFusionアーキテクチャ）を搭載し、32コアCPU・80コアGPU・最大192GBの統合メモリという桁外れのスペックを実現しています。"
+    },
+    {
+      "heading": "M4 Ultraの圧倒的な性能",
+      "text": "M4 UltraのGeekbench 6はシングル4,100、マルチ31,200、Metal GPU 180,000を記録。最大192GBの統合メモリにより、70Bパラメータ規模のLLM（大規模言語モデル）をローカルで動かすことも現実的になりました。\n\n映像制作では8K ProRes RAWのリアルタイム編集、複数ストリームの同時処理が可能。音楽制作では数百トラックのプロジェクトも滑らかに動作します。"
+    },
+    {
+      "heading": "まとめ",
+      "text": "Mac Studio M4 Ultraは、Mac Proを必要としない大多数のプロクリエイターにとって「これ以上のMacは必要ない」と感じさせる完成度です。映像・音楽・AI・3DCG——あらゆるプロワークロードに対して妥協なく応えます。"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "title": "iPad Air M4 レビュー：M4チップ搭載で「Air」の定義が変わった",
+  "description": "iPad Air M4の完全レビュー。11インチと13インチのどちらを選ぶべきか。iPad ProとiPad miniとの比較も含めて徹底解説。",
+  "category": "iPad",
+  "date": "2026-03-24",
+  "image": "/LQr4zsUeOs7E.jpg",
+  "tags": [
+    "ipad",
+    "ipad-air",
+    "m4",
+    "review"
+  ],
+  "rating": 4.4,
+  "pros": [
+    "M4チップで日常作業は余裕すぎるほどの性能",
+    "Liquid Retina（60Hz）ながら色再現性は高水準",
+    "Apple Pencil Pro＋Magic Keyboardとの相性が良い",
+    "iPad Proより4〜5万円安い"
+  ],
+  "cons": [
+    "60Hz（ProMotionの120Hz非搭載）",
+    "True Tone止まりでTandem OLEDではない"
+  ],
+  "sections": [
+    {
+      "heading": "iPad Air M4の立ち位置",
+      "text": "iPad Air M4は「ProほどではないがMiniより本格的」という中間モデルです。M4チップを搭載しながら価格をiPad Pro比で抑え、日常〜軽クリエイティブ用途のユーザーにとって最もコストパフォーマンスが高い選択肢になっています。"
+    },
+    {
+      "heading": "M4チップ：Air に必要十分な性能",
+      "text": "M4チップ（CPU 10コア、GPU 10コア）は日常のすべての作業に余裕をもって対応します。Webブラウジング、動画視聴、資料作成、Procreateでのイラスト作成——これらのタスクでm4の性能が上限になることはありません。\n\nGeekbench 6ではシングル3,800、マルチ14,800を記録。前世代iPad Air（M2）比でCPU性能が50%向上しています。"
+    },
+    {
+      "heading": "まとめ：ProかAirか",
+      "text": "iPad Proとの主な違いはディスプレイ（Tandem OLED vs Liquid Retina）とFace ID方式（横向き vs 縦向き）、そしてApple Pencil Proへの対応（どちらも対応）です。\n\nProMotionや超高輝度を必要としない方、ProよりAirの方が価格的に現実的な方には、iPad Air M4を迷わずおすすめします。"
+    }
+  ]
+}
