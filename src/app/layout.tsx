@@ -50,6 +50,14 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ja" className={`h-full antialiased ${fontVariable}`} suppressHydrationWarning>
+      <head>
+        {/* FOUC防止：マウント前にlocalStorageのテーマを適用しちらつきを防ぐ */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(t===null&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})()`,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-white dark:bg-slate-950 text-slate-900 dark:text-white font-sans">
         <GoogleAnalytics />
         <ClerkProvider localization={jaJP}>
