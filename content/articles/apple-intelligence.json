@@ -4,8 +4,14 @@
   "category": "Software",
   "date": "2026-01-20",
   "author": "Gadget Journal",
-  "image": "/images/apple-intelligence.svg",
-  "tags": ["apple-intelligence", "ai", "software", "ios", "macos"],
+  "image": "/KI8LZxWp8G9n.jpg",
+  "tags": [
+    "apple-intelligence",
+    "ai",
+    "software",
+    "ios",
+    "macos"
+  ],
   "rating": 4.1,
   "pros": [
     "オンデバイス処理でプライバシーを守る",

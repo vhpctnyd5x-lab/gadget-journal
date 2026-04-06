@@ -130,3 +130,45 @@
            hover:text-blue-700 dark:hover:text-blue-300;
   }
 }
+
+/* ====================================================
+   テーマ切替 虹グラデーション波アニメーション
+==================================================== */
+@keyframes theme-wave-slide {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0.85;
+  }
+  60% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+.theme-wave {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 0, 128, 0.55) 0%,
+    rgba(255, 80, 0, 0.55) 14%,
+    rgba(255, 210, 0, 0.55) 28%,
+    rgba(60, 210, 60, 0.55) 42%,
+    rgba(0, 180, 255, 0.55) 57%,
+    rgba(100, 60, 255, 0.55) 71%,
+    rgba(200, 0, 200, 0.55) 85%,
+    rgba(255, 0, 128, 0.55) 100%
+  );
+  animation: theme-wave-slide 900ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-wave {
+    display: none;
+  }
+}

@@ -1,6 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
+
+function triggerRainbowWave() {
+  const el = document.createElement('div');
+  el.className = 'theme-wave';
+  document.body.appendChild(el);
+  el.addEventListener('animationend', () => el.remove(), { once: true });
+}
 
 export const ThemeToggle: React.FC = () => {
   const [isDark, setIsDark] = useState(false);
@@ -12,7 +19,8 @@ export const ThemeToggle: React.FC = () => {
     setIsDark(isDarkMode);
   }, []);
 
-  const toggleDarkMode = () => {
+  const toggleDarkMode = useCallback(() => {
+    triggerRainbowWave();
     const html = document.documentElement;
     if (html.classList.contains('dark')) {
       html.classList.remove('dark');
@@ -23,7 +31,7 @@ export const ThemeToggle: React.FC = () => {
       localStorage.setItem('theme', 'dark');
       setIsDark(true);
     }
-  };
+  }, []);
 
   if (!mounted) return null;
 
