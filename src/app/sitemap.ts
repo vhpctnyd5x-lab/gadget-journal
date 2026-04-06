@@ -1,39 +1,31 @@
 import { MetadataRoute } from 'next';
 import { getArticles } from '@/lib/articles';
 
+const BASE_URL = 'https://gadget-journal.vercel.app';
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const articles = await getArticles();
-  const baseUrl = 'https://gadget-journal.vercel.app';
 
-  const articleRoutes = articles.map((article) => ({
-    url: `${baseUrl}/articles/${article.slug}`,
+  const articleRoutes: MetadataRoute.Sitemap = articles.map((article) => ({
+    url: `${BASE_URL}/articles/${article.slug}`,
     lastModified: new Date(article.date),
-    changeFrequency: 'weekly' as const,
+    changeFrequency: 'weekly',
     priority: 0.8,
   }));
 
   const categories = Array.from(new Set(articles.map((a) => a.category)));
-  const categoryRoutes = categories.map((category) => ({
-    url: `${baseUrl}/category/${category.toLowerCase().replace(/\s+/g, '-')}`,
+  const categoryRoutes: MetadataRoute.Sitemap = categories.map((cat) => ({
+    url: `${BASE_URL}/category/${cat.toLowerCase().replace(/\s+/g, '-')}`,
     lastModified: new Date(),
-    changeFrequency: 'daily' as const,
-    priority: 0.7,
+    changeFrequency: 'daily',
+    priority: 0.6,
   }));
 
-  return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/articles`,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
-    ...categoryRoutes,
-    ...articleRoutes,
+  const staticRoutes: MetadataRoute.Sitemap = [
+    { url: BASE_URL, lastModified: new Date(), changeFrequency: 'daily', priority: 1.0 },
+    { url: `${BASE_URL}/articles`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
+    { url: `${BASE_URL}/about`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.4 },
   ];
+
+  return [...staticRoutes, ...categoryRoutes, ...articleRoutes];
 }

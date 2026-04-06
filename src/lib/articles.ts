@@ -1,6 +1,11 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 
+export interface SpecRow {
+  key: string;
+  value: string;
+}
+
 export interface ArticleSection {
   heading: string;
   text: string;
@@ -14,9 +19,15 @@ export interface ArticleData {
   author: string;
   image: string;
   tags: string[];
+  // SEO
+  seoKeywords?: string[];
+  // Review fields
   rating?: number;
   pros?: string[];
   cons?: string[];
+  // Spec / benchmark table
+  specTable?: SpecRow[];
+  // Body
   sections: ArticleSection[];
 }
 
