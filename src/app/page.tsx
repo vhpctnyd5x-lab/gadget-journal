@@ -34,7 +34,7 @@ const featuredArticles = [
     image: '/Bo7BV2xApq7V.jpg',
   },
   {
-    id: 'mac-mini-m4-pro',
+    id: 'mac-mini-m4',
     title: 'Mac mini M4 Pro',
     description: '手のひらサイズで圧倒的なパフォーマンス。',
     category: 'Mac',
