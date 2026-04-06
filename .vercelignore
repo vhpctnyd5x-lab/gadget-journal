@@ -1,0 +1,79 @@
+# Vercel Deployment Ignore File
+# Prevents unnecessary files from being deployed
+
+# Version Control
+.git
+.gitignore
+.gitattributes
+.github
+
+# Environment & Secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.*.local
+.env.production
+
+# Development Dependencies & Tools
+node_modules
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+.npm
+.yarn
+pnpm-lock.yaml
+yarn.lock
+
+# Build Outputs (except .next)
+dist
+build
+.turbo
+*.tsbuildinfo
+
+# IDE & Editor
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+.editorconfig
+
+# Testing
+.jest
+.coverage
+coverage
+*.lcov
+.nyc_output
+
+# Documentation
+README.md
+CONTRIBUTING.md
+LICENSE
+docs/**
+*.md
+
+# CI/CD
+.circleci
+.gitlab-ci.yml
+.travis.yml
+azure-pipelines.yml
+.github/workflows
+
+# Tools & Config
+docker-compose.yml
+Dockerfile
+.dockerignore
+.eslintignore
+.prettierignore
+.stylelintrc
+.renovaterc
+.husky
+
+# Temporary & Cache
+.cache
+.turbo
+tmp
+temp
+*.tmp

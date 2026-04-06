@@ -1,13 +1,24 @@
 {
   "framework": "nextjs",
   "outputDirectory": ".next",
+  "buildCommand": "next build",
+  "devCommand": "next dev",
+  "installCommand": "npm ci",
+  "env": [
+    "NEXT_PUBLIC_APP_URL",
+    "NEXT_PUBLIC_ENVIRONMENT",
+    "NEXT_PUBLIC_GA_ID",
+    "NEXT_PUBLIC_SENTRY_DSN",
+    "NEXTAUTH_SECRET",
+    "NEXTAUTH_URL"
+  ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
         {
           "key": "Strict-Transport-Security",
-          "value": "max-age=63072000; includeSubDomains"
+          "value": "max-age=63072000; includeSubDomains; preload"
         },
         {
           "key": "X-Frame-Options",
@@ -28,8 +39,63 @@
         {
           "key": "X-XSS-Protection",
           "value": "0"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self' https:; connect-src 'self' https: wss:; frame-ancestors 'none';"
+        },
+        {
+          "key": "X-Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; font-src 'self' https:; connect-src 'self' https:; frame-ancestors 'none';"
+        }
+      ]
+    },
+    {
+      "source": "/static/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/_next/static/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/images/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
         }
       ]
     }
-  ]
+  ],
+  "rewrites": [
+    {
+      "source": "/sitemap.xml",
+      "destination": "/api/sitemap"
+    },
+    {
+      "source": "/robots.txt",
+      "destination": "/api/robots"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/feeds/:path*",
+      "destination": "/api/feeds/:path*",
+      "permanent": false
+    }
+  ],
+  "trailingSlash": false,
+  "regions": ["iad1", "pdx1", "sfo1"],
+  "maxDuration": 60
 }

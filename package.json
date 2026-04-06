@@ -6,7 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "build:analyze": "ANALYZE=true next build",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,json}\"",
+    "vercel-build": "npm ci && npm run type-check && npm run build",
+    "precheck": "npm run lint && npm run type-check",
+    "predeploy": "npm run precheck && npm run build"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
