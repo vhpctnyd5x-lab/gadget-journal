@@ -4,3 +4,4 @@ export { Hero } from './Hero';
 export { Header } from './Header';
 export { Footer } from './Footer';
 export { GlassCard, ArticleGlassCard, GlassHero } from './GlassCard';
+export { GoogleAnalytics } from './GoogleAnalytics';

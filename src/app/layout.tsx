@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Header, Footer } from "@/components";
+import { Header, Footer, GoogleAnalytics } from "@/components";
 import { ClerkProvider } from "@clerk/nextjs";
 import { jaJP } from "@clerk/localizations";
 // システムフォントスタックを使用（Google Fontsアクセス不要、LCP改善）
@@ -49,6 +49,7 @@ export default function RootLayout({
   return (
     <html lang="ja" className={`h-full antialiased ${fontVariable}`} suppressHydrationWarning>
       <body className="min-h-full flex flex-col bg-white dark:bg-slate-950 text-slate-900 dark:text-white font-sans">
+        <GoogleAnalytics />
         <ClerkProvider localization={jaJP}>
           <Header />
           <main className="flex-grow">{children}</main>
