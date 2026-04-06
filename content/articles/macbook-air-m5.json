@@ -5,7 +5,12 @@
   "date": "2026-02-15",
   "author": "Gadget Journal",
   "image": "/images/macbook-air-m5.svg",
-  "tags": ["mac", "macbook", "m5", "review"],
+  "tags": [
+    "mac",
+    "macbook",
+    "m5",
+    "review"
+  ],
   "rating": 4.7,
   "pros": [
     "LPDDR5Xで帯域幅が100→120GB/sに向上",
@@ -42,6 +47,68 @@
     {
       "heading": "まとめ",
       "text": "MacBook Air M5は「世界で最も売れているノートPC」という称号に恥じない完成度です。M5チップの性能向上、LPDDR5Xによる帯域幅アップ、変わらぬバッテリー持続力——すべてが「ちょっと良くなった」という確実な進化を体現しています。\n\n価格・性能・携帯性・バッテリーの四拍子が揃った、いまもっとも薦めやすいノートPCです。"
+    }
+  ],
+  "seoKeywords": [
+    "MacBook Air M5 レビュー",
+    "M5チップ ベンチマーク",
+    "MacBook Air 2026"
+  ],
+  "specTable": [
+    {
+      "key": "チップ",
+      "value": "Apple M5（10コアCPU、10コアGPU）"
+    },
+    {
+      "key": "メモリ",
+      "value": "16GB / 24GB / 32GB（LPDDR5X）"
+    },
+    {
+      "key": "ストレージ",
+      "value": "256GB〜2TB SSD"
+    },
+    {
+      "key": "ディスプレイ",
+      "value": "13.6型 Liquid Retina（2,560×1,664 / 224ppi）"
+    },
+    {
+      "key": "バッテリー",
+      "value": "最大18時間（実測 約16.5時間）"
+    },
+    {
+      "key": "重量",
+      "value": "1.24kg（13インチ）"
+    },
+    {
+      "key": "価格（税込）",
+      "value": "198,800円〜"
+    }
+  ],
+  "benchmarks": [
+    {
+      "name": "Geekbench 6 シングルコア",
+      "score": 3840,
+      "competitorScore": 3420,
+      "competitorName": "M4 Air"
+    },
+    {
+      "name": "Geekbench 6 マルチコア",
+      "score": 15210,
+      "competitorScore": 13680,
+      "competitorName": "M4 Air"
+    },
+    {
+      "name": "Metal GPU スコア",
+      "score": 68400,
+      "competitorScore": 58200,
+      "competitorName": "M4 Air"
+    },
+    {
+      "name": "Final Cut Pro 4K書き出し（秒、低いほど速い）",
+      "score": 92,
+      "competitorScore": 111,
+      "competitorName": "M4 Air",
+      "unit": "秒"
     }
   ]
 }

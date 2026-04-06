@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Header, Footer, GoogleAnalytics } from "@/components";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { jaJP } from "@clerk/localizations";
 // システムフォントスタックを使用（Google Fontsアクセス不要、LCP改善）
@@ -55,6 +57,8 @@ export default function RootLayout({
           <main className="flex-grow">{children}</main>
           <Footer />
         </ClerkProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

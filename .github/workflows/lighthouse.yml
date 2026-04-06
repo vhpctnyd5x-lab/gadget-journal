@@ -2,21 +2,41 @@ name: Lighthouse CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["main", "master"]
   pull_request:
-    branches: [ "master" ]
+    branches: ["main", "master"]
 
 jobs:
   lighthouse:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Run Lighthouse CI
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+          CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
+          NEXT_PUBLIC_CLERK_SIGN_IN_URL: /sign-in
+          NEXT_PUBLIC_CLERK_SIGN_UP_URL: /sign-up
+          NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: /
+          NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: /
+
+      - name: Run Lighthouse CI (production URL)
         uses: treosh/lighthouse-ci-action@v11
         with:
           urls: |
             https://gadget-journal.vercel.app/
-            https://gadget-journal.vercel.app/review.html
-          budgetPath: ./.github/lighthouse-budget.json
+            https://gadget-journal.vercel.app/articles/iphone-17e
           uploadArtifacts: true
           temporaryPublicStorage: true
+          runs: 3

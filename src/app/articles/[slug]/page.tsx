@@ -1,4 +1,4 @@
-import { getArticles, getArticleBySlug, getRelatedArticles, Article } from '@/lib/articles';
+import { getArticles, getArticleBySlug, getRelatedArticles, Article, BenchmarkRow } from '@/lib/articles';
 import { ArticleGlassCard } from '@/components';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -112,6 +112,58 @@ function Breadcrumb({ article }: { article: Article }) {
         ))}
       </nav>
     </>
+  );
+}
+
+function BenchmarkChart({ rows }: { rows: BenchmarkRow[] }) {
+  const maxScore = Math.max(...rows.flatMap((r) => [r.score, r.competitorScore ?? 0]));
+
+  return (
+    <div className="my-8 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+      <div className="bg-slate-50 dark:bg-slate-800 px-5 py-3 border-b border-slate-200 dark:border-slate-700">
+        <h3 className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+          ベンチマーク
+        </h3>
+      </div>
+      <div className="p-5 space-y-5">
+        {rows.map((row, i) => (
+          <div key={i}>
+            <div className="flex items-center justify-between text-sm mb-1.5">
+              <span className="font-medium text-slate-700 dark:text-slate-300">{row.name}</span>
+              <span className="text-slate-500 dark:text-slate-400 text-xs">
+                {row.score.toLocaleString()}{row.unit ? ` ${row.unit}` : ''}
+              </span>
+            </div>
+            {/* 本製品バー */}
+            <div className="flex items-center gap-2">
+              <div className="flex-1 bg-slate-100 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden">
+                <div
+                  className="h-full bg-blue-500 rounded-full transition-all"
+                  style={{ width: `${(row.score / maxScore) * 100}%` }}
+                />
+              </div>
+              <span className="text-xs text-blue-600 dark:text-blue-400 font-semibold w-16 text-right">
+                本製品
+              </span>
+            </div>
+            {/* 比較バー */}
+            {row.competitorScore !== undefined && (
+              <div className="flex items-center gap-2 mt-1">
+                <div className="flex-1 bg-slate-100 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden">
+                  <div
+                    className="h-full bg-slate-400 dark:bg-slate-500 rounded-full transition-all"
+                    style={{ width: `${(row.competitorScore / maxScore) * 100}%` }}
+                  />
+                </div>
+                <span className="text-xs text-slate-500 dark:text-slate-400 w-16 text-right truncate">
+                  {row.competitorName ?? '前世代'}
+                </span>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -237,6 +289,13 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           <div className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 pt-8">
             <h2 className="text-xl font-bold mb-2 text-slate-900 dark:text-white">スペック一覧</h2>
             <SpecTable rows={article.specTable} />
+          </div>
+        )}
+
+        {/* ── Benchmark Chart (signed-in only) ── */}
+        {isSignedIn && article.benchmarks && article.benchmarks.length > 0 && (
+          <div className="max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 pt-6">
+            <BenchmarkChart rows={article.benchmarks} />
           </div>
         )}
 

@@ -6,6 +6,14 @@ export interface SpecRow {
   value: string;
 }
 
+export interface BenchmarkRow {
+  name: string;
+  score: number;
+  competitorScore?: number;
+  competitorName?: string;
+  unit?: string;
+}
+
 export interface ArticleSection {
   heading: string;
   text: string;
@@ -25,8 +33,9 @@ export interface ArticleData {
   rating?: number;
   pros?: string[];
   cons?: string[];
-  // Spec / benchmark table
+  // Spec / benchmark tables
   specTable?: SpecRow[];
+  benchmarks?: BenchmarkRow[];
   // Body
   sections: ArticleSection[];
 }
