@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { ThemeToggle } from './ThemeToggle';
 
 export const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -42,8 +41,6 @@ export const Header: React.FC = () => {
         </nav>
 
         <div className="flex items-center gap-3">
-          <ThemeToggle />
-
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
