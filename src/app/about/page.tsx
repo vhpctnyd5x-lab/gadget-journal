@@ -24,45 +24,82 @@ export default function AboutPage() {
         <div className="space-y-12">
 
           {/* Mission */}
-          <div>
-            <h2 className="text-2xl font-bold mb-4">ミッション</h2>
-            <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-lg">
-              Gadget Journalは、iPhone・Mac・iPad・Apple Watchなど、
+          <div className="p-8 rounded-2xl bg-gradient-to-br from-blue-500/10 to-cyan-500/10 dark:from-blue-500/20 dark:to-cyan-500/20 border border-blue-200/30 dark:border-blue-800/30">
+            <h2 className="text-3xl font-bold mb-4 flex items-center gap-3">
+              <span className="text-3xl">🎯</span> ミッション
+            </h2>
+            <p className="text-slate-700 dark:text-slate-300 leading-relaxed text-lg">
+              <span className="font-semibold text-blue-600 dark:text-blue-400">Gadget Journal</span> は、iPhone・Mac・iPad・Apple Watchなど、
               Apple製品の革新を深掘りするレビューサイトです。
+              <br/><br/>
               最新情報から実用的なガイドまで、あなたのAppleライフを充実させる
-              コンテンツをお届けします。
+              コンテンツをお届けします。私たちは、Appleテクノロジーが人々の生活にもたらす
+              価値を、できるだけ多くの人に伝えることを目指しています。
             </p>
           </div>
 
           {/* What We Cover */}
           <div>
-            <h2 className="text-2xl font-bold mb-6">取り扱うトピック</h2>
+            <h2 className="text-3xl font-bold mb-6 flex items-center gap-3">
+              <span className="text-3xl">🔍</span> 取り扱うトピック
+            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
-                { icon: '💻', title: 'Mac', desc: 'MacBook Air/Pro、Mac Studio、Mac mini' },
-                { icon: '📱', title: 'iPhone', desc: 'iPhone 17シリーズ、Apple Intelligence' },
-                { icon: '🖥️', title: 'iPad', desc: 'iPad Pro、iPad Air、iPadOS' },
-                { icon: '⌚', title: 'Wearables', desc: 'Apple Watch Ultra、AirPods Pro' },
-                { icon: '🥽', title: 'Vision Pro', desc: '空間コンピューティングの未来' },
-                { icon: '🤖', title: 'Apple Intelligence', desc: 'AppleのAI機能と活用法' },
+                { icon: '💻', title: 'Mac', desc: 'MacBook Air/Pro、Mac Studio、Mac mini', color: 'from-slate-100 dark:from-slate-800', accent: 'slate' },
+                { icon: '📱', title: 'iPhone', desc: 'iPhone 17シリーズ、Apple Intelligence', color: 'from-blue-100 dark:from-blue-900/50', accent: 'blue' },
+                { icon: '🖥️', title: 'iPad', desc: 'iPad Pro、iPad Air、iPadOS', color: 'from-purple-100 dark:from-purple-900/50', accent: 'purple' },
+                { icon: '⌚', title: 'Wearables', desc: 'Apple Watch Ultra、AirPods Pro', color: 'from-green-100 dark:from-green-900/50', accent: 'green' },
+                { icon: '🥽', title: 'Vision Pro', desc: '空間コンピューティングの未来', color: 'from-pink-100 dark:from-pink-900/50', accent: 'pink' },
+                { icon: '🧠', title: 'AI・Software', desc: 'iOS・macOS・Apple Intelligenceの最新機能', color: 'from-cyan-100 dark:from-cyan-900/50', accent: 'cyan' },
               ].map((item) => (
-                <div key={item.title} className="flex items-start gap-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50">
-                  <span className="text-2xl">{item.icon}</span>
-                  <div>
-                    <div className="font-semibold">{item.title}</div>
-                    <div className="text-sm text-slate-500 dark:text-slate-400">{item.desc}</div>
+                <a
+                  key={item.title}
+                  href={`/category/${item.title.toLowerCase()}`}
+                  className={`group flex items-start gap-4 p-6 rounded-xl bg-gradient-to-br ${item.color} to-white/50 dark:to-slate-900/50 hover:shadow-lg transition-all duration-300 transform hover:scale-105 border border-${item.accent}-200/50 dark:border-${item.accent}-800/50 hover:border-${item.accent}-300 dark:hover:border-${item.accent}-700 cursor-pointer`}
+                >
+                  <div className="text-3xl flex-shrink-0">{item.icon}</div>
+                  <div className="flex-grow">
+                    <div className="font-bold text-lg group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{item.title}</div>
+                    <div className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{item.desc}</div>
                   </div>
-                </div>
+                </a>
               ))}
             </div>
           </div>
 
+          {/* Stats */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {[
+              { number: '18+', label: '記事数', icon: '📄' },
+              { number: '11', label: 'カテゴリ', icon: '🏷️' },
+              { number: '∞', label: '愛する理由', icon: '❤️' },
+            ].map((stat) => (
+              <div key={stat.label} className="text-center p-6 rounded-xl bg-gradient-to-br from-slate-100 to-slate-50 dark:from-slate-800 dark:to-slate-900">
+                <div className="text-3xl mb-2">{stat.icon}</div>
+                <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">{stat.number}</div>
+                <div className="text-sm text-slate-600 dark:text-slate-400 mt-2">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+
           {/* Contact */}
-          <div className="p-8 rounded-2xl bg-gradient-to-br from-blue-50 to-slate-50 dark:from-slate-800 dark:to-slate-900 border border-slate-200 dark:border-slate-700">
-            <h2 className="text-2xl font-bold mb-3">お問い合わせ</h2>
-            <p className="text-slate-600 dark:text-slate-400">
-              ご質問・ご意見・コラボレーションのご相談は、サイトのフッターよりお気軽にご連絡ください。
-            </p>
+          <div className="p-8 rounded-2xl bg-gradient-to-br from-purple-500/10 via-blue-500/10 to-cyan-500/10 dark:from-purple-500/20 dark:via-blue-500/20 dark:to-cyan-500/20 border border-blue-200/50 dark:border-blue-800/50">
+            <div className="flex items-start gap-4">
+              <div className="text-4xl">💬</div>
+              <div>
+                <h2 className="text-2xl font-bold mb-3">お問い合わせ</h2>
+                <p className="text-slate-700 dark:text-slate-300 mb-4">
+                  ご質問・ご意見・コラボレーションのご相談は、サイトのフッターよりお気軽にご連絡ください。
+                  Apple製品についてのご質問や、記事リクエストもお待ちしています！
+                </p>
+                <a
+                  href="/contact"
+                  className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg transition-colors duration-200"
+                >
+                  お問い合わせフォーム →
+                </a>
+              </div>
+            </div>
           </div>
 
         </div>

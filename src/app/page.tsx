@@ -88,29 +88,51 @@ export default function Home() {
       </section>
 
       {/* Categories Section */}
-      <section className="bg-slate-50 dark:bg-slate-900 py-16 sm:py-24">
+      <section className="py-16 sm:py-24">
         <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-12">カテゴリ</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div className="mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">探索する</h2>
+            <p className="text-lg text-slate-600 dark:text-slate-400">
+              すべてのApple製品カテゴリから記事を探す
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { name: 'Mac', icon: '🖥', slug: 'mac' },
-              { name: 'iPad', icon: '📱', slug: 'ipad' },
-              { name: 'iPhone', icon: '📲', slug: 'iphone' },
-              { name: 'Apple Watch', icon: '⌚', slug: 'watch' },
-              { name: 'AirPods', icon: '🎧', slug: 'audio' },
-              { name: 'Vision Pro', icon: '🥽', slug: 'spatial' },
-              { name: 'Software', icon: '🧠', slug: 'software' },
-              { name: 'Ecosystem', icon: '🍎', slug: 'ecosystem' },
+              { name: 'Mac', icon: '💻', description: 'MacBook、Mac Studio、Mac miniのレビュー', color: 'from-slate-400/20 to-slate-600/20', slug: 'mac' },
+              { name: 'iPhone', icon: '📱', description: 'iPhone 17シリーズの詳細レビュー', color: 'from-blue-400/20 to-blue-600/20', slug: 'iphone' },
+              { name: 'iPad', icon: '🖥️', description: 'iPad Pro、iPad Airの活用法', color: 'from-purple-400/20 to-purple-600/20', slug: 'ipad' },
+              { name: 'Wearables', icon: '⌚', description: 'Apple Watch、AirPodsの最新情報', color: 'from-green-400/20 to-green-600/20', slug: 'wearables' },
+              { name: 'Vision Pro', icon: '🥽', description: '空間コンピューティングの体験', color: 'from-orange-400/20 to-red-400/20', slug: 'vision-pro' },
+              { name: 'Software', icon: '🧠', description: 'iOS・macOSの新機能と使い方', color: 'from-cyan-400/20 to-blue-400/20', slug: 'software' },
             ].map((category) => (
               <a
                 key={category.slug}
                 href={`/category/${category.slug}`}
-                className="flex items-center gap-3 p-4 rounded-lg bg-white dark:bg-slate-800 hover:shadow-lg hover:border-blue-200 dark:hover:border-blue-800 border border-slate-200 dark:border-slate-700 transition-all duration-200"
+                className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${category.color} border border-white/20 p-6 hover:scale-[1.02] transition-all duration-300 hover:shadow-lg backdrop-blur-sm`}
               >
-                <span className="text-3xl">{category.icon}</span>
-                <span className="font-semibold">{category.name}</span>
+                <div className="text-4xl mb-3">{category.icon}</div>
+                <h3 className="text-xl font-bold mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                  {category.name}
+                </h3>
+                <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2">
+                  {category.description}
+                </p>
               </a>
             ))}
+          </div>
+
+          <div className="mt-12 p-8 rounded-2xl bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 border border-blue-100 dark:border-blue-800">
+            <h3 className="text-xl font-bold mb-2">すべてのカテゴリを表示</h3>
+            <p className="text-slate-700 dark:text-slate-300 mb-4">
+              Appleエコシステム、セキュリティ、歴史など、さらに詳しくお探しですか？
+            </p>
+            <a
+              href="/categories"
+              className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg transition-colors duration-200"
+            >
+              全カテゴリを見る →
+            </a>
           </div>
         </div>
       </section>
