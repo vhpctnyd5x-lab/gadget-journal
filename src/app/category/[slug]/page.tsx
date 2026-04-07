@@ -48,9 +48,19 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   }
 
   const categoryName = slugToCategory(slug);
-  const articles = allArticles.filter((a) => categoryToSlug(a.category) === slug);
+
+  // Debug: Log actual categories
+  const actualCategories = Array.from(new Set(allArticles.map((a) => a.category)));
+
+  const articles = allArticles.filter((a) => {
+    // Case-insensitive comparison
+    return categoryToSlug(a.category) === slug.toLowerCase();
+  });
 
   if (articles.length === 0) {
+    // Debug log
+    console.log(`No articles found for category slug: ${slug}`);
+    console.log(`Available categories: ${actualCategories.map(c => categoryToSlug(c)).join(', ')}`);
     notFound();
   }
 
