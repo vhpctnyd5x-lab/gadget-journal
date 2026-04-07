@@ -99,17 +99,17 @@ export default function Home() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { name: 'Mac', icon: '💻', description: 'MacBook、Mac Studio、Mac miniのレビュー', color: 'from-slate-400/20 to-slate-600/20', slug: 'mac' },
-              { name: 'iPhone', icon: '📱', description: 'iPhone 17シリーズの詳細レビュー', color: 'from-blue-400/20 to-blue-600/20', slug: 'iphone' },
-              { name: 'iPad', icon: '🖥️', description: 'iPad Pro、iPad Airの活用法', color: 'from-purple-400/20 to-purple-600/20', slug: 'ipad' },
-              { name: 'Wearables', icon: '⌚', description: 'Apple Watch、AirPodsの最新情報', color: 'from-green-400/20 to-green-600/20', slug: 'wearables' },
-              { name: 'Vision Pro', icon: '🥽', description: '空間コンピューティングの体験', color: 'from-orange-400/20 to-red-400/20', slug: 'vision-pro' },
-              { name: 'Software', icon: '🧠', description: 'iOS・macOSの新機能と使い方', color: 'from-cyan-400/20 to-blue-400/20', slug: 'software' },
+              { name: 'Mac', icon: '💻', description: 'MacBook、Mac Studio、Mac miniのレビュー', color: 'bg-gradient-to-br from-slate-400/20 to-slate-600/20', slug: 'mac' },
+              { name: 'iPhone', icon: '📱', description: 'iPhone 17シリーズの詳細レビュー', color: 'bg-gradient-to-br from-blue-400/20 to-blue-600/20', slug: 'iphone' },
+              { name: 'iPad', icon: '🖥️', description: 'iPad Pro、iPad Airの活用法', color: 'bg-gradient-to-br from-purple-400/20 to-purple-600/20', slug: 'ipad' },
+              { name: 'Wearables', icon: '⌚', description: 'Apple Watch、AirPodsの最新情報', color: 'bg-gradient-to-br from-green-400/20 to-green-600/20', slug: 'wearables' },
+              { name: 'Vision Pro', icon: '🥽', description: '空間コンピューティングの体験', color: 'bg-gradient-to-br from-orange-400/20 to-red-400/20', slug: 'vision-pro' },
+              { name: 'Software', icon: '🧠', description: 'iOS・macOSの新機能と使い方', color: 'bg-gradient-to-br from-cyan-400/20 to-blue-400/20', slug: 'software' },
             ].map((category) => (
               <a
                 key={category.slug}
                 href={`/category/${category.slug}`}
-                className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${category.color} border border-white/20 p-6 hover:scale-[1.02] transition-all duration-300 hover:shadow-lg backdrop-blur-sm`}
+                className={`group relative overflow-hidden rounded-2xl ${category.color} border border-white/20 p-6 hover:scale-[1.02] transition-all duration-300 hover:shadow-lg backdrop-blur-sm`}
               >
                 <div className="text-4xl mb-3">{category.icon}</div>
                 <h3 className="text-xl font-bold mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">

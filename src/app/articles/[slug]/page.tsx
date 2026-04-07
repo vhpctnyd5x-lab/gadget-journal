@@ -70,6 +70,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             <img
               src={article.image}
               alt={article.title}
+              loading="lazy"
               className="w-full rounded-2xl shadow-lg"
             />
           </div>
