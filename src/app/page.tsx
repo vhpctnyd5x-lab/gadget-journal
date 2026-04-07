@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { GlassHero, ArticleGlassCard } from '@/components';
 
 const featuredArticles = [
@@ -106,7 +107,7 @@ export default function Home() {
               { name: 'Vision Pro', icon: '🥽', description: '空間コンピューティングの体験', color: 'bg-gradient-to-br from-orange-400/20 to-red-400/20', slug: 'vision-pro' },
               { name: 'Software', icon: '🧠', description: 'iOS・macOSの新機能と使い方', color: 'bg-gradient-to-br from-cyan-400/20 to-blue-400/20', slug: 'software' },
             ].map((category) => (
-              <a
+              <Link
                 key={category.slug}
                 href={`/category/${category.slug}`}
                 className={`group relative overflow-hidden rounded-2xl ${category.color} border border-white/20 p-6 hover:scale-[1.02] transition-all duration-300 hover:shadow-lg backdrop-blur-sm`}
@@ -118,7 +119,7 @@ export default function Home() {
                 <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2">
                   {category.description}
                 </p>
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -127,12 +128,12 @@ export default function Home() {
             <p className="text-slate-700 dark:text-slate-300 mb-4">
               Appleエコシステム、セキュリティ、歴史など、さらに詳しくお探しですか？
             </p>
-            <a
+            <Link
               href="/categories"
               className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg transition-colors duration-200"
             >
               全カテゴリを見る →
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -146,12 +147,12 @@ export default function Home() {
           <p className="text-lg mb-8 opacity-90">
             70以上のApple製品レビュー、ガイド、深掘り解説。あなたのAppleライフを充実させる情報が満載です。
           </p>
-          <a
+          <Link
             href="/articles"
             className="inline-block bg-white text-blue-600 font-semibold px-8 py-3 rounded-lg hover:bg-slate-100 transition-colors duration-200"
           >
             記事一覧を見る →
-          </a>
+          </Link>
         </div>
       </section>
     </>

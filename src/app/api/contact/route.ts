@@ -7,6 +7,7 @@ const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT_REQUESTS = 5; // Max 5 requests
 const RATE_LIMIT_WINDOW = 3600000; // per hour
 const MAX_CONTENT_LENGTH = 5000; // Max message length
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const RECIPIENT_EMAILS = [
   'akito.miura@icloud.com',
   'miura.13.ryoudai@gmail.com',

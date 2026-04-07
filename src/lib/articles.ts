@@ -52,7 +52,7 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
       ...(data as ArticleMeta),
       content: mdxContent,
     };
-  } catch (error) {
+  } catch {
     return null;
   }
 }

@@ -48,7 +48,7 @@ export default function ContactPage() {
 
       // Reset success message after 5 seconds
       setTimeout(() => setStatus('idle'), 5000);
-    } catch (error) {
+    } catch {
       setStatus('error');
       setErrorMessage('ネットワークエラーが発生しました');
     } finally {

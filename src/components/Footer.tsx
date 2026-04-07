@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -22,9 +23,9 @@ export const Footer: React.FC = () => {
           <div>
             <h4 className="font-semibold mb-4">ナビゲーション</h4>
             <ul className="space-y-2 text-slate-400 text-sm">
-              <li><a href="/articles" className="hover:text-white transition-colors">記事一覧</a></li>
-              <li><a href="/categories" className="hover:text-white transition-colors">カテゴリ</a></li>
-              <li><a href="/about" className="hover:text-white transition-colors">About</a></li>
+              <li><Link href="/articles" className="hover:text-white transition-colors">記事一覧</Link></li>
+              <li><Link href="/categories" className="hover:text-white transition-colors">カテゴリ</Link></li>
+              <li><Link href="/about" className="hover:text-white transition-colors">About</Link></li>
             </ul>
           </div>
 
@@ -32,10 +33,10 @@ export const Footer: React.FC = () => {
           <div>
             <h4 className="font-semibold mb-4">カテゴリ</h4>
             <ul className="space-y-2 text-slate-400 text-sm">
-              <li><a href="/category/mac" className="hover:text-white transition-colors">Mac</a></li>
-              <li><a href="/category/ipad" className="hover:text-white transition-colors">iPad</a></li>
-              <li><a href="/category/iphone" className="hover:text-white transition-colors">iPhone</a></li>
-              <li><a href="/category/wearables" className="hover:text-white transition-colors">Wearables</a></li>
+              <li><Link href="/category/mac" className="hover:text-white transition-colors">Mac</Link></li>
+              <li><Link href="/category/ipad" className="hover:text-white transition-colors">iPad</Link></li>
+              <li><Link href="/category/iphone" className="hover:text-white transition-colors">iPhone</Link></li>
+              <li><Link href="/category/wearables" className="hover:text-white transition-colors">Wearables</Link></li>
             </ul>
           </div>
 
@@ -43,9 +44,9 @@ export const Footer: React.FC = () => {
           <div>
             <h4 className="font-semibold mb-4">法律</h4>
             <ul className="space-y-2 text-slate-400 text-sm">
-              <li><a href="/privacy" className="hover:text-white transition-colors">プライバシーポリシー</a></li>
-              <li><a href="/terms" className="hover:text-white transition-colors">利用規約</a></li>
-              <li><a href="/contact" className="hover:text-white transition-colors">お問い合わせ</a></li>
+              <li><Link href="/privacy" className="hover:text-white transition-colors">プライバシーポリシー</Link></li>
+              <li><Link href="/terms" className="hover:text-white transition-colors">利用規約</Link></li>
+              <li><Link href="/contact" className="hover:text-white transition-colors">お問い合わせ</Link></li>
             </ul>
           </div>
         </div>
@@ -56,9 +57,9 @@ export const Footer: React.FC = () => {
             &copy; {currentYear} Gadget Journal. All rights reserved.
           </p>
           <div className="flex gap-6">
-            <a href="/feed.xml" className="text-slate-400 hover:text-white transition-colors">
+            <Link href="/feed.xml" className="text-slate-400 hover:text-white transition-colors">
               RSS
-            </a>
+            </Link>
           </div>
         </div>
       </div>
