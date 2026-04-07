@@ -104,8 +104,8 @@ export default function Home() {
               { name: 'iPhone', icon: '📱', description: 'iPhone 17シリーズの詳細レビュー', color: 'bg-gradient-to-br from-blue-400/20 to-blue-600/20', slug: 'iphone' },
               { name: 'iPad', icon: '🖥️', description: 'iPad Pro、iPad Airの活用法', color: 'bg-gradient-to-br from-purple-400/20 to-purple-600/20', slug: 'ipad' },
               { name: 'Wearables', icon: '⌚', description: 'Apple Watch、AirPodsの最新情報', color: 'bg-gradient-to-br from-green-400/20 to-green-600/20', slug: 'wearables' },
-              { name: 'Vision Pro', icon: '🥽', description: '空間コンピューティングの体験', color: 'bg-gradient-to-br from-orange-400/20 to-red-400/20', slug: 'vision-pro' },
               { name: 'Software', icon: '🧠', description: 'iOS・macOSの新機能と使い方', color: 'bg-gradient-to-br from-cyan-400/20 to-blue-400/20', slug: 'software' },
+              { name: 'Spatial', icon: '🥽', description: '空間コンピューティングの体験', color: 'bg-gradient-to-br from-orange-400/20 to-red-400/20', slug: 'spatial' },
             ].map((category) => (
               <Link
                 key={category.slug}

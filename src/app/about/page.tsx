@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'About | Gadget Journal',
@@ -45,24 +46,24 @@ export default function AboutPage() {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {[
-                { icon: '💻', title: 'Mac', desc: 'MacBook Air/Pro、Mac Studio、Mac mini', classNames: 'bg-gradient-to-br from-slate-100 dark:from-slate-800 to-white/50 dark:to-slate-900/50 border border-slate-200/50 dark:border-slate-800/50 hover:border-slate-300 dark:hover:border-slate-700' },
-                { icon: '📱', title: 'iPhone', desc: 'iPhone 17シリーズ、Apple Intelligence', classNames: 'bg-gradient-to-br from-blue-100 dark:from-blue-900/50 to-white/50 dark:to-slate-900/50 border border-blue-200/50 dark:border-blue-800/50 hover:border-blue-300 dark:hover:border-blue-700' },
-                { icon: '🖥️', title: 'iPad', desc: 'iPad Pro、iPad Air、iPadOS', classNames: 'bg-gradient-to-br from-purple-100 dark:from-purple-900/50 to-white/50 dark:to-slate-900/50 border border-purple-200/50 dark:border-purple-800/50 hover:border-purple-300 dark:hover:border-purple-700' },
-                { icon: '⌚', title: 'Wearables', desc: 'Apple Watch Ultra、AirPods Pro', classNames: 'bg-gradient-to-br from-green-100 dark:from-green-900/50 to-white/50 dark:to-slate-900/50 border border-green-200/50 dark:border-green-800/50 hover:border-green-300 dark:hover:border-green-700' },
-                { icon: '🥽', title: 'Vision Pro', desc: '空間コンピューティングの未来', classNames: 'bg-gradient-to-br from-pink-100 dark:from-pink-900/50 to-white/50 dark:to-slate-900/50 border border-pink-200/50 dark:border-pink-800/50 hover:border-pink-300 dark:hover:border-pink-700' },
-                { icon: '🧠', title: 'AI・Software', desc: 'iOS・macOS・Apple Intelligenceの最新機能', classNames: 'bg-gradient-to-br from-cyan-100 dark:from-cyan-900/50 to-white/50 dark:to-slate-900/50 border border-cyan-200/50 dark:border-cyan-800/50 hover:border-cyan-300 dark:hover:border-cyan-700' },
+                { icon: '💻', title: 'Mac', slug: 'mac', desc: 'MacBook Air/Pro、Mac Studio、Mac mini', classNames: 'bg-gradient-to-br from-slate-100 dark:from-slate-800 to-white/50 dark:to-slate-900/50 border border-slate-200/50 dark:border-slate-800/50 hover:border-slate-300 dark:hover:border-slate-700' },
+                { icon: '📱', title: 'iPhone', slug: 'iphone', desc: 'iPhone 17シリーズ、Apple Intelligence', classNames: 'bg-gradient-to-br from-blue-100 dark:from-blue-900/50 to-white/50 dark:to-slate-900/50 border border-blue-200/50 dark:border-blue-800/50 hover:border-blue-300 dark:hover:border-blue-700' },
+                { icon: '🖥️', title: 'iPad', slug: 'ipad', desc: 'iPad Pro、iPad Air、iPadOS', classNames: 'bg-gradient-to-br from-purple-100 dark:from-purple-900/50 to-white/50 dark:to-slate-900/50 border border-purple-200/50 dark:border-purple-800/50 hover:border-purple-300 dark:hover:border-purple-700' },
+                { icon: '⌚', title: 'Wearables', slug: 'wearables', desc: 'Apple Watch Ultra、AirPods Pro', classNames: 'bg-gradient-to-br from-green-100 dark:from-green-900/50 to-white/50 dark:to-slate-900/50 border border-green-200/50 dark:border-green-800/50 hover:border-green-300 dark:hover:border-green-700' },
+                { icon: '🥽', title: 'Spatial', slug: 'spatial', desc: '空間コンピューティングの未来', classNames: 'bg-gradient-to-br from-pink-100 dark:from-pink-900/50 to-white/50 dark:to-slate-900/50 border border-pink-200/50 dark:border-pink-800/50 hover:border-pink-300 dark:hover:border-pink-700' },
+                { icon: '🧠', title: 'Software', slug: 'software', desc: 'iOS・macOS・Apple Intelligenceの最新機能', classNames: 'bg-gradient-to-br from-cyan-100 dark:from-cyan-900/50 to-white/50 dark:to-slate-900/50 border border-cyan-200/50 dark:border-cyan-800/50 hover:border-cyan-300 dark:hover:border-cyan-700' },
               ].map((item) => (
-                <a
+                <Link
                   key={item.title}
-                  href={`/category/${item.title.toLowerCase()}`}
-                  className={`group flex items-start gap-4 p-6 rounded-xl ${item.classNames} hover:shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer`}
+                  href={`/category/${item.slug}`}
+                  className={`group flex items-start gap-4 p-6 rounded-xl ${item.classNames} hover:shadow-lg transition-all duration-300 transform hover:scale-105`}
                 >
                   <div className="text-3xl flex-shrink-0">{item.icon}</div>
                   <div className="flex-grow">
                     <div className="font-bold text-lg group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{item.title}</div>
                     <div className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{item.desc}</div>
                   </div>
-                </a>
+                </Link>
               ))}
             </div>
           </div>
@@ -92,12 +93,12 @@ export default function AboutPage() {
                   ご質問・ご意見・コラボレーションのご相談は、サイトのフッターよりお気軽にご連絡ください。
                   Apple製品についてのご質問や、記事リクエストもお待ちしています！
                 </p>
-                <a
+                <Link
                   href="/contact"
                   className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg transition-colors duration-200"
                 >
                   お問い合わせフォーム →
-                </a>
+                </Link>
               </div>
             </div>
           </div>
