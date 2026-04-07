@@ -39,23 +39,35 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
-  const allArticles = await getArticles();
-  const resolvedParams = await params;
-  const slug = resolvedParams?.slug;
+  try {
+    const allArticles = await getArticles();
+    const resolvedParams = await params;
+    const slug = resolvedParams?.slug;
 
-  if (!slug) {
-    return notFound();
-  }
+    if (!slug) {
+      return notFound();
+    }
 
-  const categoryName = slugToCategory(slug);
-  const articles = allArticles.filter((a) => {
-    const articleSlug = categoryToSlug(a.category);
-    return articleSlug === slug;
-  });
+    const categoryName = slugToCategory(slug);
+    const articles = allArticles.filter((a) => {
+      const articleSlug = categoryToSlug(a.category);
+      return articleSlug === slug;
+    });
 
-  if (articles.length === 0) {
-    return notFound();
-  }
+    if (articles.length === 0) {
+      // ページ自体を表示（notFound()は使わない）
+      return (
+        <div className="max-w-6xl mx-auto px-6 py-16 text-center">
+          <h1 className="text-4xl font-bold mb-4">カテゴリが見つかりません</h1>
+          <p className="text-slate-600 dark:text-slate-400 mb-8">
+            「{categoryName}」カテゴリの記事はまだありません
+          </p>
+          <Link href="/categories" className="text-blue-600 hover:underline">
+            カテゴリ一覧に戻る
+          </Link>
+        </div>
+      );
+    }
 
   return (
     <>
@@ -87,5 +99,19 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
         </div>
       </section>
     </>
-  );
+    );
+  } catch (error) {
+    console.error('Category page error:', error);
+    return (
+      <div className="max-w-6xl mx-auto px-6 py-16 text-center">
+        <h1 className="text-4xl font-bold mb-4">エラーが発生しました</h1>
+        <p className="text-slate-600 dark:text-slate-400 mb-8">
+          ページの読み込みに失敗しました。しばらく経ってからもう一度お試しください。
+        </p>
+        <Link href="/" className="text-blue-600 hover:underline">
+          ホームに戻る
+        </Link>
+      </div>
+    );
+  }
 }
