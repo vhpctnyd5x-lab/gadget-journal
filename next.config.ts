@@ -85,9 +85,6 @@ const nextConfig: NextConfig = {
       // Reviews / Other
       { source: '/review.html', destination: '/articles', permanent: true },
       { source: '/apple-pencil-pro-tips.html', destination: '/articles/ipad-pro-m5', permanent: true },
-
-      // Category pages
-      { source: '/category/:slug', destination: '/category/:slug', permanent: false },
     ];
   },
 };
