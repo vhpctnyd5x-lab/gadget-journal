@@ -49,10 +49,13 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
 
   const categoryName = slugToCategory(slug);
   const articles = allArticles.filter((a) => {
-    return categoryToSlug(a.category) === slug;
+    const articleSlug = categoryToSlug(a.category);
+    return articleSlug === slug;
   });
 
   if (articles.length === 0) {
+    console.error(`No articles found for category slug: ${slug}`);
+    console.error(`Available categories:`, Array.from(new Set(allArticles.map(a => a.category))).map(c => categoryToSlug(c)));
     return notFound();
   }
 
