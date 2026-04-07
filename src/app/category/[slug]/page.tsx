@@ -54,8 +54,6 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   });
 
   if (articles.length === 0) {
-    console.error(`No articles found for category slug: ${slug}`);
-    console.error(`Available categories:`, Array.from(new Set(allArticles.map(a => a.category))).map(c => categoryToSlug(c)));
     return notFound();
   }
 
@@ -64,8 +62,8 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
       {/* Header */}
       <section className="bg-gradient-to-br from-blue-50 to-slate-50 dark:from-slate-900 dark:to-slate-950 py-16">
         <div className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12">
-          <Link href="/articles" className="text-blue-600 dark:text-blue-400 hover:underline mb-4 inline-block">
-            ← 全記事に戻る
+          <Link href="/categories" className="text-blue-600 dark:text-blue-400 hover:underline mb-4 inline-block">
+            ← カテゴリに戻る
           </Link>
           <h1 className="text-4xl sm:text-5xl font-bold mb-4">{categoryName}</h1>
           <p className="text-xl text-slate-600 dark:text-slate-400">{articles.length}件の記事</p>
