@@ -51,12 +51,12 @@ export default function AboutPage() {
                 { icon: '🖥️', title: 'iPad', slug: 'ipad', desc: 'iPad Pro、iPad Air、iPadOS', classNames: 'bg-gradient-to-br from-purple-100 dark:from-purple-900/50 to-white/50 dark:to-slate-900/50 border border-purple-200/50 dark:border-purple-800/50 hover:border-purple-300 dark:hover:border-purple-700' },
                 { icon: '⌚', title: 'Wearables', slug: 'wearables', desc: 'Apple Watch Ultra、AirPods Pro', classNames: 'bg-gradient-to-br from-green-100 dark:from-green-900/50 to-white/50 dark:to-slate-900/50 border border-green-200/50 dark:border-green-800/50 hover:border-green-300 dark:hover:border-green-700' },
                 { icon: '🥽', title: 'Spatial', slug: 'spatial', desc: '空間コンピューティングの未来', classNames: 'bg-gradient-to-br from-pink-100 dark:from-pink-900/50 to-white/50 dark:to-slate-900/50 border border-pink-200/50 dark:border-pink-800/50 hover:border-pink-300 dark:hover:border-pink-700' },
-                { icon: '🧠', title: 'Software', slug: 'software', desc: 'iOS・macOS・Apple Intelligenceの最新機能', classNames: 'bg-gradient-to-br from-cyan-100 dark:from-cyan-900/50 to-white/50 dark:to-slate-900/50 border border-cyan-200/50 dark:border-cyan-800/50 hover:border-cyan-300 dark:hover:border-cyan-700' },
+                { icon: '💾', title: 'Software', slug: 'software', desc: 'iOS・macOS・Apple Intelligenceの最新機能', classNames: 'bg-gradient-to-br from-cyan-100 dark:from-cyan-900/50 to-white/50 dark:to-slate-900/50 border border-cyan-200/50 dark:border-cyan-800/50 hover:border-cyan-300 dark:hover:border-cyan-700' },
               ].map((item) => (
                 <Link
                   key={item.title}
                   href={`/category/${item.slug}`}
-                  className={`group flex items-start gap-4 p-6 rounded-xl ${item.classNames} hover:shadow-lg transition-all duration-300 transform hover:scale-105`}
+                  className={`group flex items-start gap-4 p-6 rounded-xl ${item.classNames} hover:shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer`}
                 >
                   <div className="text-3xl flex-shrink-0">{item.icon}</div>
                   <div className="flex-grow">
