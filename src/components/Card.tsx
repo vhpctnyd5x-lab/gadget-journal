@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 interface CardProps {
   children: React.ReactNode;
@@ -38,7 +39,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
   href,
 }) => {
   return (
-    <a href={href}>
+    <Link href={href}>
       <Card hoverable className="overflow-hidden h-full flex flex-col">
         {image && (
           <div className="w-full h-48 bg-slate-200 dark:bg-slate-800 overflow-hidden">
@@ -60,6 +61,6 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
           <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 flex-grow">{description}</p>
         </div>
       </Card>
-    </a>
+    </Link>
   );
 };

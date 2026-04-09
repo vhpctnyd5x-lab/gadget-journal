@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 interface GlassCardProps {
   children: React.ReactNode;
@@ -49,7 +50,7 @@ export const ArticleGlassCard: React.FC<ArticleGlassCardProps> = ({
   date,
 }) => {
   return (
-    <a href={href}>
+    <Link href={href}>
       <GlassCard hoverable className="h-full flex flex-col overflow-hidden group">
         {image && (
           <div className="relative w-full h-48 overflow-hidden bg-gradient-to-br from-blue-400/20 to-purple-400/20">
@@ -85,7 +86,7 @@ export const ArticleGlassCard: React.FC<ArticleGlassCardProps> = ({
           </p>
         </div>
       </GlassCard>
-    </a>
+    </Link>
   );
 };
 
@@ -130,12 +131,12 @@ export const GlassHero: React.FC<GlassHeroProps> = ({
           </p>
         )}
         {cta && (
-          <a
+          <Link
             href={cta.href}
             className="inline-block bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-semibold px-8 py-4 rounded-full transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
           >
             {cta.text} →
-          </a>
+          </Link>
         )}
       </div>
     </div>

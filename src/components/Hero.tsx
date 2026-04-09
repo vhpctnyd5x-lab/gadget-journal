@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 interface HeroProps {
   title: string;
@@ -31,12 +32,12 @@ export const Hero: React.FC<HeroProps> = ({ title, subtitle, image, cta }) => {
           </p>
         )}
         {cta && (
-          <a
+          <Link
             href={cta.href}
             className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-lg transition-colors duration-200"
           >
             {cta.text}
-          </a>
+          </Link>
         )}
       </div>
     </div>

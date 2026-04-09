@@ -71,8 +71,8 @@ export default function AboutPage() {
           {/* Stats */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {[
-              { number: '24+', label: '記事数', icon: '📄' },
-              { number: '11', label: 'カテゴリ', icon: '🏷️' },
+              { number: '41+', label: '記事数', icon: '📄' },
+              { number: '10', label: 'カテゴリ', icon: '🏷️' },
               { number: '∞', label: '愛する理由', icon: '❤️' },
             ].map((stat) => (
               <div key={stat.label} className="text-center p-6 rounded-xl bg-gradient-to-br from-slate-100 to-slate-50 dark:from-slate-800 dark:to-slate-900">
