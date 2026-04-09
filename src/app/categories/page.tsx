@@ -12,13 +12,12 @@ const CATEGORY_META: Record<string, { icon: string; description: string; color: 
   iPhone: { icon: '📱', description: 'iPhone 17シリーズの詳細レビューとガイド', color: 'from-blue-400/20 to-blue-600/20' },
   iPad: { icon: '🖥️', description: 'iPad Pro、iPad Airの活用法とレビュー', color: 'from-purple-400/20 to-purple-600/20' },
   Wearables: { icon: '⌚', description: 'Apple Watch、AirPodsの最新情報', color: 'from-green-400/20 to-green-600/20' },
-  'Vision Pro': { icon: '🥽', description: 'Apple Vision Proの可能性と体験レポート', color: 'from-orange-400/20 to-red-400/20' },
-  iOS: { icon: '📲', description: 'iOS・iPadOSの新機能と使い方', color: 'from-cyan-400/20 to-blue-400/20' },
-  macOS: { icon: '🖱️', description: 'macOSの新機能と便利な使い方', color: 'from-indigo-400/20 to-purple-400/20' },
+  Spatial: { icon: '🥽', description: '空間コンピューティングの可能性と体験', color: 'from-orange-400/20 to-red-400/20' },
+  Software: { icon: '💾', description: 'iOS・macOS・Apple Intelligenceの新機能', color: 'from-cyan-400/20 to-blue-400/20' },
+  Audio: { icon: '🔊', description: 'AirPods、HomePodなどのオーディオ製品', color: 'from-rose-400/20 to-pink-400/20' },
   Ecosystem: { icon: '🌐', description: 'Appleエコシステムの活用と連携', color: 'from-teal-400/20 to-green-400/20' },
   Security: { icon: '🔒', description: 'Appleのセキュリティとプライバシー機能', color: 'from-red-400/20 to-rose-400/20' },
   History: { icon: '📖', description: 'Appleの歴史と革新の軌跡', color: 'from-amber-400/20 to-orange-400/20' },
-  'Apple Intelligence': { icon: '🤖', description: 'Apple AIの最新動向と活用法', color: 'from-violet-400/20 to-purple-400/20' },
 };
 
 function categoryToSlug(category: string): string {
