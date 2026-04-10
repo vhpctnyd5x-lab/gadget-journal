@@ -7,6 +7,10 @@ export const metadata: Metadata = {
   description: "iPhone、Mac、iPad、Apple Watch。Apple製品の革新を深掘りするレビューサイト。最新情報から実用的なガイドまで、あなたのAppleライフを充実させます。",
   keywords: "Apple, iPhone, Mac, iPad, Apple Watch, Review, ガジェット",
   metadataBase: new URL("https://gadget-journal.vercel.app"),
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/favicon.png",
+  },
   openGraph: {
     type: "website",
     locale: "ja_JP",
