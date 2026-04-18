@@ -17,7 +17,7 @@ export const Hero: React.FC<HeroProps> = ({ title, subtitle, image, cta }) => {
       }} />
 
       {image && (
-        <div className="absolute inset-0 opacity-20">
+        <div className="absolute inset-0 opacity-20" aria-hidden="true">
           <img src={image} alt="" className="w-full h-full object-cover" />
         </div>
       )}
