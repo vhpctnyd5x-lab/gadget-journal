@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { Header, Footer } from "@/components";
 
@@ -33,6 +34,29 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja" className="h-full antialiased" suppressHydrationWarning>
+      <head>
+        {/* Google AdSense */}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2381870019821878"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+        {/* Google Analytics */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-H5S1Q8K2XY"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-H5S1Q8K2XY');
+          `}
+        </Script>
+      </head>
       <body className="min-h-full flex flex-col bg-white dark:bg-slate-950 text-slate-900 dark:text-white">
         <Header />
         <main className="flex-grow">{children}</main>

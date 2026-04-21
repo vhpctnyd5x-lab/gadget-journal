@@ -1,5 +1,5 @@
 import { getArticles } from '@/lib/articles';
-import { ArticleGlassCard } from '@/components';
+import { ArticleGlassCard, AdSenseArticle } from '@/components';
 
 export const metadata = {
   title: '記事一覧 | Gadget Journal',
@@ -23,12 +23,22 @@ export default async function ArticlesPage() {
         </div>
       </section>
 
+      {/* Ad Section */}
+      <section className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 py-8">
+        <AdSenseArticle />
+      </section>
+
       {/* Articles by Category */}
       <section className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 py-16">
-        {categories.map((category) => {
+        {categories.map((category, index) => {
           const categoryArticles = articles.filter((a) => a.category === category);
           return (
             <div key={category} className="mb-20">
+              {index > 0 && index % 2 === 0 && (
+                <div className="mb-16">
+                  <AdSenseArticle />
+                </div>
+              )}
               <h2 className="text-3xl font-bold mb-8">{category}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {categoryArticles.map((article) => (

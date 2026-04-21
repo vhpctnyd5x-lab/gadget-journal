@@ -1,5 +1,5 @@
 import { getArticles, getArticleBySlug, getRelatedArticles } from '@/lib/articles';
-import { ArticleGlassCard } from '@/components';
+import { ArticleGlassCard, AdSenseArticle, AdSenseInArticle } from '@/components';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
@@ -81,6 +81,10 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           <div className="prose dark:prose-invert max-w-none prose-lg prose-headings:font-bold prose-a:text-blue-600 dark:prose-a:text-blue-400">
             <MDXRemote source={article.content} />
           </div>
+          {/* In-article ad */}
+          <div className="mt-12">
+            <AdSenseInArticle />
+          </div>
         </div>
 
         {/* Tags */}
@@ -99,6 +103,11 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           </div>
         )}
       </article>
+
+      {/* Top of page ad */}
+      <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 py-8">
+        <AdSenseArticle />
+      </div>
 
       {/* Related Articles */}
       {relatedArticles.length > 0 && (
