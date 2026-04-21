@@ -11,11 +11,11 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://vercel.live",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://vercel.live https://pagead2.googlesyndication.com https://www.googletagmanager.com",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https:",
       "font-src 'self' data:",
-      "connect-src 'self' https://vercel.live https://vitals.vercel-insights.com",
+      "connect-src 'self' https://vercel.live https://vitals.vercel-insights.com https://pagead2.googlesyndication.com https://www.google-analytics.com",
       "frame-src 'self' https://vercel.live",
       "object-src 'none'",
       "base-uri 'self'",
