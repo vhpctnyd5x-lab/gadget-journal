@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     apple: "/favicon.png",
   },
   verification: {
-    google: "googledbb0557aed1880c4",
+    google: "odz0qzTnSWEHQT2tNaSIhQ7qmWBaFi3mqcLKYdoIgEk",
   },
   openGraph: {
     type: "website",
