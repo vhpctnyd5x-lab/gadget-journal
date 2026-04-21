@@ -12,6 +12,9 @@ export const metadata: Metadata = {
     icon: "/favicon.ico",
     apple: "/favicon.png",
   },
+  verification: {
+    google: "googledbb0557aed1880c4",
+  },
   openGraph: {
     type: "website",
     locale: "ja_JP",
