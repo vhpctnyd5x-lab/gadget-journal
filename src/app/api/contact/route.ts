@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT_REQUESTS = 5;
@@ -152,14 +152,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: '不審なコンテンツが含まれています' }, { status: 400 });
     }
 
-    const resendApiKey = process.env.RESEND_API_KEY;
-    if (!resendApiKey) {
-      console.error('RESEND_API_KEY is not set');
-      return NextResponse.json({ success: false, error: 'メール設定エラー' }, { status: 500 });
-    }
-
-    const resend = new Resend(resendApiKey);
-
     const safeName = escapeHtml(name);
     const safeEmail = escapeHtml(email);
     const safeSubject = subject ? escapeHtml(subject) : '（未入力）';
@@ -202,16 +194,32 @@ export async function POST(request: NextRequest) {
       </div>
     `;
 
-    const { error } = await resend.emails.send({
-      from: 'Gadget Journal <onboarding@resend.dev>',
-      to: RECIPIENT_EMAILS,
-      replyTo: email,
-      subject: emailSubject,
-      html: htmlBody,
+    const gmailUser = process.env.GMAIL_USER;
+    const gmailPass = process.env.GMAIL_APP_PASSWORD;
+
+    if (!gmailUser || !gmailPass) {
+      console.error('Gmail credentials are not set');
+      return NextResponse.json({ success: false, error: 'メール設定エラー' }, { status: 500 });
+    }
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: gmailUser,
+        pass: gmailPass,
+      },
     });
 
-    if (error) {
-      console.error('Resend error:', error);
+    try {
+      await transporter.sendMail({
+        from: `Gadget Journal <${gmailUser}>`,
+        to: RECIPIENT_EMAILS.join(', '),
+        replyTo: email,
+        subject: emailSubject,
+        html: htmlBody,
+      });
+    } catch (error) {
+      console.error('Email sending error:', error);
       return NextResponse.json(
         { success: false, error: 'メールの送信に失敗しました。しばらく後でお試しください。' },
         { status: 500, headers: rateLimitHeaders(rateLimit) }
