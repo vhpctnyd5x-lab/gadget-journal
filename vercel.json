@@ -1,9 +1,6 @@
 {
   "framework": "nextjs",
   "outputDirectory": ".next",
-  "allowlist": [
-    "gadget-journal.vercel.app"
-  ],
   "headers": [
     {
       "source": "/(.*)",
