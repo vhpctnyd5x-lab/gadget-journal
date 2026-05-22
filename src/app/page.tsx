@@ -1,5 +1,32 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { GlassHero, ArticleGlassCard } from '@/components';
+
+export const metadata: Metadata = {
+  title: 'Gadget Journal - Apple製品の深掘りレビューとガイド',
+  description: 'iPhone 17e、MacBook Air M5、iPad Pro、Apple Watch。最新Apple製品の詳細レビュー、比較、購入ガイド。実際の使用体験から選び方まで、あなたのAppleライフを充実させます。',
+  keywords: 'Apple, iPhone, Mac, iPad, Apple Watch, レビュー, 購入ガイド, ガジェット, 比較',
+  openGraph: {
+    title: 'Gadget Journal - Apple製品の深掘りレビュー',
+    description: '最新Apple製品の詳細レビューと購入ガイド',
+    url: 'https://gadget-journal.vercel.app',
+    type: 'website',
+    locale: 'ja_JP',
+    images: [
+      {
+        url: 'https://gadget-journal.vercel.app/favicon.png',
+        width: 1200,
+        height: 630,
+        alt: 'Gadget Journal',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Gadget Journal',
+    description: 'Apple製品の深掘りレビュー',
+  },
+};
 
 const featuredArticles = [
   {
@@ -52,9 +79,40 @@ const featuredArticles = [
   },
 ];
 
+function HomeStructuredData() {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Gadget Journal',
+    url: 'https://gadget-journal.vercel.app',
+    description: 'Apple製品の深掘りレビュー',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: 'https://gadget-journal.vercel.app/articles?q={search_term_string}',
+      },
+      'query-input': 'required name=search_term_string',
+    },
+  };
+
+  const json = JSON.stringify(schema)
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e')
+    .replace(/&/g, '\\u0026');
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: json }}
+    />
+  );
+}
+
 export default function Home() {
   return (
     <>
+      <HomeStructuredData />
       {/* Hero Section with Liquid Glass */}
       <GlassHero
         title="Apple製品の革新を深掘りする"

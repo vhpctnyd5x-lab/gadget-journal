@@ -6,11 +6,17 @@ import { Header, Footer } from "@/components";
 export const metadata: Metadata = {
   title: "Gadget Journal - Apple製品の深掘りレビュー",
   description: "iPhone、Mac、iPad、Apple Watch。Apple製品の革新を深掘りするレビューサイト。最新情報から実用的なガイドまで、あなたのAppleライフを充実させます。",
-  keywords: "Apple, iPhone, Mac, iPad, Apple Watch, Review, ガジェット",
+  keywords: "Apple, iPhone, Mac, iPad, Apple Watch, Review, ガジェット, レビュー, 比較",
   metadataBase: new URL("https://gadget-journal.vercel.app"),
+  alternates: {
+    canonical: "https://gadget-journal.vercel.app",
+  },
   icons: {
     icon: "/favicon.ico",
     apple: "/favicon.png",
+  },
+  verification: {
+    google: "odz0qzTnSWEHQT2tNaSIhQ7qmWBaFi3mqcLKYdoIgEk",
   },
   openGraph: {
     type: "website",
@@ -19,11 +25,23 @@ export const metadata: Metadata = {
     title: "Gadget Journal",
     description: "Apple製品の深掘りレビュー",
     siteName: "Gadget Journal",
+    images: [
+      {
+        url: "https://gadget-journal.vercel.app/favicon.png",
+        width: 1200,
+        height: 630,
+        alt: "Gadget Journal",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Gadget Journal",
     description: "Apple製品の深掘りレビュー",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
