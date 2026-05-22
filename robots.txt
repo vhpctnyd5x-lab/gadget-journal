@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://gadget-journal.vercel.app/sitemap.xml
