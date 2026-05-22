@@ -53,13 +53,20 @@ export default function RootLayout({
   return (
     <html lang="ja" className="h-full antialiased" suppressHydrationWarning>
       <head>
-        {/* Google AdSense */}
+        {/* Google AdSense - auto ads */}
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2381870019821878"
           crossOrigin="anonymous"
           strategy="afterInteractive"
+          data-overlays-format="bottom"
         />
+        <Script id="adsense-init" strategy="afterInteractive">
+          {`(adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-2381870019821878",
+            enable_page_level_ads: true
+          });`}
+        </Script>
         {/* Google Analytics */}
         <Script
           async
