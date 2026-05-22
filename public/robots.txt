@@ -1,3 +1,36 @@
+# Robots.txt for Gadget Journal
+# https://www.robotstxt.org/
+
 User-agent: *
 Allow: /
+Allow: /articles/
+Allow: /category/
+Allow: /about
+Allow: /contact
+
+# Disallow crawling of unnecessary pages
+Disallow: /api/
+Disallow: /_next/
+Disallow: /*.json$
+Disallow: /admin/
+
+# Sitemap location
 Sitemap: https://gadget-journal.vercel.app/sitemap.xml
+
+# Crawl delay for all bots (in seconds)
+Crawl-delay: 1
+
+# Google-specific rules
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Bingbot
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Yahoo
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1

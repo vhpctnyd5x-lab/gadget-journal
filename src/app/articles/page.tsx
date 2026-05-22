@@ -2,8 +2,17 @@ import { getArticles } from '@/lib/articles';
 import { ArticleGlassCard, AdSenseArticle } from '@/components';
 
 export const metadata = {
-  title: '記事一覧 | Gadget Journal',
-  description: 'Apple製品の最新レビュー、ガイド、深掘り解説。全記事一覧。',
+  title: '記事一覧 | Gadget Journal - Apple製品の最新レビュー',
+  description: 'iPhone、Mac、iPad、Apple Watch など全Apple製品の最新レビュー、購入ガイド、深掘り解説。実際の使用シーン別のおすすめ機種も紹介。',
+  keywords: 'Apple, iPhone, Mac, iPad, Apple Watch, レビュー, ガイド, ガジェット',
+  openGraph: {
+    title: '記事一覧 | Gadget Journal',
+    description: 'Apple製品の最新レビュー、ガイド、深掘り解説。全記事一覧。',
+    url: 'https://gadget-journal.vercel.app/articles',
+    type: 'website',
+  },
+  robots: 'index, follow',
+  canonical: 'https://gadget-journal.vercel.app/articles',
 };
 
 export default async function ArticlesPage() {

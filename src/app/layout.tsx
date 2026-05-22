@@ -6,8 +6,11 @@ import { Header, Footer } from "@/components";
 export const metadata: Metadata = {
   title: "Gadget Journal - Apple製品の深掘りレビュー",
   description: "iPhone、Mac、iPad、Apple Watch。Apple製品の革新を深掘りするレビューサイト。最新情報から実用的なガイドまで、あなたのAppleライフを充実させます。",
-  keywords: "Apple, iPhone, Mac, iPad, Apple Watch, Review, ガジェット",
+  keywords: "Apple, iPhone, Mac, iPad, Apple Watch, Review, ガジェット, レビュー, 比較",
   metadataBase: new URL("https://gadget-journal.vercel.app"),
+  alternates: {
+    canonical: "https://gadget-journal.vercel.app",
+  },
   icons: {
     icon: "/favicon.ico",
     apple: "/favicon.png",
@@ -22,11 +25,23 @@ export const metadata: Metadata = {
     title: "Gadget Journal",
     description: "Apple製品の深掘りレビュー",
     siteName: "Gadget Journal",
+    images: [
+      {
+        url: "https://gadget-journal.vercel.app/favicon.png",
+        width: 1200,
+        height: 630,
+        alt: "Gadget Journal",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Gadget Journal",
     description: "Apple製品の深掘りレビュー",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
@@ -38,13 +53,20 @@ export default function RootLayout({
   return (
     <html lang="ja" className="h-full antialiased" suppressHydrationWarning>
       <head>
-        {/* Google AdSense */}
+        {/* Google AdSense - auto ads */}
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2381870019821878"
           crossOrigin="anonymous"
           strategy="afterInteractive"
+          data-overlays-format="bottom"
         />
+        <Script id="adsense-init" strategy="afterInteractive">
+          {`(adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-2381870019821878",
+            enable_page_level_ads: true
+          });`}
+        </Script>
         {/* Google Analytics */}
         <Script
           async

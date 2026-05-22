@@ -20,14 +20,51 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     return { title: 'Article Not Found' };
   }
 
+  const url = `https://gadget-journal.vercel.app/articles/${slug}`;
+  const publishedDate = new Date(article.date).toISOString();
+
   return {
     title: `${article.title} | Gadget Journal`,
     description: article.description,
+    keywords: article.tags ? article.tags.join(', ') : 'Apple, ガジェット',
+    authors: [{ name: article.author }],
     openGraph: {
       title: article.title,
       description: article.description,
-      images: [{ url: article.image, width: 1200, height: 630, alt: article.title }],
+      url: url,
+      type: 'article',
+      publishedTime: publishedDate,
+      authors: [article.author],
+      images: [
+        {
+          url: article.image,
+          width: 1200,
+          height: 630,
+          alt: article.title,
+          type: 'image/jpeg',
+        },
+        {
+          url: article.image,
+          width: 800,
+          height: 600,
+          alt: article.title,
+        },
+        {
+          url: article.image,
+          width: 400,
+          height: 300,
+          alt: article.title,
+        },
+      ],
     },
+    twitter: {
+      card: 'summary_large_image',
+      title: article.title,
+      description: article.description,
+      images: [article.image],
+    },
+    robots: 'index, follow',
+    canonical: url,
   };
 }
 
