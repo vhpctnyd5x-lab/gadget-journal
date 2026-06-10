@@ -41,7 +41,11 @@ export async function getArticles(): Promise<Article[]> {
   return articles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
+// 記事slugとして許可する文字を固定し、パストラバーサル（../ 等）を防ぐ
+const VALID_SLUG = /^[a-z0-9-]+$/;
+
 export async function getArticleBySlug(slug: string): Promise<Article | null> {
+  if (!VALID_SLUG.test(slug)) return null;
   try {
     const filePath = path.join(articlesDir, `${slug}.mdx`);
     const content = await fs.readFile(filePath, 'utf-8');
