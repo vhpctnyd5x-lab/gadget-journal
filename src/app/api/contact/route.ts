@@ -6,10 +6,12 @@ const RATE_LIMIT_REQUESTS = 5;
 const RATE_LIMIT_WINDOW = 3600000;
 const MAX_CONTENT_LENGTH = 5000;
 
-const RECIPIENT_EMAILS = [
-  'akito.miura@icloud.com',
-  'miura.13.ryoudai@gmail.com',
-];
+// 受信先はソースに残さず環境変数で管理する（公開リポジトリでの個人情報露出を防ぐ）
+// 例: CONTACT_RECIPIENTS="foo@example.com,bar@example.com"
+const RECIPIENT_EMAILS = (process.env.CONTACT_RECIPIENTS ?? '')
+  .split(',')
+  .map((addr) => addr.trim())
+  .filter(Boolean);
 
 const ALLOWED_ORIGINS = [
   'https://gadget-journal.vercel.app',
@@ -92,8 +94,10 @@ function rateLimitHeaders(info: { resetTime: number; remaining: number }): Recor
 
 export async function POST(request: NextRequest) {
   try {
+    // Originヘッダは必須。同一サイトのfetchは必ず付与されるため、
+    // Originの無いリクエスト（curl/スクリプト等）はここで拒否する。
     const origin = request.headers.get('origin');
-    if (origin && !ALLOWED_ORIGINS.includes(origin)) {
+    if (!origin || !ALLOWED_ORIGINS.includes(origin)) {
       return NextResponse.json(
         { success: false, error: '不正なリクエストです' },
         { status: 403 }
@@ -128,6 +132,17 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { success: false, error: '不正なリクエスト形式です' },
         { status: 400 }
+      );
+    }
+
+    // ハニーポット: 画面に表示されない隠しフィールド。人間は空のまま、
+    // ボットは自動入力しがち。値が入っていればボットと判断し、成功を装って黙って破棄する
+    // （エラーを返すと回避学習されるため、200を返して送信はしない）。
+    const honeypot = typeof body.website === 'string' ? body.website : '';
+    if (honeypot.trim().length > 0) {
+      return NextResponse.json(
+        { success: true, message: 'メッセージを送信しました。3営業日以内にご返信いたします。' },
+        { status: 200, headers: rateLimitHeaders(rateLimit) }
       );
     }
 
@@ -197,8 +212,8 @@ export async function POST(request: NextRequest) {
     const gmailUser = process.env.GMAIL_USER;
     const gmailPass = process.env.GMAIL_APP_PASSWORD;
 
-    if (!gmailUser || !gmailPass) {
-      console.error('Gmail credentials are not set');
+    if (!gmailUser || !gmailPass || RECIPIENT_EMAILS.length === 0) {
+      console.error('Mail configuration is incomplete (credentials or recipients missing)');
       return NextResponse.json({ success: false, error: 'メール設定エラー' }, { status: 500 });
     }
 
