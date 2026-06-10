@@ -16,7 +16,8 @@ jobs:
         with:
           urls: |
             https://gadget-journal.vercel.app/
-            https://gadget-journal.vercel.app/review.html
+            https://gadget-journal.vercel.app/articles
+            https://gadget-journal.vercel.app/about
           budgetPath: ./.github/lighthouse-budget.json
           uploadArtifacts: true
           temporaryPublicStorage: true

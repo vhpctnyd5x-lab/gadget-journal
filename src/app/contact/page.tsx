@@ -8,6 +8,7 @@ export default function ContactPage() {
     email: '',
     subject: '',
     message: '',
+    website: '', // ハニーポット: 人間は触れない隠しフィールド
   });
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -44,7 +45,7 @@ export default function ContactPage() {
       }
 
       setStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      setFormData({ name: '', email: '', subject: '', message: '', website: '' });
 
       // Reset success message after 5 seconds
       setTimeout(() => setStatus('idle'), 5000);
@@ -78,6 +79,19 @@ export default function ContactPage() {
       )}
 
       <form className="space-y-6" onSubmit={handleSubmit}>
+        {/* ハニーポット: スクリーンリーダー・人間には見えず、ボットだけが入力する罠フィールド */}
+        <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', overflow: 'hidden' }}>
+          <label htmlFor="website">Website</label>
+          <input
+            type="text"
+            id="website"
+            name="website"
+            value={formData.website}
+            onChange={handleChange}
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </div>
         <div>
           <label htmlFor="name" className="block text-sm font-medium mb-2">
             お名前 <span className="text-red-500">*</span>

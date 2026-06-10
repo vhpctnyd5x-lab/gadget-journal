@@ -135,6 +135,17 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // ハニーポット: 画面に表示されない隠しフィールド。人間は空のまま、
+    // ボットは自動入力しがち。値が入っていればボットと判断し、成功を装って黙って破棄する
+    // （エラーを返すと回避学習されるため、200を返して送信はしない）。
+    const honeypot = typeof body.website === 'string' ? body.website : '';
+    if (honeypot.trim().length > 0) {
+      return NextResponse.json(
+        { success: true, message: 'メッセージを送信しました。3営業日以内にご返信いたします。' },
+        { status: 200, headers: rateLimitHeaders(rateLimit) }
+      );
+    }
+
     const name = typeof body.name === 'string' ? body.name : '';
     const email = typeof body.email === 'string' ? body.email : '';
     const subject = typeof body.subject === 'string' ? body.subject : '';
